@@ -19,13 +19,13 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("@/views/HomeView.vue"),
+    component: () => import("@/layouts/HomeLayout.vue"),
     meta: { requiresAuth: true },
     children: [
       {
         path: "",
         name: "Inicio",
-        component: () => import("@/views/users/UsersView.vue"),
+        component: () => import("@/views/HomeView.vue"),
       },
     ],
   },
@@ -48,7 +48,7 @@ const router = createRouter({
 // Guard global para manejar autenticación
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  const { getProfile } = authStore;
+  const { getProfile, getUserPermissions } = authStore;
   const { loggedUser } = storeToRefs(authStore);
   const token = localStorage.getItem("token");
 
@@ -57,6 +57,7 @@ router.beforeEach(async (to, from, next) => {
       return next();
     } else if (token && !loggedUser.value) {
       await getProfile(token);
+      await getUserPermissions(token)
       if (loggedUser.value) {
         return next();
       } else {

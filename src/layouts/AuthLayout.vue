@@ -26,24 +26,33 @@
         </v-row>
       </v-container>
     </v-main>
-    <!-- <v-snackbar v-model="show" :timeout="7000" :location="'right top'" :close-on-content-click="true" :color="config.status" :vertical="true">
+    <v-snackbar
+      v-model="show"
+      :timeout="7000"
+      :location="'right top'"
+      :close-on-content-click="true"
+      :color="config.status"
+      :vertical="true"
+    >
       <div class="d-flex">
-        <v-icon class="mt-1 mr-2" v-if="config?.icon" :icon="config.icon"></v-icon>
+        <v-icon
+          class="mt-1 mr-2"
+          v-if="config?.icon"
+          :icon="config.icon"
+        ></v-icon>
         <div>
           <div class="text-subtitle-1 font-weight-bold">{{ config.title }}</div>
           <p>{{ config?.body }}</p>
         </div>
       </div>
-    </v-snackbar> -->
+    </v-snackbar>
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-
-// import { useAlertStore } from "@/store/alertStore"
-
-// const { show, config } = storeToRefs(useAlertStore())
+import { useAlertStore } from "@/stores/alert";
+const { show, config } = storeToRefs(useAlertStore());
 </script>
 <style scoped lang="scss">
 .login__container {

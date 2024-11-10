@@ -5,10 +5,10 @@ import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("authStore", () => {
     const router = useRouter();
-
+    const token = ref("");
     const loggedUser = ref(false);
     const userProfile = ref(null);
-    const token = ref(""); // Variable reactiva de token
+    const permissions = ref([])
 
     const login = async (email, password) => {
         const credentials = { email, password };
@@ -17,8 +17,9 @@ export const useAuthStore = defineStore("authStore", () => {
             const res = await axios.post("api/login", credentials, {
                 headers: { 'accept': 'application/json' }
             }, { withCredentials: true });
-            token.value = res.data.token; // Guarda el token en la variable reactiva
+            token.value = res.data.token;
             localStorage.setItem("token", token.value);
+            await getUserPermissions(res.data.token)
             await router.push({ path: "/" });
         } catch (error) {
             console.error("Error en login:", error);
@@ -52,18 +53,34 @@ export const useAuthStore = defineStore("authStore", () => {
             });
     };
 
+    const getUserPermissions = async (authToken) => {
+        try {
+            const response = await axios.get("/api/user/permissions", {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                }
+            });
+
+            permissions.value = response.data.permissions;
+            return permissions;
+        } catch (error) {
+            console.error("Error fetching user permissions:", error);
+            return [];
+        }
+    };
+
     const userInitials = computed(() => `${userProfile?.value?.firstName.charAt(0) || ""}${userProfile?.value?.lastName.charAt(0) || ""}`)
-
     const fullName = computed(() => `${userProfile?.value?.firstName || ""} ${userProfile?.value?.lastName || ""}`)
-
 
     return {
         login,
         logout,
         getProfile,
+        getUserPermissions,
         token,
         fullName,
         loggedUser,
+        permissions,
         userProfile,
         userInitials,
     };

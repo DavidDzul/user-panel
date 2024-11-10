@@ -3,7 +3,7 @@ import { ref } from "vue"
 
 export const useAlertStore = defineStore("alertStore", () => {
     const show = ref(false)
-    const config = ref({ title: "", body: "", status: "success" })
+    const config = ref({ title: "", body: "", status: "success", icon: "" })
 
     const showAlert = (conf) => {
         if (!show.value) {
@@ -15,7 +15,7 @@ export const useAlertStore = defineStore("alertStore", () => {
 
     const $reset = () => {
         show.value = false
-        config.value = { title: "", body: "", status: "success" }
+        config.value = { title: "", body: "", status: "success", icon: "" }
     }
 
     return {
