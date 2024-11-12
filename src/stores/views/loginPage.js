@@ -9,9 +9,10 @@ export const useLoginPageStore = defineStore("loginPage", () => {
 
     const email = ref("");
     const password = ref("");
+    const loading = ref(false)
 
     const onLogin = async () => {
-        setLoading(true);
+        loading.value = true
         try {
             if (email.value && password.value) {
                 await login(email.value, password.value);
@@ -19,13 +20,14 @@ export const useLoginPageStore = defineStore("loginPage", () => {
         } catch (e) {
             console.error("Error en onLogin:", e);
         } finally {
-            setLoading(false);
+            loading.value = false
         }
     };
 
     return {
         email,
         password,
+        loading,
         onLogin,
     };
 });

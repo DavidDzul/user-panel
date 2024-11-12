@@ -2,9 +2,12 @@ import axios from "@/axiosConfig";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAlertStore } from "@/stores/alert"
 
 export const useAuthStore = defineStore("authStore", () => {
     const router = useRouter();
+    const { showAlert } = useAlertStore()
+
     const token = ref("");
     const loggedUser = ref(false);
     const userProfile = ref(null);
@@ -23,6 +26,10 @@ export const useAuthStore = defineStore("authStore", () => {
             await router.push({ path: "/" });
         } catch (error) {
             console.error("Error en login:", error);
+            showAlert({
+                title: "Error al iniciar sesión, verifica tu usuario y/o contraseña.",
+                status: "error",
+            })
         }
     };
 
@@ -35,6 +42,10 @@ export const useAuthStore = defineStore("authStore", () => {
             await router.push({ path: "/auth/login" });
         }).catch((error) => {
             console.log(error)
+            showAlert({
+                title: "Error al cerrar sesión.",
+                status: "error",
+            })
         });
     }
 

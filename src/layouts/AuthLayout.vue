@@ -56,7 +56,7 @@ const { show, config } = storeToRefs(useAlertStore());
 </script>
 <style scoped lang="scss">
 .login__container {
-  min-height: 700px;
+  min-height: 100svh;
 }
 .card-center {
   align-self: center;
@@ -68,7 +68,7 @@ const { show, config } = storeToRefs(useAlertStore());
   max-width: inherit;
   &-logo {
     max-width: 320px;
-    margin-bottom: 90px;
+    margin-bottom: 40px;
   }
   &-form {
     max-width: 350px;
@@ -84,7 +84,7 @@ const { show, config } = storeToRefs(useAlertStore());
   }
 }
 .login__cover {
-  background-image: url("@/assets/img/cover.jpg");
+  background-image: url("@/assets/img/fondo.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

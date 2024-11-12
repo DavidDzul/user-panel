@@ -22,7 +22,9 @@
     >
       <!-- <router-link to="">Recuperar contraseña</router-link> -->
     </v-btn>
-    <v-btn class="mt-3" color="primary" @click="onLogin">INICIAR SESIÓN</v-btn>
+    <v-btn class="mt-3" color="primary" @click="onLogin" :loading="loading"
+      >INICIAR SESIÓN</v-btn
+    >
   </v-form>
 </template>
 
@@ -30,12 +32,10 @@
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-import { useAppStore } from "@/stores/app";
 import { useLoginPageStore } from "@/stores/views/loginPage";
 
 const { onLogin } = useLoginPageStore();
-const { loading } = storeToRefs(useAppStore());
-const { email, password } = storeToRefs(useLoginPageStore());
+const { email, password, loading } = storeToRefs(useLoginPageStore());
 
 const show = ref(false);
 </script>
