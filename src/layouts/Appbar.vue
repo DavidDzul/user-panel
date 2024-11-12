@@ -18,9 +18,19 @@
     <template v-slot:extension>
       <v-row class="fill-height" justify="center">
         <v-btn>INICIO</v-btn>
-        <v-btn>Mi currículum</v-btn>
-        <v-btn>Vacantes</v-btn>
-        <v-btn>Notificaciones</v-btn>
+        <template
+          v-if="userType === 'BEC_ACTIVE' || userType === 'BEC_INACTIVE'"
+        >
+          <v-btn>Mi currículum</v-btn>
+          <v-btn>Vacantes</v-btn>
+          <v-btn>Notificaciones</v-btn>
+        </template>
+        <template v-if="userType === 'BUSINESS'">
+          <v-btn>Mi empresa</v-btn>
+          <v-btn>Mis vacantes</v-btn>
+          <v-btn>Nueva vacante</v-btn>
+          <v-btn>Candidatos</v-btn>
+        </template>
       </v-row>
     </template>
   </v-app-bar>
@@ -34,5 +44,7 @@ import { useAuthStore } from "@/stores/api/authStore";
 import ProfileMenu from "@/layouts/ProfileMenu.vue";
 
 const { logout } = useAuthStore();
-const { userProfile, userInitials, fullName } = storeToRefs(useAuthStore());
+const { userProfile, userInitials, fullName, userType } = storeToRefs(
+  useAuthStore()
+);
 </script>

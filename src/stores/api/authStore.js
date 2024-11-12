@@ -82,6 +82,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
     const userInitials = computed(() => `${userProfile?.value?.firstName.charAt(0) || ""}${userProfile?.value?.lastName.charAt(0) || ""}`)
     const fullName = computed(() => `${userProfile?.value?.firstName || ""} ${userProfile?.value?.lastName || ""}`)
+    const userType = computed(() => userProfile.value?.userType)
 
     return {
         login,
@@ -89,6 +90,7 @@ export const useAuthStore = defineStore("authStore", () => {
         getProfile,
         getUserPermissions,
         token,
+        userType,
         fullName,
         loggedUser,
         permissions,
