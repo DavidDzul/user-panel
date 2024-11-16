@@ -1,10 +1,17 @@
 <template>
   <v-layout id="app">
     <Appbar />
-    <!-- <NavMenu /> -->
-    <v-main>
-      <!-- <LoadingOverlay :loading="loading" />
-        <Alert /> -->
+    <v-main class="h-100">
+      <v-img
+        :src="currentBackgroundImage"
+        height="100"
+        class="background-image"
+        cover
+      >
+        <div class="overlay">
+          <h1 class="bg-img-title">{{ currentTitle }}</h1>
+        </div>
+      </v-img>
       <v-container class="container__main" :fluid="true">
         <router-view />
       </v-container>
@@ -36,12 +43,18 @@
 import Appbar from "@/layouts/Appbar.vue";
 import { storeToRefs } from "pinia";
 import { useAlertStore } from "@/stores/alert";
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const { show, config } = storeToRefs(useAlertStore());
+
+const currentTitle = computed(() => route.meta.title);
+const currentBackgroundImage = computed(() => route.meta.backgroundImage);
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .container__main {
-  height: calc(100svh - var(--v-layout-top));
+  // height: calc(100svh - var(--v-layout-top));
   overflow-y: auto;
 }
 </style>

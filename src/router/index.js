@@ -21,11 +21,21 @@ const routes = [
     name: "home",
     component: () => import("@/layouts/HomeLayout.vue"),
     meta: { requiresAuth: true },
+    redirect: "/inicio",
     children: [
       {
-        path: "",
+        path: "/inicio",
         name: "Inicio",
         component: () => import("@/views/HomeView.vue"),
+      },
+      {
+        path: "/curriculum",
+        name: "CurriculumView",
+        component: () => import("@/views/users/CurriculumView.vue"),
+        meta: {
+          title: 'Mi currículum vitae',
+          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
+        },
       },
     ],
   },

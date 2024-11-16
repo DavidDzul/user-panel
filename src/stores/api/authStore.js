@@ -80,9 +80,9 @@ export const useAuthStore = defineStore("authStore", () => {
         }
     };
 
-    const userInitials = computed(() => `${userProfile?.value?.firstName.charAt(0) || ""}${userProfile?.value?.lastName.charAt(0) || ""}`)
-    const fullName = computed(() => `${userProfile?.value?.firstName || ""} ${userProfile?.value?.lastName || ""}`)
-    const userType = computed(() => userProfile.value?.userType)
+    const userInitials = computed(() => `${userProfile?.value?.first_name.charAt(0) || ""}${userProfile?.value?.last_name.charAt(0) || ""}`)
+    const fullName = computed(() => `${userProfile?.value?.first_name || ""} ${userProfile?.value?.last_name || ""}`)
+    const userType = computed(() => userProfile.value?.user_type)
 
     return {
         login,

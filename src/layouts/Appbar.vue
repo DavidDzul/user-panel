@@ -16,14 +16,18 @@
       />
     </template>
     <template v-slot:extension>
-      <v-row class="fill-height" justify="center">
-        <v-btn>INICIO</v-btn>
+      <v-row class="fill-height extension-bar" justify="center">
+        <v-btn active-class="active-btn" :to="'/inicio'">
+          <v-icon>mdi-home</v-icon> INICIO</v-btn
+        >
         <template
           v-if="userType === 'BEC_ACTIVE' || userType === 'BEC_INACTIVE'"
         >
-          <v-btn>Mi currículum</v-btn>
-          <v-btn>Vacantes</v-btn>
-          <v-btn>Notificaciones</v-btn>
+          <v-btn :to="'/curriculum'">
+            <v-icon>mdi-file-account</v-icon> Mi currículum vitae</v-btn
+          >
+          <v-btn> <v-icon>mdi-briefcase</v-icon> Vacantes</v-btn>
+          <v-btn> <v-icon>mdi-bell</v-icon> Notificaciones</v-btn>
         </template>
         <template v-if="userType === 'BUSINESS'">
           <v-btn>Mi empresa</v-btn>
@@ -48,3 +52,10 @@ const { userProfile, userInitials, fullName, userType } = storeToRefs(
   useAuthStore()
 );
 </script>
+
+<style lang="scss" scoped>
+.extension-bar {
+  background-color: white; /* Color personalizado */
+  color: black;
+}
+</style>
