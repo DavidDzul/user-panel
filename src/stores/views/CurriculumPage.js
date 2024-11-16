@@ -3,31 +3,44 @@ import { useAuthStore } from "@/stores/api/authStore";
 import { useAppStore } from "@/stores/app";
 import { ref } from "vue";
 
-export const useLoginPageStore = defineStore("loginPage", () => {
+export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const { setLoading } = useAppStore();
-    const { login } = useAuthStore();
 
-    const email = ref("");
-    const password = ref("");
-    const loading = ref(false)
+    const photoDialog = ref(false)
+    const file = ref()
+    const previewUrl = ref("")
 
-    const onLogin = async () => {
-        loading.value = true
-        try {
-            if (email.value && password.value) {
-                await login(email.value, password.value);
-            }
-        } catch (e) {
-            console.error("Error en onLogin:", e);
-        } finally {
-            loading.value = false
+    const changePhoto = (event) => {
+        if (event) {
+            const fileToLoad = Array.isArray(event) ? event[0] : event
+            previewUrl.value = window.URL.createObjectURL(fileToLoad)
+            file.value = fileToLoad
+            photoDialog.value = true
+        } else {
+            previewUrl.value = ""
+            file.value = null
         }
-    };
+    }
+
+    const savePhoto = async () => {
+        if (file.value) {
+            console.log(file)
+            //   if (!selectedUser.value) return
+            //   try {
+            //     const res = await mutateAddPhoto({ photo: file.value, userId: selectedUser.value?.id })
+            //     if (res) {
+            //       photoDialog.value = false
+            //     }
+            //   } catch (e) {
+            //     console.error(e)
+            //   }
+        }
+    }
 
     return {
-        email,
-        password,
-        loading,
-        onLogin,
+        previewUrl,
+        photoDialog,
+        savePhoto,
+        changePhoto
     };
 });

@@ -30,6 +30,12 @@
           <UserPhoto :user-id="2" />
         </v-expansion-panel-text>
       </v-expansion-panel>
+      <v-file-input
+        ref="fileInput"
+        class="d-none"
+        accept="image/*"
+        @update:model-value="changePhoto"
+      ></v-file-input>
 
       <v-expansion-panel>
         <v-expansion-panel-title class="panel-title"
@@ -85,12 +91,27 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </v-container>
+  <CreatePhotoDialog
+    v-model="photoDialog"
+    :preview-url="previewUrl"
+    @submit="savePhoto"
+  />
 </template>
 
 <script setup>
 import { ref } from "vue";
 import UserPhoto from "@/components/users/UserPhoto.vue";
 import PanelHeaderOptions from "@/components/shared/PanelHeaderOptions.vue";
+import { useCurriculumPageStore } from "@/stores/views/CurriculumPage";
+import { storeToRefs } from "pinia";
+import CreatePhotoDialog from "@/components/photo/CreatePhotoDialog.vue";
 
 const panel = ref([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+const { photoDialog, previewUrl } = storeToRefs(useCurriculumPageStore());
+const { changePhoto, savePhoto } = useCurriculumPageStore();
+
+const fileInput = ref(null);
+const onPhotoUpload = () => {
+  fileInput.value.$el.getElementsByTagName("input")[0].click();
+};
 </script>
