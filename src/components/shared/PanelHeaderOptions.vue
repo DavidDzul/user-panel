@@ -52,5 +52,6 @@ defineEmits<{
 <style lang="scss" scoped>
 .panel-title {
   font-weight: 600;
+  text-transform: uppercase;
 }
 </style>

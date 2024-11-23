@@ -1,0 +1,15 @@
+import * as yup from "yup"
+
+export const id = () => yup.number().required()
+export const job_position = () => yup.string().required("Campo requerido").label("Nombre")
+export const business_name = () => yup.string().required("Campo requerido").label("Nombre de la empresa")
+export const start_date = () => yup.string().required("Campo requerido").label("Fecha de inicio")
+export const end_date = () => yup.string().required("Campo requerido").label("Fecha de término")
+export const responsibility = () => yup.string().required("Campo requerido").label("Responsabilidades")
+export const achievement = () => yup.string().required("Campo requerido").label("Logros")
+export const skill_1 = () => yup.string().notRequired().label("Habilidad 1")
+export const skill_2 = () => yup.string().notRequired().label("Habilidad 2")
+export const skill_3 = () => yup.string().notRequired().label("Habilidad 3")
+export const skill_4 = () => yup.string().notRequired().label("Habilidad 4")
+export const skill_5 = () => yup.string().notRequired().label("Habilidad 5")
+// export const start_date = () => yup.boolean().required().label("Establecer como atributo obligatorio")
