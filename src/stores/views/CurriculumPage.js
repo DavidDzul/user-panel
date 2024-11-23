@@ -5,8 +5,23 @@ import { computed, onBeforeMount, ref } from "vue";
 
 export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const { setLoading } = useAppStore();
-    const { resPhoto, resCurriculumInfo, resWorkExperience, resTechnicalKnowledge, resAcademicInformation, resContinuingEducation } = storeToRefs(useCurriculumStore())
-    const { createImage, fetchCurriculum, createPersonalData, createWorkExperience, updateWorkExperience, removeWorkExperience, createAcademicInformation, updateAcademicInformation, removeAcademicInformation } = useCurriculumStore()
+    const { resPhoto,
+        resCurriculumInfo,
+        resWorkExperience,
+        resTechnicalKnowledge,
+        resAcademicInformation,
+        resContinuingEducation } = storeToRefs(useCurriculumStore());
+    const { createImage,
+        fetchCurriculum,
+        createPersonalData,
+        createWorkExperience,
+        updateWorkExperience,
+        removeWorkExperience,
+        createAcademicInformation,
+        updateAcademicInformation,
+        removeAcademicInformation,
+        dowloandCurriculum
+    } = useCurriculumStore();
 
     const photoDialog = ref(false)
     const personalDialog = ref(false)
@@ -165,6 +180,10 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         }
     }
 
+    const openCurriculumPDF = async () => {
+        await dowloandCurriculum()
+    }
+
     return {
         userInfo,
         userPhoto,
@@ -185,6 +204,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         openEditAcademic,
         changePhoto,
         openEditWork,
+        openCurriculumPDF,
         openPersonalDialog,
         onSavePersonalData,
         onSaveWorkExperience,

@@ -10,7 +10,7 @@
         </p>
       </v-col>
       <v-col cols="12" class="text-right">
-        <v-btn>DESCARGAR CV</v-btn>
+        <v-btn @click="openCurriculumPDF">DESCARGAR CV</v-btn>
       </v-col>
     </v-row>
 
@@ -185,6 +185,7 @@ const {
   openEditAcademic,
   onUpdateAcademicInformation,
   onAcademicInformation,
+  openCurriculumPDF,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);

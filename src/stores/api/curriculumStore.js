@@ -223,6 +223,18 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         }
     }
 
+    const dowloandCurriculum = async () => {
+        await axios
+            .get('api/fetchPDF', { responseType: 'blob', headers: { 'accept': 'application/json' } }) // Importante: usa responseType 'blob'
+            .then((response) => {
+                const fileURL = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                window.open(fileURL);
+            })
+            .catch((error) => {
+                console.error('Error generando el PDF:', error);
+            });
+    }
+
     return {
         resPhoto,
         resCurriculumInfo,
@@ -233,6 +245,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         createImage,
         fetchCurriculum,
         createPersonalData,
+        dowloandCurriculum,
         removeWorkExperience,
         updateWorkExperience,
         createWorkExperience,
