@@ -9,7 +9,7 @@
     <v-card>
       <v-form>
         <v-toolbar dark>
-          <v-toolbar-title>Agregar Experiencia Laboral</v-toolbar-title>
+          <v-toolbar-title>Experiencia Laboral</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon @click="close"><v-icon>mdi-close</v-icon></v-btn>
@@ -36,6 +36,9 @@
                 v-model="start_date"
                 v-bind="start_dateProps"
                 label="Fecha de inicio"
+                placeholder="Mes y año"
+                hint="Ej: Diciembre 2024"
+                persistent-hint
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
@@ -43,6 +46,9 @@
                 v-model="end_date"
                 v-bind="end_dateProps"
                 label="Fecha de término"
+                placeholder="Mes y año"
+                hint="Ej: Diciembre 2024"
+                persistent-hint
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">

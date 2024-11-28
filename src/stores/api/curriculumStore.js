@@ -235,6 +235,101 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
             });
     }
 
+    const createContinuingEducation = async (form) => {
+        try {
+            const param = await axios.post("api/createEducation", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información guardada exitosamente.",
+                    status: "success",
+                });
+
+                resContinuingEducation.value.set(param.data.createEducation.id, param.data.createEducation)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al guardar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
+    const updateContinuingEducation = async (form) => {
+        try {
+            const param = await axios.post("api/updateEducation", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información actualizada exitosamente.",
+                    status: "success",
+                });
+
+                resContinuingEducation.value.set(param.data.updateEducation.id, param.data.updateEducation)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
+    const removeContinuingEducation = async (id) => {
+        try {
+            const param = await axios.delete(`api/deleteEducation/${id}`, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información eliminada exitosamente.",
+                    status: "success",
+                });
+                resContinuingEducation.value.delete(id)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al eliminar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
+    const createTechnicalKnowledge = async (form) => {
+        try {
+            const param = await axios.post("api/createKnowledge", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información guardada exitosamente.",
+                    status: "success",
+                });
+
+                resTechnicalKnowledge.value.set(param.data.createKnowledge.id, param.data.createKnowledge)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al guardar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     return {
         resPhoto,
         resCurriculumInfo,
@@ -252,5 +347,9 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         createAcademicInformation,
         updateAcademicInformation,
         removeAcademicInformation,
+        createContinuingEducation,
+        updateContinuingEducation,
+        removeContinuingEducation,
+        createTechnicalKnowledge,
     };
 });

@@ -9,7 +9,7 @@
     <v-card>
       <v-form>
         <v-toolbar dark>
-          <v-toolbar-title>Formación académica</v-toolbar-title>
+          <v-toolbar-title>Educación continua</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon @click="close"><v-icon>mdi-close</v-icon></v-btn>
@@ -18,48 +18,43 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" md="12">
+              <!-- <v-text-field
+                v-model="course_name"
+                v-bind="course_nameProps"
+                label="Puesto del curso"
+              ></v-text-field> -->
+              <v-select
+                v-model="type"
+                :items="typeKnowledge"
+                v-bind="typeProps"
+                item-title="text"
+                item-value="value"
+                label="Categoria"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="12" v-if="type === 'OTHER'">
               <v-text-field
-                v-model="postgraduate_name"
-                v-bind="postgraduate_nameProps"
-                label="Nombre del posgrado"
+                v-model="other_knowledge"
+                v-bind="other_knowledgeProps"
+                label="Otro"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
               <v-text-field
-                v-model="institute_name"
-                v-bind="institute_nameProps"
-                label="Nombre de la institución"
+                v-model="description_knowledge"
+                v-bind="description_knowledgeProps"
+                label="Descripción"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
-              <v-text-field
-                v-model="postgraduate_start_date"
-                v-bind="postgraduate_start_dateProps"
-                label="Fecha de inicio"
-                placeholder="Mes y año"
-                hint="Ej: Diciembre 2024"
-                persistent-hint
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-text-field
-                v-model="postgraduate_end_date"
-                v-bind="postgraduate_end_dateProps"
-                label="Fecha de término"
-                placeholder="Mes y año"
-                hint="Ej: Diciembre 2024"
-                persistent-hint
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-textarea
-                v-model="highlight"
-                v-bind="highlightProps"
-                label="Información a destacar"
-                rows="3"
-                hint="Información a destacar, ej: promedio de egreso, medio de titulación, premios recibidos, intercambios o estancia académica."
-                persistent-hint
-              ></v-textarea>
+              <v-select
+                v-model="level"
+                :items="levelKnowledge"
+                v-bind="levelProps"
+                item-title="text"
+                item-value="value"
+                label="Nivel de dominio"
+              ></v-select>
             </v-col>
           </v-row>
         </v-card-text>
@@ -90,6 +85,7 @@ import { computed, watch } from "vue";
 import * as yup from "yup";
 
 import * as validations from "@/validations";
+import { typeKnowledge, levelKnowledge } from "@/constants";
 
 const vuetifyConfig = (state: PublicPathState) => ({
   props: {
@@ -99,32 +95,24 @@ const vuetifyConfig = (state: PublicPathState) => ({
 const { defineField, meta, values, resetField, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
-      postgraduate_name: validations.postgraduate_name(),
-      institute_name: validations.institute_name(),
-      postgraduate_start_date: validations.postgraduate_start_date(),
-      postgraduate_end_date: validations.postgraduate_end_date(),
-      highlight: validations.highlight(),
+      type: validations.type(),
+      other_knowledge: validations.other_knowledge(),
+      description_knowledge: validations.description_knowledge(),
+      level: validations.level(),
     })
   ),
 });
 
-const [postgraduate_name, postgraduate_nameProps] = defineField(
-  "postgraduate_name",
+const [type, typeProps] = defineField("type", vuetifyConfig);
+const [other_knowledge, other_knowledgeProps] = defineField(
+  "other_knowledge",
   vuetifyConfig
 );
-const [institute_name, institute_nameProps] = defineField(
-  "institute_name",
+const [description_knowledge, description_knowledgeProps] = defineField(
+  "description_knowledge",
   vuetifyConfig
 );
-const [postgraduate_start_date, postgraduate_start_dateProps] = defineField(
-  "postgraduate_start_date",
-  vuetifyConfig
-);
-const [postgraduate_end_date, postgraduate_end_dateProps] = defineField(
-  "postgraduate_end_date",
-  vuetifyConfig
-);
-const [highlight, highlightProps] = defineField("highlight", vuetifyConfig);
+const [level, levelProps] = defineField("level", vuetifyConfig);
 
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },

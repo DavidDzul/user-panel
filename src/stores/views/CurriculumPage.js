@@ -10,7 +10,9 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         resWorkExperience,
         resTechnicalKnowledge,
         resAcademicInformation,
-        resContinuingEducation } = storeToRefs(useCurriculumStore());
+        resContinuingEducation
+    } = storeToRefs(useCurriculumStore());
+
     const { createImage,
         fetchCurriculum,
         createPersonalData,
@@ -20,7 +22,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         createAcademicInformation,
         updateAcademicInformation,
         removeAcademicInformation,
-        dowloandCurriculum
+        dowloandCurriculum,
+        createContinuingEducation,
+        updateContinuingEducation,
+        removeContinuingEducation,
+        createTechnicalKnowledge,
     } = useCurriculumStore();
 
     const photoDialog = ref(false)
@@ -29,9 +35,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const editAcademicDialog = ref(false)
     const workExperienceDialog = ref(false)
     const academicInformationDialog = ref(false)
+    const continuingEducationDialog = ref(false)
+    const technicalKnowledgeDialog = ref(false)
+    const editEducationDialog = ref(false)
 
     const editWork = ref(undefined)
     const editAcademic = ref(undefined)
+    const editEducation = ref(undefined)
     const file = ref()
     const previewUrl = ref("")
 
@@ -58,6 +68,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         academicInformationDialog.value = true
     }
 
+    const openContinuingEducationDialog = () => {
+        continuingEducationDialog.value = true
+    }
+
+    const openTechnicalKnowledgeDialog = () => {
+        technicalKnowledgeDialog.value = true
+    }
 
     const openEditWork = (id) => {
         const work = resWorkExperience.value.get(id)
@@ -71,6 +88,17 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         if (!academic) return
         editAcademic.value = { ...academic }
         editAcademicDialog.value = true
+    }
+
+    const openEditEducation = (id) => {
+        const education = resContinuingEducation.value.get(id)
+        if (!education) return
+        editEducation.value = { ...education }
+        editEducationDialog.value = true
+    }
+
+    const openCurriculumPDF = async () => {
+        await dowloandCurriculum()
     }
 
     const changePhoto = (event) => {
@@ -180,9 +208,52 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         }
     }
 
-    const openCurriculumPDF = async () => {
-        await dowloandCurriculum()
+    const onSaveContinuingEducation = async (form) => {
+        if (form) {
+            try {
+                const res = await createContinuingEducation(form);
+                if (res) {
+                    continuingEducationDialog.value = false
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    const onUpdateContinuingEducation = async (form) => {
+        if (form) {
+            try {
+                const res = await updateContinuingEducation(form);
+                if (res) {
+                    editEducationDialog.value = false
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    const onRemoveContinuingEducation = async (id) => {
+        try {
+            await removeContinuingEducation(id)
+        } catch (e) {
+            console.error(e)
+        }
     }
+
+    const onSaveTechnicalKnowledge = async (form) => {
+        if (form) {
+            try {
+                const res = await createTechnicalKnowledge(form);
+                if (res) {
+                    technicalKnowledgeDialog.value = false
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
 
     return {
         userInfo,
@@ -200,6 +271,10 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         userAcademicInformation,
         userContinuingEducation,
         academicInformationDialog,
+        continuingEducationDialog,
+        editEducation,
+        editEducationDialog,
+        technicalKnowledgeDialog,
         savePhoto,
         openEditAcademic,
         changePhoto,
@@ -214,6 +289,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         openWorkExperienceDialog,
         onSaveAcademicInformation,
         onUpdateAcademicInformation,
+        openContinuingEducationDialog,
         openAcademicInformationDialog,
+        onSaveContinuingEducation,
+        openEditEducation,
+        onUpdateContinuingEducation,
+        onRemoveContinuingEducation,
+        openTechnicalKnowledgeDialog,
+        onSaveTechnicalKnowledge,
     };
 });

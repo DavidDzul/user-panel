@@ -9,7 +9,7 @@
     <v-card>
       <v-form>
         <v-toolbar dark>
-          <v-toolbar-title>Editar Experiencia Laboral</v-toolbar-title>
+          <v-toolbar-title>Educación continua</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon @click="close"><v-icon>mdi-close</v-icon></v-btn>
@@ -19,22 +19,22 @@
           <v-row>
             <v-col cols="12" md="12">
               <v-text-field
-                v-model="job_position"
-                v-bind="job_positionProps"
-                label="Puesto de trabajo"
+                v-model="course_name"
+                v-bind="course_nameProps"
+                label="Puesto del curso"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
               <v-text-field
-                v-model="business_name"
-                v-bind="business_nameProps"
-                label="Nombre de la empresa"
+                v-model="course_institute"
+                v-bind="course_instituteProps"
+                label="Nombre de la institución"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
               <v-text-field
-                v-model="start_date"
-                v-bind="start_dateProps"
+                v-model="course_start_date"
+                v-bind="course_start_dateProps"
                 label="Fecha de inicio"
                 placeholder="Mes y año"
                 hint="Ej: Diciembre 2024"
@@ -43,29 +43,13 @@
             </v-col>
             <v-col cols="12" md="12">
               <v-text-field
-                v-model="end_date"
-                v-bind="end_dateProps"
+                v-model="course_end_date"
+                v-bind="course_end_dateProps"
                 label="Fecha de término"
                 placeholder="Mes y año"
                 hint="Ej: Diciembre 2024"
                 persistent-hint
               ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-textarea
-                v-model="responsibility"
-                v-bind="responsibilityProps"
-                label="Responsabilidades"
-                rows="3"
-              ></v-textarea>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-textarea
-                v-model="achievement"
-                v-bind="achievementProps"
-                label="Logros"
-                rows="3"
-              ></v-textarea>
             </v-col>
           </v-row>
         </v-card-text>
@@ -102,45 +86,37 @@ const vuetifyConfig = (state: PublicPathState) => ({
     "error-messages": state.errors,
   },
 });
-const { defineField, meta, values, resetField, setValues, resetForm } = useForm(
-  {
-    validationSchema: toTypedSchema(
-      yup.object({
-        id: validations.id(),
-        job_position: validations.job_position(),
-        business_name: validations.business_name(),
-        start_date: validations.start_date(),
-        end_date: validations.end_date(),
-        responsibility: validations.responsibility(),
-        achievement: validations.achievement(),
-      })
-    ),
-  }
-);
+const { defineField, meta, values, resetField, resetForm } = useForm({
+  validationSchema: toTypedSchema(
+    yup.object({
+      course_name: validations.course_name(),
+      course_institute: validations.course_institute(),
+      course_start_date: validations.course_start_date(),
+      course_end_date: validations.course_end_date(),
+    })
+  ),
+});
 
-const [job_position, job_positionProps] = defineField(
-  "job_position",
+const [course_name, course_nameProps] = defineField(
+  "course_name",
   vuetifyConfig
 );
-const [business_name, business_nameProps] = defineField(
-  "business_name",
+const [course_institute, course_instituteProps] = defineField(
+  "course_institute",
   vuetifyConfig
 );
-const [start_date, start_dateProps] = defineField("start_date", vuetifyConfig);
-const [end_date, end_dateProps] = defineField("end_date", vuetifyConfig);
-const [responsibility, responsibilityProps] = defineField(
-  "responsibility",
+const [course_start_date, course_start_dateProps] = defineField(
+  "course_start_date",
   vuetifyConfig
 );
-const [achievement, achievementProps] = defineField(
-  "achievement",
+const [course_end_date, course_end_dateProps] = defineField(
+  "course_end_date",
   vuetifyConfig
 );
 
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
   loading: { type: Boolean, default: () => false },
-  editItem: { type: Object, default: () => null },
 });
 
 const emit = defineEmits<{
@@ -151,19 +127,7 @@ const emit = defineEmits<{
 watch(
   () => props.modelValue,
   (value) => {
-    if (value) {
-      if (props.editItem) {
-        setValues({
-          id: props.editItem.id,
-          job_position: props.editItem.job_position,
-          business_name: props.editItem.business_name,
-          start_date: props.editItem.start_date,
-          end_date: props.editItem.end_date,
-          responsibility: props.editItem.responsibility,
-          achievement: props.editItem.achievement,
-        });
-      }
-    } else {
+    if (!value) {
       resetForm();
     }
   }

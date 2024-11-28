@@ -92,17 +92,39 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-expansion-panel>
-        <v-expansion-panel-title class="panel-title"
-          >Educación continua</v-expansion-panel-title
-        >
-        <v-expansion-panel-text> Some content </v-expansion-panel-text>
+        <v-expansion-panel-title color="#f8f8f8">
+          <template #default="{ expanded }">
+            <PanelHeaderOptions
+              title="Educación continua"
+              button-text="Agregar"
+              :expanded="expanded"
+              @button-click="openContinuingEducationDialog"
+            />
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <ContinuingEducationTable
+            :educations="userContinuingEducation"
+            @edit="openEditEducation"
+            @remove="onEducationDelete"
+          />
+        </v-expansion-panel-text>
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-title class="panel-title"
-          >Conocimientos</v-expansion-panel-title
-        >
-        <v-expansion-panel-text> Some content </v-expansion-panel-text>
+        <v-expansion-panel-title color="#f8f8f8">
+          <template #default="{ expanded }">
+            <PanelHeaderOptions
+              title="Conocimientos"
+              button-text="Agregar"
+              :expanded="expanded"
+              @button-click="openTechnicalKnowledgeDialog"
+            />
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <TechnicalKnowledgeTable :knowledges="userTechnicalKnowledge" />
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
   </v-container>
@@ -134,6 +156,19 @@
     :edit-item="editAcademic"
     @submit="onUpdateAcademicInformation"
   />
+  <CreateContinuingEducationDialog
+    v-model="continuingEducationDialog"
+    @submit="onSaveContinuingEducation"
+  />
+  <UpdateContinuingEducationDialog
+    v-model="editEducationDialog"
+    :edit-item="editEducation"
+    @submit="onUpdateContinuingEducation"
+  />
+  <CreateTechnicalKnowledgeDialog
+    v-model="technicalKnowledgeDialog"
+    @submit="onSaveTechnicalKnowledge"
+  />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
 </template>
 
@@ -153,8 +188,14 @@ import UpdateWorkExperienceDialog from "@/components/curriculum/UpdateWorkExperi
 import AcademicInformationTable from "@/components/curriculum/AcademicInformationTable.vue";
 import CreateAcademicInformationDialog from "@/components/curriculum/CreateAcademicInformationDialog.vue";
 import updateAcademicInformationDialog from "@/components/curriculum/updateAcademicInformationDialog.vue";
+import ContinuingEducationTable from "@/components/curriculum/ContinuingEducationTable.vue";
+import CreateContinuingEducationDialog from "@/components/curriculum/CreateContinuingEducationDialog.vue";
+import UpdateContinuingEducationDialog from "@/components/curriculum/UpdateContinuingEducationDialog.vue";
+import TechnicalKnowledgeTable from "@/components/curriculum/TechnicalKnowledgeTable.vue";
+import CreateTechnicalKnowledgeDialog from "@/components/curriculum/CreateTechnicalKnowledgeDialog.vue";
 
 const panel = ref([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+
 const {
   photoDialog,
   previewUrl,
@@ -169,6 +210,12 @@ const {
   workExperienceDialog,
   userAcademicInformation,
   academicInformationDialog,
+  userContinuingEducation,
+  continuingEducationDialog,
+  editEducation,
+  editEducationDialog,
+  technicalKnowledgeDialog,
+  userTechnicalKnowledge,
 } = storeToRefs(useCurriculumPageStore());
 const {
   savePhoto,
@@ -186,6 +233,13 @@ const {
   onUpdateAcademicInformation,
   onAcademicInformation,
   openCurriculumPDF,
+  openContinuingEducationDialog,
+  onSaveContinuingEducation,
+  openEditEducation,
+  onUpdateContinuingEducation,
+  onRemoveContinuingEducation,
+  openTechnicalKnowledgeDialog,
+  onSaveTechnicalKnowledge,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);
@@ -213,5 +267,15 @@ const onAcademicDelete = async (id) => {
   });
   if (!response) return;
   await onAcademicInformation(id);
+};
+
+const onEducationDelete = async (id) => {
+  if (!id) return;
+  const response = await confirmationDialog.value?.open({
+    title: "Eliminar Educación continua",
+    body: "Al aceptar, este registro se removerá de su listado. ¿Desea continuar?",
+  });
+  if (!response) return;
+  await onRemoveContinuingEducation(id);
 };
 </script>

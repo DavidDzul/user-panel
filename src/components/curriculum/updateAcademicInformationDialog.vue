@@ -36,6 +36,9 @@
                 v-model="postgraduate_start_date"
                 v-bind="postgraduate_start_dateProps"
                 label="Fecha de inicio"
+                placeholder="Mes y año"
+                hint="Ej: Diciembre 2024"
+                persistent-hint
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
@@ -43,14 +46,19 @@
                 v-model="postgraduate_end_date"
                 v-bind="postgraduate_end_dateProps"
                 label="Fecha de término"
+                placeholder="Mes y año"
+                hint="Ej: Diciembre 2024"
+                persistent-hint
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
               <v-textarea
                 v-model="highlight"
                 v-bind="highlightProps"
-                label="Destacado"
+                label="Información a destacar"
                 rows="3"
+                hint="Información a destacar, ej: promedio de egreso, medio de titulación, premios recibidos, intercambios o estancia académica."
+                persistent-hint
               ></v-textarea>
             </v-col>
           </v-row>
