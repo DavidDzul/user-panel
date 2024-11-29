@@ -9,8 +9,14 @@
           aliquam nobis tempora qui?
         </p>
       </v-col>
-      <v-col cols="12" class="text-right">
-        <v-btn @click="openCurriculumPDF">DESCARGAR CV</v-btn>
+      <v-col v-if="userInfo">
+        <v-btn class="mx-2" v-if="userInfo.public" @click="onChangePlibicCV(0)"
+          >DESACTIVAR VISUALIZACIÓN DE CV</v-btn
+        >
+        <v-btn class="mx-2" v-else @click="onChangePlibicCV(1)"
+          >HABILITAR VISUALIZACIÓN DE CV</v-btn
+        >
+        <v-btn class="mx-2" @click="openCurriculumPDF">DESCARGAR CV</v-btn>
       </v-col>
     </v-row>
 
@@ -255,6 +261,7 @@ const {
   openEditKnowledge,
   onUpdateTechnicalKnowledge,
   onRemoveTechnicalKnowledge,
+  onUpdatePublicCV,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);
@@ -302,5 +309,16 @@ const onKnowledgeDelete = async (id) => {
   });
   if (!response) return;
   await onRemoveTechnicalKnowledge(id);
+};
+
+const onChangePlibicCV = async (status) => {
+  const response = await confirmationDialog.value?.open({
+    title: "Visualización de CV",
+    body: status
+      ? "Al aceptar, tu currículum vitae será visible para que las empresas puedan ponerse en contacto contigo. ¿Deseas continuar?"
+      : "Al aceptar, el curriculum vitae ya no será visible para que las empresas puedan ponerse en contacto contigo. ¿Desea continuar?",
+  });
+  if (!response) return;
+  await onUpdatePublicCV();
 };
 </script>

@@ -377,6 +377,29 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         }
     }
 
+    const changeStatusCV = async () => {
+        try {
+            const param = await axios.post(`api/updateStatusCV`, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Estatus actualizado exitosamente.",
+                    status: "success",
+                });
+                resCurriculumInfo.value = param.data.curriculum
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar el estatus, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     return {
         resPhoto,
         resCurriculumInfo,
@@ -400,5 +423,6 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         createTechnicalKnowledge,
         updateTechnicalKnowledge,
         removeTechnicalKnowledge,
+        changeStatusCV,
     };
 });

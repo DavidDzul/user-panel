@@ -2,7 +2,7 @@
   <v-dialog
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
-    max-width="720px"
+    max-width="780px"
   >
     <v-card>
       <!-- <v-card-title>

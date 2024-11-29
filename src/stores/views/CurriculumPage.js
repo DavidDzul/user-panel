@@ -29,6 +29,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         createTechnicalKnowledge,
         updateTechnicalKnowledge,
         removeTechnicalKnowledge,
+        changeStatusCV,
     } = useCurriculumStore();
 
     const photoDialog = ref(false)
@@ -287,6 +288,14 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         }
     }
 
+    const onUpdatePublicCV = async () => {
+        try {
+            await changeStatusCV()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     return {
         userInfo,
         userPhoto,
@@ -334,5 +343,6 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         openEditKnowledge,
         onUpdateTechnicalKnowledge,
         onRemoveTechnicalKnowledge,
+        onUpdatePublicCV,
     };
 });
