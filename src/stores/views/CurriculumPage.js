@@ -27,6 +27,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         updateContinuingEducation,
         removeContinuingEducation,
         createTechnicalKnowledge,
+        updateTechnicalKnowledge,
+        removeTechnicalKnowledge,
     } = useCurriculumStore();
 
     const photoDialog = ref(false)
@@ -38,10 +40,12 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const continuingEducationDialog = ref(false)
     const technicalKnowledgeDialog = ref(false)
     const editEducationDialog = ref(false)
+    const editKnowledgeDialog = ref(false)
 
     const editWork = ref(undefined)
     const editAcademic = ref(undefined)
     const editEducation = ref(undefined)
+    const editKnowledge = ref(undefined)
     const file = ref()
     const previewUrl = ref("")
 
@@ -95,6 +99,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         if (!education) return
         editEducation.value = { ...education }
         editEducationDialog.value = true
+    }
+
+    const openEditKnowledge = (id) => {
+        const knowledge = resTechnicalKnowledge.value.get(id)
+        if (!knowledge) return
+        editKnowledge.value = { ...knowledge }
+        editKnowledgeDialog.value = true
     }
 
     const openCurriculumPDF = async () => {
@@ -255,6 +266,27 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         }
     };
 
+    const onUpdateTechnicalKnowledge = async (form) => {
+        if (form) {
+            try {
+                const res = await updateTechnicalKnowledge(form);
+                if (res) {
+                    editKnowledgeDialog.value = false
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    const onRemoveTechnicalKnowledge = async (id) => {
+        try {
+            await removeTechnicalKnowledge(id)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     return {
         userInfo,
         userPhoto,
@@ -275,6 +307,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         editEducation,
         editEducationDialog,
         technicalKnowledgeDialog,
+        editKnowledge,
+        editKnowledgeDialog,
         savePhoto,
         openEditAcademic,
         changePhoto,
@@ -297,5 +331,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         onRemoveContinuingEducation,
         openTechnicalKnowledgeDialog,
         onSaveTechnicalKnowledge,
+        openEditKnowledge,
+        onUpdateTechnicalKnowledge,
+        onRemoveTechnicalKnowledge,
     };
 });

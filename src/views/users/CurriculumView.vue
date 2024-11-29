@@ -123,7 +123,11 @@
           </template>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
-          <TechnicalKnowledgeTable :knowledges="userTechnicalKnowledge" />
+          <TechnicalKnowledgeTable
+            :knowledges="userTechnicalKnowledge"
+            @edit="openEditKnowledge"
+            @remove="onKnowledgeDelete"
+          />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -169,6 +173,11 @@
     v-model="technicalKnowledgeDialog"
     @submit="onSaveTechnicalKnowledge"
   />
+  <UpdateTechnicalKnowledgeDialog
+    v-model="editKnowledgeDialog"
+    :edit-item="editKnowledge"
+    @submit="onUpdateTechnicalKnowledge"
+  />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
 </template>
 
@@ -193,6 +202,7 @@ import CreateContinuingEducationDialog from "@/components/curriculum/CreateConti
 import UpdateContinuingEducationDialog from "@/components/curriculum/UpdateContinuingEducationDialog.vue";
 import TechnicalKnowledgeTable from "@/components/curriculum/TechnicalKnowledgeTable.vue";
 import CreateTechnicalKnowledgeDialog from "@/components/curriculum/CreateTechnicalKnowledgeDialog.vue";
+import UpdateTechnicalKnowledgeDialog from "@/components/curriculum/UpdateTechnicalKnowledgeDialog.vue";
 
 const panel = ref([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
@@ -216,6 +226,8 @@ const {
   editEducationDialog,
   technicalKnowledgeDialog,
   userTechnicalKnowledge,
+  editKnowledge,
+  editKnowledgeDialog,
 } = storeToRefs(useCurriculumPageStore());
 const {
   savePhoto,
@@ -240,6 +252,9 @@ const {
   onRemoveContinuingEducation,
   openTechnicalKnowledgeDialog,
   onSaveTechnicalKnowledge,
+  openEditKnowledge,
+  onUpdateTechnicalKnowledge,
+  onRemoveTechnicalKnowledge,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);
@@ -277,5 +292,15 @@ const onEducationDelete = async (id) => {
   });
   if (!response) return;
   await onRemoveContinuingEducation(id);
+};
+
+const onKnowledgeDelete = async (id) => {
+  if (!id) return;
+  const response = await confirmationDialog.value?.open({
+    title: "Eliminar conocimiento",
+    body: "Al aceptar, este registro se removerá de su listado. ¿Desea continuar?",
+  });
+  if (!response) return;
+  await onRemoveTechnicalKnowledge(id);
 };
 </script>

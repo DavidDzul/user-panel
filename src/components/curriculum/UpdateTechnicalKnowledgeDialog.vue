@@ -92,9 +92,10 @@ const vuetifyConfig = (state: PublicPathState) => ({
     "error-messages": state.errors,
   },
 });
-const { defineField, meta, values, resetField, resetForm } = useForm({
+const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
+      id: validations.id(),
       type: validations.type(),
       other_knowledge: validations.other_knowledge(),
       description_knowledge: validations.description_knowledge(),
@@ -117,6 +118,7 @@ const [level, levelProps] = defineField("level", vuetifyConfig);
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
   loading: { type: Boolean, default: () => false },
+  editItem: { type: Object, default: () => null },
 });
 
 const emit = defineEmits<{
@@ -128,6 +130,25 @@ watch(
   () => props.modelValue,
   (value) => {
     if (!value) {
+      resetForm();
+    }
+  }
+);
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (value) {
+      if (props.editItem) {
+        setValues({
+          id: props.editItem.id,
+          type: props.editItem.type,
+          other_knowledge: props.editItem.other_knowledge,
+          description_knowledge: props.editItem.description_knowledge,
+          level: props.editItem.level,
+        });
+      }
+    } else {
       resetForm();
     }
   }

@@ -330,6 +330,53 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         }
     }
 
+    const updateTechnicalKnowledge = async (form) => {
+        try {
+            const param = await axios.post("api/updateKnowledge", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información actualizada exitosamente.",
+                    status: "success",
+                });
+
+                resTechnicalKnowledge.value.set(param.data.updateKnowledge.id, param.data.updateKnowledge)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
+    const removeTechnicalKnowledge = async (id) => {
+        try {
+            const param = await axios.delete(`api/deleteKnowledge/${id}`, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información eliminada exitosamente.",
+                    status: "success",
+                });
+                resTechnicalKnowledge.value.delete(id)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al eliminar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     return {
         resPhoto,
         resCurriculumInfo,
@@ -351,5 +398,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         updateContinuingEducation,
         removeContinuingEducation,
         createTechnicalKnowledge,
+        updateTechnicalKnowledge,
+        removeTechnicalKnowledge,
     };
 });
