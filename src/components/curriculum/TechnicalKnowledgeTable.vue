@@ -7,6 +7,16 @@
     :search="search"
     item-value="id"
   >
+    <template #[`item.type`]="{ item }">
+      {{
+        item.type === "OTHER"
+          ? item.other_knowledge
+          : typeKnowledgeMap.get(item.type).text
+      }}
+    </template>
+    <template #[`item.level`]="{ item }">
+      {{ levelKnowledgeMap.get(item.level).text }}
+    </template>
     <template #[`item.actions`]="{ item }">
       <div style="width: 100%; text-align: right">
         <v-tooltip text="Editar" location="bottom">
@@ -53,6 +63,8 @@ const props = defineProps({
   knowledges: { type: Array, default: () => [] },
   loading: { type: Boolean, default: () => false },
 });
+
+import { typeKnowledgeMap, levelKnowledgeMap } from "@/constants";
 
 const search = ref("");
 const groupBy = ref(undefined);

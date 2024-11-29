@@ -12,3 +12,51 @@ export const levelKnowledge = [
     { value: "INTERMEDIATE", text: "Intermedio" },
     { value: "ADVANCED", text: "Avanzado" },
 ]
+
+export const typeKnowledgeMap = new Map([
+    [
+        'SOFTWARE',
+        {
+            value: 'SOFTWARE',
+            text: "Software",
+        },
+    ],
+    [
+        'LANGUAGE',
+        {
+            value: 'LANGUAGE',
+            text: "Lenguaje",
+        },
+    ],
+    [
+        'OTHER',
+        {
+            value: 'OTHER',
+            text: "Otro",
+        },
+    ],
+])
+
+export const levelKnowledgeMap = new Map([
+    [
+        'BEGINNER',
+        {
+            value: 'BEGINNER',
+            text: "Principiante",
+        },
+    ],
+    [
+        'INTERMEDIATE',
+        {
+            value: 'INTERMEDIATE',
+            text: "Intermedio",
+        },
+    ],
+    [
+        'ADVANCED',
+        {
+            value: 'ADVANCED',
+            text: "Avanzado",
+        },
+    ],
+])
