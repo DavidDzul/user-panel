@@ -37,6 +37,15 @@ const routes = [
           backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
         },
       },
+      {
+        path: "/empresa",
+        name: "BusinessView",
+        component: () => import("@/views/business/BusinessDataView.vue"),
+        meta: {
+          title: 'Mi currículum vitae',
+          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
+        },
+      },
     ],
   },
   {
