@@ -41,13 +41,12 @@
               title="Información de la Empresa"
               button-text="Actualizar"
               :expanded="expanded"
-              @button-click=""
+              @button-click="openEditBusinessInformation"
             />
           </template>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
-          <!-- <PersonalData :personal="userInfo" /> -->
-          {{ businessData }}
+          <BusinessInformation :business="businessData" />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -56,6 +55,11 @@
     v-model="photoDialog"
     :preview-url="previewUrl"
     @submit="savePhoto"
+  />
+  <UpdateBusinessInformationDialog
+    v-model="editBusinessDialog"
+    :edit-item="businessData"
+    @submit="onUpdateBusinessData"
   />
 
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
@@ -69,11 +73,25 @@ import PanelHeaderOptions from "@/components/shared/PanelHeaderOptions.vue";
 import { useBusinessPageStore } from "@/stores/views/businessPage";
 import { storeToRefs } from "pinia";
 import CreatePhotoDialog from "@/components/photo/CreatePhotoDialog.vue";
+import BusinessInformation from "@/components/business/BusinessInformation.vue";
+import UpdateBusinessInformationDialog from "@/components/business/UpdateBusinessInformationDialog.vue";
 
 const panel = ref([0, 1]);
 
-const { businessData, businessPhoto } = storeToRefs(useBusinessPageStore());
-const { savePhoto, changePhoto } = useBusinessPageStore();
+const {
+  businessData,
+  businessPhoto,
+  photoDialog,
+  previewUrl,
+  editBusinessDialog,
+} = storeToRefs(useBusinessPageStore());
+
+const {
+  savePhoto,
+  changePhoto,
+  openEditBusinessInformation,
+  onUpdateBusinessData,
+} = useBusinessPageStore();
 
 const fileInput = ref(null);
 const onPhotoUpload = () => {

@@ -13,6 +13,20 @@ export const levelKnowledge = [
     { value: "ADVANCED", text: "Avanzado" },
 ]
 
+export const lineBusiness = [
+    { value: "EDUCATIONAL", text: "Educativo" },
+    { value: "GOVERNMENT", text: "Gobierno" },
+    { value: "HEALTH", text: "Salud" },
+    { value: "ENVIRONMENT", text: "Medio ambiente" },
+    { value: "TOURISM", text: "Turismo" },
+    { value: "FOOD_AND_DRINKS", text: "Alimentos y bebidas" },
+    { value: "COMMUNICATION", text: "Comunicación" },
+    { value: "CONSTRUCTION_AND_DESIGN", text: "Construcción y diseño" },
+    { value: "ADMINISTRATION", text: "Administración" },
+    { value: "MANUFACTURE", text: "Manufactura" },
+    { value: "OTHER", text: "Otro" },
+]
+
 export const typeKnowledgeMap = new Map([
     [
         'SOFTWARE',
@@ -57,6 +71,86 @@ export const levelKnowledgeMap = new Map([
         {
             value: 'ADVANCED',
             text: "Avanzado",
+        },
+    ],
+])
+
+export const lineBusinessMap = new Map([
+    [
+        'EDUCATIONAL',
+        {
+            value: 'EDUCATIONAL',
+            text: "Educativo",
+        },
+    ],
+    [
+        'GOVERNMENT',
+        {
+            value: 'GOVERNMENT',
+            text: "Gobierno",
+        },
+    ],
+    [
+        'HEALTH',
+        {
+            value: 'HEALTH',
+            text: "Salud",
+        },
+    ],
+    [
+        'ENVIRONMENT',
+        {
+            value: 'ENVIRONMENT',
+            text: "Medio ambiente",
+        },
+    ],
+    [
+        'TOURISM',
+        {
+            value: 'TOURISM',
+            text: "Turismo",
+        },
+    ],
+    [
+        'FOOD_AND_DRINKS',
+        {
+            value: 'FOOD_AND_DRINKS',
+            text: "Alimentos y bebidas",
+        },
+    ],
+    [
+        'COMMUNICATION',
+        {
+            value: 'COMMUNICATION',
+            text: "Comunicación",
+        },
+    ],
+    [
+        'CONSTRUCTION_AND_DESIGN',
+        {
+            value: 'CONSTRUCTION_AND_DESIGN',
+            text: "Construcción y diseño",
+        },
+    ],
+    [
+        'ADMINISTRATION',
+        {
+            value: 'ADMINISTRATION',
+            text: "Administración",
+        },
+    ],
+    [
+        'MANUFACTURE',
+        {
+            value: 'MANUFACTURE',
+            text: "Manufactura",
+        },
+    ],
+    [
+        'OTHER',
+        {
+            value: 'OTHER',
+            text: "Otro",
         },
     ],
 ])

@@ -9,10 +9,11 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
         resBusinessData
     } = storeToRefs(useBusinessStore());
 
-    const { fetchBusiness
+    const { fetchBusiness, createImage, updateBusinessData
     } = useBusinessStore();
 
     const photoDialog = ref(false)
+    const editBusinessDialog = ref(false)
 
     const file = ref()
     const previewUrl = ref("")
@@ -23,6 +24,11 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
 
     const businessData = computed(() => resBusinessData.value)
     const businessPhoto = computed(() => resPhoto.value)
+
+    const openEditBusinessInformation = (id) => {
+        if (!businessData.value) return
+        editBusinessDialog.value = true
+    }
 
     const changePhoto = (event) => {
         if (event) {
@@ -50,23 +56,28 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
         }
     };
 
-    const onSaveBusinessData = async (form) => {
-        // if (form) {
-        //     try {
-        //         const res = await createPersonalData(form);
-        //         if (res) {
-        //             personalDialog.value = false
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // }
+    const onUpdateBusinessData = async (form) => {
+        if (form) {
+            try {
+                const res = await updateBusinessData(form);
+                if (res) {
+                    editBusinessDialog.value = false
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     return {
+        previewUrl,
+        photoDialog,
         businessData,
         businessPhoto,
+        editBusinessDialog,
         savePhoto,
-        changePhoto
+        changePhoto,
+        onUpdateBusinessData,
+        openEditBusinessInformation,
     };
 });
