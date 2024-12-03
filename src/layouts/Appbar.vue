@@ -37,8 +37,10 @@
           <v-btn> <v-icon>mdi-bell</v-icon> Notificaciones </v-btn>
         </template>
         <template v-if="userType === 'BUSINESS'">
-          <v-btn :to="'/empresa'">Mi empresa</v-btn>
-          <v-btn>Mis vacantes</v-btn>
+          <v-btn :to="'/empresa'"> <v-icon>mdi-city</v-icon> Mi empresa</v-btn>
+          <v-btn :to="'/publicaciones'">
+            <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-btn
+          >
           <v-btn>Candidatos</v-btn>
         </template>
       </v-row>
@@ -59,8 +61,12 @@
         <v-list-item> <v-icon>mdi-bell</v-icon> Notificaciones </v-list-item>
       </template>
       <template v-if="userType === 'BUSINESS'">
-        <v-list-item :to="'/empresa'">Mi empresa</v-list-item>
-        <v-list-item>Mis vacantes</v-list-item>
+        <v-list-item :to="'/empresa'">
+          <v-icon>mdi-city</v-icon> Mi empresa</v-list-item
+        >
+        <v-list-item :to="'/publicaciones'">
+          <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-list-item
+        >
         <v-list-item>Candidatos</v-list-item>
       </template>
     </v-list>

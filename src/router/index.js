@@ -46,6 +46,15 @@ const routes = [
           backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
         },
       },
+      {
+        path: "/publicaciones",
+        name: "BusinessVacanciesView",
+        component: () => import("@/views/vacancies/BusinessVacanciesView.vue"),
+        meta: {
+          title: 'Mi currículum vitae',
+          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
+        },
+      },
     ],
   },
   {

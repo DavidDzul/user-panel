@@ -154,3 +154,15 @@ export const lineBusinessMap = new Map([
         },
     ],
 ])
+
+
+export const daysValue = [
+    { value: "Lunes", text: "Lunes" },
+    { value: "Martes", text: "Martes" },
+    { value: "Miércoles", text: "Miércoles" },
+    { value: "Jueves", text: "Jueves" },
+    { value: "Viernes", text: "Viernes" },
+    { value: "Sábado", text: "Sábado" },
+    { value: "Domingo", text: "Domingo" },
+
+]
