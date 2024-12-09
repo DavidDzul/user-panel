@@ -22,20 +22,27 @@
                 :complete="step > 1"
                 title="Información General"
                 :value="1"
+                @click="setStep(1)"
               ></v-stepper-item>
               <v-divider></v-divider>
               <v-stepper-item
                 :complete="step > 2"
                 title="Prestaciones de Ley"
                 :value="2"
+                @click="setStep(2)"
               ></v-stepper-item>
               <v-divider></v-divider>
               <v-stepper-item
                 title="Información adicional"
                 :value="3"
+                @click="setStep(3)"
               ></v-stepper-item>
               <v-divider></v-divider>
-              <v-stepper-item title="Contacto" :value="4"></v-stepper-item>
+              <v-stepper-item
+                title="Contacto"
+                :value="4"
+                @click="setStep(4)"
+              ></v-stepper-item>
             </v-stepper-header>
             <v-stepper-window>
               <v-stepper-window-item :value="1">
@@ -422,7 +429,7 @@
                   <v-row justify="space-between">
                     <v-btn color="grey" @click="back">Atrás</v-btn>
                     <v-btn color="success" :disabled="!meta.valid" @click="save"
-                      >Finalizar</v-btn
+                      >Actualizar</v-btn
                     >
                   </v-row>
                 </v-col>
@@ -453,7 +460,7 @@ const vuetifyConfig = (state: PublicPathState) => ({
 const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
-      category: validations.category(),
+      id: validations.id(),
       vacant_name: validations.vacant_name(),
       activities: validations.activities(),
       study_profile: validations.study_profile(),
@@ -504,7 +511,6 @@ const [vacant_name, vacant_nameProps] = defineField(
   "vacant_name",
   vuetifyConfig
 );
-const [category, categoryProps] = defineField("category", vuetifyConfig);
 const [activities, activitiesProps] = defineField("activities", vuetifyConfig);
 const [study_profile, study_profileProps] = defineField(
   "study_profile",
@@ -632,6 +638,7 @@ const [benefit_description, benefit_descriptionProps] = defineField(
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
   loading: { type: Boolean, default: () => false },
+  editItem: { type: Object, default: () => null },
 });
 
 const validateStep1 = computed(() => {
@@ -661,11 +668,62 @@ const emit = defineEmits<{
 watch(
   () => props.modelValue,
   (value) => {
-    if (!value) {
+    if (value) {
+      if (props.editItem) {
+        setValues({
+          id: props.editItem.id,
+          vacant_name: props.editItem.vacant_name,
+          activities: props.editItem.activities,
+          study_profile: props.editItem.study_profile,
+          net_salary: props.editItem.net_salary,
+
+          start_day: props.editItem.start_day,
+          end_day: props.editItem.end_day,
+          start_hour: props.editItem.start_hour,
+          end_hour: props.editItem.end_hour,
+          saturday_hour: props.editItem.saturday_hour,
+          saturday_start_day: props.editItem.saturday_start_day,
+          saturday_end_day: props.editItem.saturday_end_day,
+          additional_time_info: props.editItem.additional_time_info,
+          experience: props.editItem.experience,
+          experience_description: props.editItem.experience_description,
+          software_use: props.editItem.software_use,
+          software_description: props.editItem.software_description,
+          skills: props.editItem.skills,
+          observations: props.editItem.observations,
+          contact_name: props.editItem.contact_name,
+          contact_position: props.editItem.contact_position,
+          contact_telphone: props.editItem.contact_telphone,
+          contact_email: props.editItem.contact_email,
+
+          employment_contract: props.editItem.employment_contract
+            ? true
+            : false,
+          vacation: props.editItem.vacation ? true : false,
+          christmas_bonus: props.editItem.christmas_bonus ? true : false,
+          vacation_bonus: props.editItem.vacation_bonus ? true : false,
+          social_security: props.editItem.social_security ? true : false,
+          grocery_vouchers: props.editItem.grocery_vouchers ? true : false,
+          savings_fund: props.editItem.savings_fund ? true : false,
+          life_insurance: props.editItem.life_insurance ? true : false,
+          medical_expenses: props.editItem.medical_expenses ? true : false,
+          day_off: props.editItem.day_off ? true : false,
+          sunday_bonus: props.editItem.sunday_bonus ? true : false,
+          paternity_leave: props.editItem.paternity_leave ? true : false,
+          transportation_help: props.editItem.transportation_help
+            ? true
+            : false,
+          productivity_bonus: props.editItem.productivity_bonus ? true : false,
+          automobile: props.editItem.automobile ? true : false,
+          dining_room: props.editItem.dining_room ? true : false,
+          loans: props.editItem.loans ? true : false,
+          other: props.editItem.other ? true : false,
+          benefit_description: props.editItem.benefit_description,
+        });
+      }
+    } else {
       resetForm();
       step.value = 1;
-    } else {
-      category.value = "JOB_POSITION";
     }
   }
 );
@@ -674,6 +732,10 @@ const step = ref(1);
 
 const close = () => {
   emit("update:modelValue", false);
+};
+
+const setStep = (value) => {
+  step.value = value;
 };
 
 const next = () => {

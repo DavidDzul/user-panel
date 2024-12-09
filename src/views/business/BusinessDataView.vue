@@ -38,6 +38,7 @@
         <v-expansion-panel-title color="#f8f8f8">
           <template #default="{ expanded }">
             <PanelHeaderOptions
+              v-if="businessData"
               title="Información de la Empresa"
               button-text="Actualizar"
               :expanded="expanded"
