@@ -8,13 +8,7 @@
     item-value="id"
   >
     <template #[`item.category`]="{ item }">
-      <label>
-        {{
-          (item.category = "JOB_POSITION"
-            ? "Laboral"
-            : "Prácticas profesionales")
-        }}
-      </label>
+      {{ logCategory(item.category) }}
     </template>
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
@@ -104,7 +98,7 @@ const props = defineProps({
 
 const search = ref("");
 
-const emit = defineEmits(["create", "edit", "remove", "status"]);
+const emit = defineEmits(["create", "edit", "remove", "status", "practice"]);
 
 const headers = computed(() => [
   {
@@ -129,8 +123,18 @@ const headers = computed(() => [
   },
 ]);
 
+const logCategory = (category) => {
+  return category === "PROFESSIONAL_PRACTICE"
+    ? "Prácticas profesionales"
+    : "Laboral";
+};
+
 const editItem = (item) => {
-  emit("edit", item.id);
+  if (item.category === "PROFESSIONAL_PRACTICE") {
+    emit("practice", item.id);
+  } else {
+    emit("edit", item.id);
+  }
 };
 
 const deleteItem = (item) => {

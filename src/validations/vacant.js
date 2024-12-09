@@ -21,8 +21,9 @@ export const software_description = () => yup.string().notRequired().label()
 export const skills = () => yup.string().required("Campo requerido").label()
 export const observations = () => yup.string().notRequired().label()
 
-export const financial_support = () => yup.string().notRequired().label("Apoyo económico")
-export const semester = () => yup.string().required().label()
+export const financial_support = () => yup.boolean().default(false)
+export const support_amount = () => yup.string().notRequired().label()
+export const semester = () => yup.string().required('Campo requerido').label()
 export const general_knowledge = () => yup.boolean().default(false)
 export const knowledge_description = () => yup.string().notRequired().label()
 

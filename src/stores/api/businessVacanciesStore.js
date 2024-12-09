@@ -115,12 +115,62 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     }
 
+    const createPractice = async (form) => {
+        try {
+            const param = await axios.post("api/createPractice", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información guardada exitosamente.",
+                    status: "success",
+                });
+
+                resVacancies.value.set(param.data.createPractice.id, param.data.createPractice)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al guardar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
+    const updatePractice = async (form) => {
+        try {
+            const param = await axios.post("api/updatePractice", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información actualizada exitosamente.",
+                    status: "success",
+                });
+
+                resVacancies.value.set(param.data.updatePractice.id, param.data.updatePractice)
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     return {
         resVacancies,
         createVacant,
         updateVacant,
         removeVacant,
         statusVacant,
+        createPractice,
+        updatePractice,
         fetchVacancies
     };
 });

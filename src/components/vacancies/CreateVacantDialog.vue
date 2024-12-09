@@ -41,7 +41,7 @@
               <v-stepper-window-item :value="1">
                 <v-row>
                   <v-col cols="12" md="12">
-                    <b>Información acerca de la vacante laboral:</b>
+                    <b>Información acerca de la vacante:</b>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
