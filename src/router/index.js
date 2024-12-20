@@ -4,17 +4,17 @@ import { useAuthStore } from "@/stores/api/authStore";
 
 const routes = [
   {
-    path: "/auth",
+    path: "/login",
     name: "AuthLayout",
-    component: () => import("@/layouts/AuthLayout.vue"),
+    component: () => import("@/views/auth/IndexView.vue"),
     meta: { guest: true },
-    children: [
-      {
-        path: "login",
-        name: "Login",
-        component: () => import("@/views/auth/LoginView.vue"),
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "login",
+    //     name: "Login",
+    //     component: () => import("@/views/auth/LoginView.vue"),
+    //   },
+    // ],
   },
   {
     path: "/",
@@ -103,10 +103,10 @@ router.beforeEach(async (to, from, next) => {
       if (loggedUser.value) {
         return next();
       } else {
-        return next({ path: "/auth/login", query: { redirect: to.fullPath } });
+        return next({ path: "/login", query: { redirect: to.fullPath } });
       }
     } else {
-      return next({ path: "/auth/login", query: { redirect: to.fullPath } });
+      return next({ path: "/login", query: { redirect: to.fullPath } });
     }
   } else if (to.meta.guest && token && loggedUser.value) {
     return next({ path: "/" });
