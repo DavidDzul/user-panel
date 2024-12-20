@@ -1,26 +1,30 @@
 <template>
   <v-container>
-    <v-col>
-      <v-btn color="primary">
-        NUEVA VACANTE <v-icon>mdi-chevron-down</v-icon>
+    <v-row>
+      <v-col>
+        <v-btn color="primary">
+          NUEVA VACANTE <v-icon>mdi-chevron-down</v-icon>
 
-        <v-menu activator="parent">
-          <v-list>
-            <v-list-item @click="openVacantDialog">
-              <v-list-item-title>
-                <v-icon>mdi-account</v-icon> Vacante laboral</v-list-item-title
-              >
-            </v-list-item>
-            <v-list-item @click="openPracticeDialog">
-              <v-list-item-title>
-                <v-icon>mdi-account-outline</v-icon> Prácticas
-                profesionales</v-list-item-title
-              >
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-btn>
-    </v-col>
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item @click="openVacantDialog">
+                <v-list-item-title>
+                  <v-icon>mdi-account</v-icon> Vacante
+                  laboral</v-list-item-title
+                >
+              </v-list-item>
+              <v-list-item @click="openPracticeDialog">
+                <v-list-item-title>
+                  <v-icon>mdi-account-outline</v-icon> Prácticas
+                  profesionales</v-list-item-title
+                >
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-btn>
+      </v-col>
+    </v-row>
+
     <PublishedVacanciesTable
       :vacant="vacancies"
       @edit="openEditVacant"

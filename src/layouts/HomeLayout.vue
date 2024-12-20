@@ -2,16 +2,11 @@
   <v-layout id="app">
     <Appbar />
     <v-main class="h-100">
-      <v-img
-        :src="currentBackgroundImage"
-        height="100"
-        class="background-image"
-        cover
-      >
+      <div v-if="route.meta.title" class="background-gradient">
         <div class="overlay">
           <h1 class="bg-img-title">{{ currentTitle }}</h1>
         </div>
-      </v-img>
+      </div>
       <v-container class="container__main" :fluid="true">
         <router-view />
       </v-container>
@@ -52,9 +47,29 @@ const { show, config } = storeToRefs(useAlertStore());
 const currentTitle = computed(() => route.meta.title);
 const currentBackgroundImage = computed(() => route.meta.backgroundImage);
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .container__main {
-  // height: calc(100svh - var(--v-layout-top));
   overflow-y: auto;
+}
+
+.background-gradient {
+  height: 100px; /* Ajusta la altura */
+  background: radial-gradient(circle at 30% 30%, #ff9e5c, transparent 50%),
+    radial-gradient(circle at 70% 70%, #53daf0, transparent 60%),
+    radial-gradient(circle at 50% 50%, #5067c5, transparent 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.overlay {
+  text-align: center;
+}
+
+.bg-img-title {
+  font-size: 24px; /* Ajusta el tamaño del texto */
+  color: white; /* Color del título */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
 }
 </style>

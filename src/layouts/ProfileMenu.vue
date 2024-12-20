@@ -2,7 +2,7 @@
   <v-menu>
     <template v-slot:activator="{ props }">
       <v-btn icon class="mr-0" v-bind="props">
-        <v-avatar color="brown">
+        <v-avatar color="#FFCE00">
           <span class="text-h5">{{ initials }}</span>
         </v-avatar>
       </v-btn>
@@ -11,7 +11,7 @@
       <v-list>
         <v-list-item>
           <div class="mx-auto text-center">
-            <v-avatar color="brown">
+            <v-avatar color="#FFCE00">
               <span class="text-h5">{{ initials }}</span>
             </v-avatar>
             <h3>{{ fullName }}</h3>

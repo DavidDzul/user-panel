@@ -7,8 +7,16 @@
     <!-- Menú de hamburguesa -->
     <v-app-bar-nav-icon v-if="mobile" @click="onClick"></v-app-bar-nav-icon>
 
+    <v-img
+      src="@/assets/img/logo.png"
+      max-height="40"
+      max-width="100px"
+    ></v-img>
+
     <!-- Título de la barra -->
-    <v-app-bar-title>PHOTO</v-app-bar-title>
+    <!-- <v-app-bar-title>
+      <v-img src="@/assets/img/logo.png" max-height="40"></v-img>
+    </v-app-bar-title> -->
 
     <!-- Menú de perfil -->
     <template v-slot:append>
@@ -33,7 +41,9 @@
           <v-btn :to="'/curriculum'">
             <v-icon>mdi-file-account</v-icon> Mi currículum vitae
           </v-btn>
-          <v-btn> <v-icon>mdi-briefcase</v-icon> Vacantes </v-btn>
+          <v-btn :to="'/vacantes'">
+            <v-icon>mdi-briefcase</v-icon> Vacantes
+          </v-btn>
           <v-btn> <v-icon>mdi-bell</v-icon> Notificaciones </v-btn>
         </template>
         <template v-if="userType === 'BUSINESS'">
@@ -57,7 +67,9 @@
         <v-list-item :to="'/curriculum'">
           <v-icon>mdi-file-account</v-icon> Mi currículum vitae
         </v-list-item>
-        <v-list-item> <v-icon>mdi-briefcase</v-icon> Vacantes </v-list-item>
+        <v-list-item :to="'/vacantes'">
+          <v-icon>mdi-briefcase</v-icon> Vacantes
+        </v-list-item>
         <v-list-item> <v-icon>mdi-bell</v-icon> Notificaciones </v-list-item>
       </template>
       <template v-if="userType === 'BUSINESS'">

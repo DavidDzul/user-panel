@@ -74,6 +74,7 @@
                       v-model="support_amount"
                       v-bind="support_amountProps"
                       label="Monto mensual asignado"
+                      :disabled="financial_support ? false : true"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -114,19 +115,77 @@
                       label="Día prácticas fin"
                     ></v-select>
                   </v-col>
+
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="start_hour"
-                      v-bind="start_hourProps"
-                      label="Hora de inicio"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de inicio:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="start_hour"
+                          v-bind="start_hourProps"
+                          :items="hours"
+                          label="Hora"
+                          dense
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="start_minute"
+                          v-bind="start_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                          dense
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
+
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="end_hour"
-                      v-bind="end_hourProps"
-                      label="Hora de término"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de término:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="end_hour"
+                          v-bind="end_hourProps"
+                          :items="hours"
+                          label="Hora"
+                          dense
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="end_minute"
+                          v-bind="end_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                          dense
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
 
                   <v-col cols="12" md="12">
@@ -154,6 +213,7 @@
                       v-bind="software_descriptionProps"
                       label="Software requerido"
                       rows="3"
+                      :disabled="software_use ? false : true"
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12" md="12">
@@ -178,6 +238,7 @@
                       v-bind="knowledge_descriptionProps"
                       label="¿Cuáles?"
                       rows="3"
+                      :disabled="general_knowledge ? false : true"
                     ></v-textarea>
                   </v-col>
                 </v-row>
@@ -272,7 +333,9 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       start_day: validations.start_day(),
       end_day: validations.end_day(),
       start_hour: validations.start_hour(),
+      start_minute: validations.start_minute(),
       end_hour: validations.end_hour(),
+      end_minute: validations.end_minute(),
       semester: validations.semester(),
       software_use: validations.software_use(),
       software_description: validations.software_description(),
@@ -308,8 +371,11 @@ const [support_amount, support_amountProps] = defineField(
 );
 const [start_day, start_dayProps] = defineField("start_day", vuetifyConfig);
 const [end_day, end_dayProps] = defineField("end_day", vuetifyConfig);
-const [start_hour, start_hourProps] = defineField("start_hour", vuetifyConfig);
-const [end_hour, end_hourProps] = defineField("end_hour", vuetifyConfig);
+
+const [start_hour, start_hourProps] = defineField("start_hour");
+const [start_minute, start_minuteProps] = defineField("start_minute");
+const [end_hour, end_hourProps] = defineField("end_hour");
+const [end_minute, end_minuteProps] = defineField("end_minute");
 
 const [semester, semesterProps] = defineField("semester", vuetifyConfig);
 const [software_use, software_useProps] = defineField(
@@ -352,19 +418,15 @@ const props = defineProps({
 });
 
 const validateStep1 = computed(() => {
-  if (support_amount.value === "SI") {
+  if (financial_support.value) {
     return vacant_name.value &&
       activities.value &&
       study_profile.value &&
-      financial_support.value &&
       support_amount.value
       ? false
       : true;
   }
-  return vacant_name.value &&
-    activities.value &&
-    study_profile.value &&
-    financial_support.value
+  return vacant_name.value && activities.value && study_profile.value
     ? false
     : true;
 });
@@ -410,6 +472,14 @@ const next = () => {
 const back = () => {
   step.value--;
 };
+
+const hours = computed(() => {
+  return Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0"));
+});
+
+const minutes = computed(() => {
+  return Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
+});
 
 const save = () => {
   if (meta.value.valid) {

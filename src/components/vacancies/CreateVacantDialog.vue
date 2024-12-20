@@ -241,6 +241,7 @@
                       v-model="benefit_description"
                       v-bind="benefit_descriptionProps"
                       label="Especificar"
+                      :disabled="other ? false : true"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -276,20 +277,74 @@
                       label="Día laboral fin"
                     ></v-select>
                   </v-col>
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="start_hour"
-                      v-bind="start_hourProps"
-                      label="Hora de inicio"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de inicio:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="start_hour"
+                          v-bind="start_hourProps"
+                          :items="hours"
+                          label="Hora"
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="start_minute"
+                          v-bind="start_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
+
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="end_hour"
-                      v-bind="end_hourProps"
-                      label="Hora de término"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de término:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="end_hour"
+                          v-bind="end_hourProps"
+                          :items="hours"
+                          label="Hora"
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="end_minute"
+                          v-bind="end_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
+
                   <v-col cols="12" md="12">
                     <v-checkbox
                       v-model="saturday_hour"
@@ -298,20 +353,79 @@
                       density="comfortable"
                     ></v-checkbox>
                   </v-col>
+
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6" v-if="saturday_hour">
-                    <v-text-field
-                      v-model="saturday_start_day"
-                      v-bind="saturday_start_dayProps"
-                      label="Hora de inicio"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de inicio:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="saturday_start_hour"
+                          v-bind="saturday_start_hourProps"
+                          :items="hours"
+                          label="Hora"
+                          :disabled="saturday_hour ? false : true"
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="saturday_start_minute"
+                          v-bind="saturday_start_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                          :disabled="saturday_hour ? false : true"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
+
+                  <!-- Hora de inicio -->
                   <v-col cols="12" md="6" v-if="saturday_hour">
-                    <v-text-field
-                      v-model="saturday_end_day"
-                      v-bind="saturday_end_dayProps"
-                      label="Hora de término"
-                    ></v-text-field>
+                    <p
+                      style="
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                        font-weight: 600;
+                      "
+                    >
+                      Hora de término:
+                    </p>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        class="d-flex align-center justify-center p-0"
+                      >
+                        <v-select
+                          v-model="saturday_end_hour"
+                          v-bind="saturday_end_hourProps"
+                          :items="hours"
+                          label="Hora"
+                          :disabled="saturday_hour ? false : true"
+                        ></v-select>
+                        <span class="px-4" style="font-size: x-large">:</span>
+
+                        <v-select
+                          v-model="saturday_end_minute"
+                          v-bind="saturday_end_minuteProps"
+                          :items="minutes"
+                          label="Minutos"
+                          :disabled="saturday_hour ? false : true"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
                   </v-col>
+
                   <v-col cols="12" md="12">
                     <v-textarea
                       v-model="additional_time_info"
@@ -337,6 +451,7 @@
                       v-bind="experience_descriptionProps"
                       label="Especificar"
                       rows="3"
+                      :disabled="experience ? false : true"
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12" md="12">
@@ -353,6 +468,7 @@
                       v-bind="software_descriptionProps"
                       label="Software requerido"
                       rows="3"
+                      :disabled="software_use ? false : true"
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12" md="12">
@@ -450,6 +566,7 @@ const vuetifyConfig = (state: PublicPathState) => ({
     "error-messages": state.errors,
   },
 });
+
 const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
@@ -461,10 +578,14 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       start_day: validations.start_day(),
       end_day: validations.end_day(),
       start_hour: validations.start_hour(),
+      start_minute: validations.start_minute(),
       end_hour: validations.end_hour(),
+      end_minute: validations.end_minute(),
       saturday_hour: validations.saturday_hour(),
-      saturday_start_day: validations.saturday_start_day(),
-      saturday_end_day: validations.saturday_end_day(),
+      saturday_start_hour: validations.saturday_start_hour(),
+      saturday_start_minute: validations.saturday_start_minute(),
+      saturday_end_hour: validations.saturday_end_hour(),
+      saturday_end_minute: validations.saturday_end_minute(),
       additional_time_info: validations.additional_time_info(),
       experience: validations.experience(),
       experience_description: validations.experience_description(),
@@ -513,19 +634,24 @@ const [study_profile, study_profileProps] = defineField(
 const [net_salary, net_salaryProps] = defineField("net_salary", vuetifyConfig);
 const [start_day, start_dayProps] = defineField("start_day", vuetifyConfig);
 const [end_day, end_dayProps] = defineField("end_day", vuetifyConfig);
-const [start_hour, start_hourProps] = defineField("start_hour", vuetifyConfig);
-const [end_hour, end_hourProps] = defineField("end_hour", vuetifyConfig);
+const [start_hour, start_hourProps] = defineField("start_hour");
+const [start_minute, start_minuteProps] = defineField("start_minute");
+const [end_hour, end_hourProps] = defineField("end_hour");
+const [end_minute, end_minuteProps] = defineField("end_minute");
 const [saturday_hour, saturday_hourProps] = defineField(
   "saturday_hour",
   vuetifyConfig
 );
-const [saturday_start_day, saturday_start_dayProps] = defineField(
-  "saturday_start_day",
-  vuetifyConfig
+const [saturday_start_hour, saturday_start_hourProps] = defineField(
+  "saturday_start_hour"
 );
-const [saturday_end_day, saturday_end_dayProps] = defineField(
-  "saturday_end_day",
-  vuetifyConfig
+const [saturday_start_minute, saturday_start_minuteProps] = defineField(
+  "saturday_start_minute"
+);
+const [saturday_end_hour, saturday_end_hourProps] =
+  defineField("saturday_end_hour");
+const [saturday_end_minute, saturday_end_minuteProps] = defineField(
+  "saturday_end_minute"
 );
 const [additional_time_info, additional_time_infoProps] = defineField(
   "additional_time_info",
@@ -683,6 +809,14 @@ const next = () => {
 const back = () => {
   step.value--;
 };
+
+const hours = computed(() => {
+  return Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0"));
+});
+
+const minutes = computed(() => {
+  return Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
+});
 
 const save = () => {
   if (meta.value.valid) {

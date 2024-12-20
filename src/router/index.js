@@ -27,6 +27,10 @@ const routes = [
         path: "/inicio",
         name: "Inicio",
         component: () => import("@/views/HomeView.vue"),
+        meta: {
+          title: 'Plataforma de vinculación laboral',
+          backgroundImage: '@/assets/img/bg-title.jpg',
+        },
       },
       {
         path: "/curriculum",
@@ -34,7 +38,6 @@ const routes = [
         component: () => import("@/views/users/CurriculumView.vue"),
         meta: {
           title: 'Mi currículum vitae',
-          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
         },
       },
       {
@@ -42,8 +45,7 @@ const routes = [
         name: "BusinessView",
         component: () => import("@/views/business/BusinessDataView.vue"),
         meta: {
-          title: 'Mi currículum vitae',
-          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
+          title: 'Mi currículum vitae'
         },
       },
       {
@@ -51,9 +53,21 @@ const routes = [
         name: "BusinessVacanciesView",
         component: () => import("@/views/vacancies/BusinessVacanciesView.vue"),
         meta: {
-          title: 'Mi currículum vitae',
-          backgroundImage: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg',
+          title: 'Mi currículum vitae'
         },
+      },
+      {
+        path: "/vacantes",
+        name: "VacanciesView",
+        component: () => import("@/views/vacancies/VacanciesView.vue"),
+        meta: {
+          title: 'Vacantes disponibles'
+        },
+      },
+      {
+        path: "/vacantes/:id",
+        name: "VacantDetailsView",
+        component: () => import("@/views/vacancies/VacantDetailsView.vue"),
       },
     ],
   },
