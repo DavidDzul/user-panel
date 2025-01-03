@@ -225,7 +225,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
 
     const dowloandCurriculum = async () => {
         await axios
-            .get('api/fetchPDF', { responseType: 'blob', headers: { 'accept': 'application/json' } }) // Importante: usa responseType 'blob'
+            .get(`api/fetchPDF/${2}`, { responseType: 'blob', headers: { 'accept': 'application/json' } }) // Importante: usa responseType 'blob'
             .then((response) => {
                 const fileURL = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
                 window.open(fileURL);

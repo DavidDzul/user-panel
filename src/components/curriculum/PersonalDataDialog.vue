@@ -36,27 +36,33 @@
               ></v-text-field>
             </v-col>
             <v-col cols="4">
-              <v-text-field
+              <v-select
                 v-model.number="form.day_birth"
-                label="Día de nacimiento"
+                :items="daysBirth"
                 :rules="[rules.required]"
-                required
-              ></v-text-field>
+                item-title="text"
+                item-value="value"
+                label="Día de nacimiento"
+              ></v-select>
             </v-col>
             <v-col cols="4">
-              <v-text-field
+              <v-select
                 v-model.number="form.month_birth"
-                label="Mes de nacimiento"
+                :items="monthBirth"
                 :rules="[rules.required]"
-                required
-              ></v-text-field>
+                item-title="text"
+                item-value="value"
+                label="Mes de nacimiento"
+              ></v-select>
             </v-col>
             <v-col cols="4">
               <v-text-field
                 v-model.number="form.year_birth"
                 label="Año de nacimiento"
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.validYear]"
                 required
+                placeholder="Ej: 1998"
+                @keypress="onlyNumbers"
               ></v-text-field>
             </v-col>
             <v-col cols="6">
@@ -87,8 +93,9 @@
               <v-text-field
                 v-model="form.phone_num"
                 label="Número de celular"
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.validPhone]"
                 required
+                @keypress="onlyNumbers"
               ></v-text-field>
             </v-col>
 
@@ -104,8 +111,6 @@
               <v-text-field
                 v-model="form.linkedin"
                 label="LinkedIn"
-                :rules="[rules.required]"
-                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -121,9 +126,15 @@
                 variant="underlined"
                 v-model="form.professional_summary"
                 rows="4"
-                :rules="[rules.required]"
+                maxlength="350"
+                :rules="[rules.required, rules.maxLength]"
+                required
                 label="Resumén profesional"
               ></v-textarea>
+              <span class="character-counter">
+                {{ 350 - form.professional_summary.length }} caracteres
+                restantes.
+              </span>
             </v-col>
             <v-col cols="12" md="6">
               <v-text-field
@@ -173,6 +184,8 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 
+import { daysBirth, monthBirth } from "@/constants";
+
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
   initialData: { type: Object, required: false, default: null },
@@ -182,6 +195,11 @@ const formValid = ref(false);
 
 const rules = {
   required: (value) => !!value || "Este campo es obligatorio",
+  validYear: (value) => /^\d{4}$/.test(value) || "El año debe tener 4 dígitos",
+  validPhone: (value) =>
+    /^\d{10}$/.test(value) || "El número de celular debe tener 10 dígitos",
+  maxLength: (value) =>
+    value.length <= 350 || "Máximo 350 caracteres permitidos",
 };
 
 const defaultForm = {
@@ -216,6 +234,14 @@ watch(
   { immediate: true }
 );
 
+const onlyNumbers = (event) => {
+  const charCode = event.which ? event.which : event.keyCode;
+  // Permite solo números (0-9)
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
+};
+
 const emit = defineEmits<{
   "update:modelValue": [value: boolean];
   submit: [value: object];
@@ -229,3 +255,11 @@ const save = () => {
   emit("submit", form);
 };
 </script>
+
+<style scoped>
+.character-counter {
+  font-size: 12px;
+  color: gray;
+  margin-top: -10px;
+}
+</style>

@@ -1,22 +1,24 @@
 <template>
   <v-container>
     <v-row class="pb-5">
-      <v-col cols="12">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
-          provident ipsum quae voluptatem molestiae, fugit itaque adipisci, rem,
-          esse neque perferendis aspernatur repellendus dolore. Repudiandae
-          aliquam nobis tempora qui?
-        </p>
-      </v-col>
       <v-col v-if="userInfo">
-        <v-btn class="mx-2" v-if="userInfo.public" @click="onChangePlibicCV(0)"
+        <v-btn
+          color="red"
+          class="mx-2 mb-2"
+          v-if="userInfo.public"
+          @click="onChangePlibicCV(0)"
           >DESACTIVAR VISUALIZACIÓN DE CV</v-btn
         >
-        <v-btn class="mx-2" v-else @click="onChangePlibicCV(1)"
+        <v-btn
+          color="green"
+          class="mx-2 mb-2"
+          v-else
+          @click="onChangePlibicCV(1)"
           >HABILITAR VISUALIZACIÓN DE CV</v-btn
         >
-        <v-btn class="mx-2" @click="openCurriculumPDF">DESCARGAR CV</v-btn>
+        <v-btn color="blue" class="mx-2 mb-2" @click="openCurriculumPDF"
+          >DESCARGAR CV</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -33,6 +35,15 @@
           </template>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
+          <v-row class="pb-5">
+            <v-col cols="12">
+              <p>
+                Fotografía de frente con el rostro descubierto (No lentes de
+                sol, gorros, bufandas o artículos parecidos), debe ser clara,
+                tamaño máximo de archivo 300k, en formato jpg o png.
+              </p>
+            </v-col>
+          </v-row>
           <UserPhoto :photos="userPhoto" />
         </v-expansion-panel-text>
       </v-expansion-panel>

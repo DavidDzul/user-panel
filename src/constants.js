@@ -166,3 +166,23 @@ export const daysValue = [
     { value: "Domingo", text: "Domingo" },
 
 ]
+
+export const daysBirth = Array.from({ length: 31 }, (_, i) => ({
+    value: i + 1,
+    text: (i + 1).toString(),
+}));
+
+export const monthBirth = [
+    { value: 1, text: "Enero" },
+    { value: 2, text: "Febrero" },
+    { value: 3, text: "Marzo" },
+    { value: 4, text: "Abril" },
+    { value: 5, text: "Mayo" },
+    { value: 6, text: "Junio" },
+    { value: 7, text: "Julio" },
+    { value: 8, text: "Agosto" },
+    { value: 9, text: "Septiembre" },
+    { value: 10, text: "Octubre" },
+    { value: 11, text: "Noviembre" },
+    { value: 12, text: "Diciembre" }
+]
