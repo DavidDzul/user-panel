@@ -12,6 +12,7 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
     } = useVacantDetailStore();
 
     const route = useRoute()
+    const loadVacant = ref(false)
 
     onBeforeMount(async () => {
         checkRouteId(route.params.id)
@@ -23,17 +24,15 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
     )
 
     const checkRouteId = async (idString) => {
-        console.log(idString)
         const id = !Array.isArray(idString) ? parseInt(idString) : NaN
-        setTimeout(async () => {
-            await getVacantDetail(id)
-        }, 100)
-
+        await getVacantDetail(id)
+        loadVacant.value = true
     }
 
     const vacantDetail = computed(() => resVacantDetail.value)
 
     return {
         vacantDetail,
+        loadVacant,
     };
 });

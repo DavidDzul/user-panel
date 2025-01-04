@@ -12,19 +12,41 @@
             <v-row class="mt-2">
               <v-col cols="12" md="12">
                 <v-text-field
+                  v-model="search"
                   label="Buscar"
                   append-inner-icon="mdi-magnify"
                   density="compact"
                 ></v-text-field>
-                <v-select label="Tipo de vacante" density="compact"></v-select>
-                <v-select label="Sede" density="compact"></v-select>
+                <v-select
+                  v-model="type"
+                  :items="vacantType"
+                  item-title="text"
+                  item-value="value"
+                  label="Tipo de vacante"
+                  density="compact"
+                  clearable
+                ></v-select>
+                <v-select
+                  v-model="sede"
+                  :items="sedeArray"
+                  item-title="text"
+                  item-value="value"
+                  label="Sede"
+                  density="compact"
+                  clearable
+                ></v-select>
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" md="9">
-        <VacanciesList :list="vacancies" @open="openVacantDetail" />
+        <VacanciesList
+          :list="vacancies"
+          :search="search"
+          :type="type"
+          @open="openVacantDetail"
+        />
       </v-col>
 
       <!-- Columna derecha: Información de la vacante fija -->
@@ -49,13 +71,19 @@
 </template>
 
 <script setup>
+import { ref, reactive, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useVacanciesPageStore } from "@/stores/views/vacanciesPage";
 
 import VacanciesList from "@/components/vacancies/VacanciesList.vue";
+import { vacantType, sedeArray } from "@/constants";
 
 const { vacancies, vacantDetailDialog } = storeToRefs(useVacanciesPageStore());
 const { openVacantDetail } = useVacanciesPageStore();
+
+const search = ref("");
+const type = ref("");
+const sede = ref("");
 </script>
 
 <style scoped></style>

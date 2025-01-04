@@ -1,7 +1,12 @@
 <template>
   <div>
+    <!-- Mostrar total de resultados -->
+
     <!-- Tarjetas de vacantes -->
     <v-container fluid>
+      <div class="text-right pa-2">
+        <span> <b>Total de resultados:</b> {{ totalResults }}</span>
+      </div>
       <v-row>
         <v-col
           v-for="(item, index) in paginatedList"
@@ -30,7 +35,7 @@
                   </p>
                 </v-col>
                 <v-col cols="12">
-                  {{ item.activities }}
+                  {{ item.activities.substr(0, 150) }}...
                 </v-col>
               </v-row>
             </v-card-text>
@@ -44,6 +49,7 @@
       </v-row>
     </v-container>
 
+    <!-- Paginación -->
     <div class="text-center pt-2">
       <v-pagination v-model="page" :length="pageCount"></v-pagination>
     </div>
@@ -51,33 +57,55 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import dayjs, { extend, locale, unix } from "dayjs";
+import { computed, ref, watch } from "vue";
+import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 
 const props = defineProps({
   list: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
+  search: { type: String, default: "" },
+  type: { type: String, default: "" },
 });
 
 const page = ref(1);
 const itemsPerPage = ref(7);
 const hover = ref(null);
 
-extend(relativeTime);
-locale("es");
+dayjs.extend(relativeTime);
+dayjs.locale("es");
 
 const emit = defineEmits(["open", "remove"]);
 
+const filteredList = computed(() => {
+  const searchTerm = props.search.toLowerCase();
+  return props.list.filter((item) => {
+    const matchesCategory = !props.type || item.category === props.type; // Filtro condicional
+    const matchesSearch =
+      item.vacant_name.toLowerCase().includes(searchTerm) ||
+      item.business.bs_name.toLowerCase().includes(searchTerm) ||
+      item.business.bs_locality.toLowerCase().includes(searchTerm);
+
+    return matchesCategory && matchesSearch;
+  });
+});
+
+const totalResults = computed(() => filteredList.value.length);
+
 const paginatedList = computed(() => {
   const start = (page.value - 1) * itemsPerPage.value;
-  return props.list.slice(start, start + itemsPerPage.value);
+  return filteredList.value.slice(start, start + itemsPerPage.value);
 });
 
 const pageCount = computed(() => {
-  return Math.ceil(props.list.length / itemsPerPage.value);
+  return Math.ceil(filteredList.value.length / itemsPerPage.value);
 });
+
+// Reseteo de página al cambiar los resultados filtrados
+// watch([filteredList, props.search], () => {
+//   page.value = 1;
+// });
 
 const openVacant = (item) => {
   emit("open", item.id);

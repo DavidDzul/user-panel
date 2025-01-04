@@ -1,6 +1,14 @@
 export const API_URL = "http://127.0.0.1:8000/";
 export const FILE_URL = import.meta.env.VITE_FILES_URL
 
+
+export const sedeArray = [
+    { value: 'MERIDA', text: "Mérida" },
+    { value: 'VALLADOLID', text: "Valladolid" },
+    { value: 'TIZIMIN', text: "Tizimín" },
+    { value: 'OXKUTZCAB', text: "Oxkutzcab" },
+]
+
 export const typeKnowledge = [
     { value: "SOFTWARE", text: "Software" },
     { value: "LANGUAGE", text: "Lenguaje" },
@@ -185,4 +193,9 @@ export const monthBirth = [
     { value: 10, text: "Octubre" },
     { value: 11, text: "Noviembre" },
     { value: 12, text: "Diciembre" }
+]
+
+export const vacantType = [
+    { value: 'JOB_POSITION', text: "Laboral" },
+    { value: 'PROFESSIONAL_PRACTICE', text: "Prácticas profesionales" },
 ]

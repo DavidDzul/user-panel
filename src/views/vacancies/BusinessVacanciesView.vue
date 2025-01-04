@@ -2,9 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="primary">
+        <v-btn color="primary" class="mb-4">
           NUEVA VACANTE <v-icon>mdi-chevron-down</v-icon>
-
           <v-menu activator="parent">
             <v-list>
               <v-list-item @click="openVacantDialog">
