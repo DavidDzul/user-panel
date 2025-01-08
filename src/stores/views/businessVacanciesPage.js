@@ -2,6 +2,7 @@ import { defineStore, storeToRefs } from "pinia";
 import { useAppStore } from "@/stores/app";
 import { computed, onBeforeMount, ref } from "vue";
 import { useBusinessVacanciesStore } from "@/stores/api/businessVacanciesStore";
+import { useBusinessStore } from "@/stores/api/businessStore";
 import { useAuthStore } from "@/stores/api/authStore";
 
 export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage", () => {
@@ -9,6 +10,8 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const { resVacancies,
     } = storeToRefs(useBusinessVacanciesStore());
     const { userProfile } = storeToRefs(useAuthStore())
+    const { resBusinessData } = storeToRefs(useBusinessStore())
+    const { fetchBusiness } = useBusinessStore()
 
     const vacantDialog = ref(false)
     const practiceDialog = ref(false)
@@ -43,9 +46,11 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
 
     onBeforeMount(async () => {
         await fetchVacancies()
+        await fetchBusiness()
     })
 
     const vacancies = computed(() => [...resVacancies.value.values()])
+    const businessData = computed(() => resBusinessData.value)
 
     const onSaveVacant = async (form) => {
         if (!form) return
@@ -130,6 +135,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         editPractice,
         updatePracticeDialog,
         userProfile,
+        businessData,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,

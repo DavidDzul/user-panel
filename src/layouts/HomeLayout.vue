@@ -54,7 +54,7 @@ const currentBackgroundImage = computed(() => route.meta.backgroundImage);
 
 .background-gradient {
   height: 100px; /* Ajusta la altura */
-  background: linear-gradient(15deg, #ff7900, #275ffc);
+  background: linear-gradient(15deg, #ff5dd1, #cc85ff);
   display: flex;
   align-items: center;
   justify-content: center;

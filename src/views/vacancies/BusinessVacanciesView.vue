@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
+      <v-col v-if="businessData">
         <v-btn color="primary" class="mb-4">
           NUEVA VACANTE <v-icon>mdi-chevron-down</v-icon>
           <v-menu activator="parent">
@@ -21,6 +21,14 @@
             </v-list>
           </v-menu>
         </v-btn>
+      </v-col>
+      <v-col v-else>
+        <div class="pb-5">
+          <b style="color: red">
+            Para publicar vacantes, por favor solicita a los administradores de
+            la plataforma que completen la información necesaria de tu empresa.
+          </b>
+        </div>
       </v-col>
     </v-row>
 
@@ -79,6 +87,7 @@ const {
   editPractice,
   updatePracticeDialog,
   userProfile,
+  businessData,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {

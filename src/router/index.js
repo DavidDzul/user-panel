@@ -45,7 +45,7 @@ const routes = [
         name: "BusinessView",
         component: () => import("@/views/business/BusinessDataView.vue"),
         meta: {
-          title: 'Mi currículum vitae'
+          title: 'Información de mi empresa'
         },
       },
       {
@@ -53,7 +53,7 @@ const routes = [
         name: "BusinessVacanciesView",
         component: () => import("@/views/vacancies/BusinessVacanciesView.vue"),
         meta: {
-          title: 'Mi currículum vitae'
+          title: 'Vacantes publicadas'
         },
       },
       {
