@@ -32,19 +32,26 @@
       @status="onVacantStatus"
     />
   </v-container>
-  <CreateVacantDialog v-model="vacantDialog" @submit="onSaveVacant" />
+  <CreateVacantDialog
+    v-model="vacantDialog"
+    :user="userProfile"
+    @submit="onSaveVacant"
+  />
   <UpdateVacantDialog
     v-model="updateVacantDialog"
     :edit-item="editVacant"
+    :user="userProfile"
     @submit="onUpdateVacant"
   />
   <CreatePracticeVacantDialog
     v-model="practiceDialog"
+    :user="userProfile"
     @submit="onSavePractive"
   />
   <UpdatePracticeVacantDialog
     v-model="updatePracticeDialog"
     :edit-item="editPractice"
+    :user="userProfile"
     @submit="onUpdatePractice"
   />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
@@ -71,6 +78,7 @@ const {
   practiceDialog,
   editPractice,
   updatePracticeDialog,
+  userProfile,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {

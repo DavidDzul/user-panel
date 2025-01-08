@@ -1,12 +1,14 @@
 import { defineStore, storeToRefs } from "pinia";
-import { useBusinessVacanciesStore } from "@/stores/api/businessVacanciesStore";
 import { useAppStore } from "@/stores/app";
 import { computed, onBeforeMount, ref } from "vue";
+import { useBusinessVacanciesStore } from "@/stores/api/businessVacanciesStore";
+import { useAuthStore } from "@/stores/api/authStore";
 
 export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage", () => {
     const { setLoading } = useAppStore();
     const { resVacancies,
     } = storeToRefs(useBusinessVacanciesStore());
+    const { userProfile } = storeToRefs(useAuthStore())
 
     const vacantDialog = ref(false)
     const practiceDialog = ref(false)
@@ -127,6 +129,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         practiceDialog,
         editPractice,
         updatePracticeDialog,
+        userProfile,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,

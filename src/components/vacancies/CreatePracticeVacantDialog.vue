@@ -75,6 +75,7 @@
                       v-bind="support_amountProps"
                       label="Monto mensual asignado"
                       :disabled="financial_support ? false : true"
+                      @keypress="onlyNumbers"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -258,33 +259,39 @@
                 <v-row>
                   <v-col cols="12" md="12">
                     <b>Información de contacto:</b>
+                    <p>
+                      La información de contacto mostrada corresponde a los
+                      datos registrados en el perfil del usuario. Si los datos
+                      no son correctos, por favor actualiza la información
+                      directamente en el perfil del usuario.
+                    </p>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
                       v-model="contact_name"
-                      v-bind="contact_nameProps"
                       label="Nombre"
+                      readonly
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
                       v-model="contact_position"
-                      v-bind="contact_positionProps"
                       label="Puesto"
+                      readonly
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
                       v-model="contact_telphone"
-                      v-bind="contact_telphoneProps"
                       label="Teléfono"
+                      readonly
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
                       v-model="contact_email"
-                      v-bind="contact_emailProps"
                       label="Correo electrónico"
+                      readonly
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -320,6 +327,13 @@ const vuetifyConfig = (state: PublicPathState) => ({
     "error-messages": state.errors,
   },
 });
+
+const props = defineProps({
+  modelValue: { type: Boolean, default: () => false },
+  loading: { type: Boolean, default: () => false },
+  user: { type: Object, required: true },
+});
+
 const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
@@ -342,11 +356,6 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       skills: validations.skills(),
       general_knowledge: validations.general_knowledge(),
       knowledge_description: validations.knowledge_description(),
-
-      contact_name: validations.contact_name(),
-      contact_position: validations.contact_position(),
-      contact_telphone: validations.contact_telphone(),
-      contact_email: validations.contact_email(),
     })
   ),
 });
@@ -395,27 +404,11 @@ const [knowledge_description, knowledge_descriptionProps] = defineField(
   "knowledge_description",
   vuetifyConfig
 );
-const [contact_name, contact_nameProps] = defineField(
-  "contact_name",
-  vuetifyConfig
-);
-const [contact_position, contact_positionProps] = defineField(
-  "contact_position",
-  vuetifyConfig
-);
-const [contact_telphone, contact_telphoneProps] = defineField(
-  "contact_telphone",
-  vuetifyConfig
-);
-const [contact_email, contact_emailProps] = defineField(
-  "contact_email",
-  vuetifyConfig
-);
 
-const props = defineProps({
-  modelValue: { type: Boolean, default: () => false },
-  loading: { type: Boolean, default: () => false },
-});
+const contact_name = ref("");
+const contact_email = ref("");
+const contact_telphone = ref("");
+const contact_position = ref("");
 
 const validateStep1 = computed(() => {
   if (financial_support.value) {
@@ -455,6 +448,10 @@ watch(
       step.value = 1;
     } else {
       category.value = "PROFESSIONAL_PRACTICE";
+      contact_name.value = props.user.first_name;
+      contact_email.value = props.user.email;
+      contact_telphone.value = props.user.phone;
+      contact_position.value = props.user.workstation;
     }
   }
 );
@@ -480,6 +477,14 @@ const hours = computed(() => {
 const minutes = computed(() => {
   return Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
 });
+
+const onlyNumbers = (event) => {
+  const charCode = event.which ? event.which : event.keyCode;
+  // Permite solo números (0-9)
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
+};
 
 const save = () => {
   if (meta.value.valid) {
