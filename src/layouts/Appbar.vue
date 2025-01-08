@@ -51,7 +51,9 @@
           <v-btn :to="'/publicaciones'">
             <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-btn
           >
-          <v-btn>Candidatos</v-btn>
+          <v-btn :to="'/candidatos'">
+            <v-icon>mdi-account-multiple</v-icon> Candidatos</v-btn
+          >
         </template>
       </v-row>
     </template>
@@ -79,7 +81,9 @@
         <v-list-item :to="'/publicaciones'">
           <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-list-item
         >
-        <v-list-item>Candidatos</v-list-item>
+        <v-list-item :to="'/candidatos'">
+          <v-icon>mdi-account-multiple</v-icon> Candidatos</v-list-item
+        >
       </template>
     </v-list>
   </v-navigation-drawer>

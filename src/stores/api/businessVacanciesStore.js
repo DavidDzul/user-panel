@@ -28,22 +28,23 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
             });
             if (param) {
                 showAlert({
-                    title: "Información guardada exitosamente.",
+                    title: param.data.msg || "Información guardada exitosamente.",
                     status: "success",
                 });
 
-                resVacancies.value.set(param.data.createVacant.id, param.data.createVacant)
-                return param.data.res
+                resVacancies.value.set(param.data.createVacant.id, param.data.createVacant);
+                return param.data.res;
             }
         } catch (error) {
-            console.error(error);
+            const errorMessage = error.response?.data?.msg || "Error al guardar la información, intente nuevamente.";
             showAlert({
-                title: "Error al guardar la información, intente nuevamente.",
+                title: errorMessage,
                 status: "error",
             });
+
             throw error;
         }
-    }
+    };
 
     const updateVacant = async (form) => {
         try {

@@ -31,7 +31,7 @@
   <v-row style="background-color: white">
     <v-col class="px-10" cols="12">
       <span>
-        <a href="">Vacantes</a>
+        <a href="/vacantes">Vacantes</a>
         <v-icon size="x-small" class="ml-2">mdi-chevron-double-right</v-icon>
         {{ props.vacant.vacant_name }}</span
       >
@@ -183,7 +183,7 @@
     </v-row>
 
     <!-- Contacto -->
-    <v-row>
+    <v-row class="pb-10">
       <v-col cols="12" md="12">
         <v-card>
           <v-card-title style="background-color: rgba(0, 0, 0, 0.03)">
@@ -193,16 +193,19 @@
             <b> {{ props.vacant.business.bs_name }} </b>
             <p>
               {{ props.vacant.business.bs_description }}
+              <a :href="props.vacant.business.bs_website" target="_blank"
+                >Cónoce más sobre nosotros haciendo clic aquí.</a
+              >
             </p>
-            <v-btn
+            <!-- <v-btn
               prepend-icon="mdi-web"
               variant="outlined"
-              color="primary"
+              color="secondary"
               class="mt-4"
               @click="openWebSite(props.vacant.business.bs_website)"
             >
               Visitar sitio web
-            </v-btn>
+            </v-btn> -->
           </v-card-text>
         </v-card>
       </v-col>
@@ -213,6 +216,18 @@
       <v-btn color="primary" large @click="applyToVacancy"> Postularme </v-btn>
     </v-row> -->
   </v-container>
+
+  <v-btn
+    fixed
+    bottom
+    color="primary"
+    large
+    class="postularme-button"
+    prepend-icon="mdi-briefcase-check"
+    @click="applyToVacancy"
+  >
+    Postularme
+  </v-btn>
 </template>
 
 <script setup>
@@ -260,5 +275,13 @@ h2 {
 }
 li {
   padding-bottom: 5px;
+}
+
+.postularme-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
 }
 </style>

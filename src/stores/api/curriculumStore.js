@@ -223,18 +223,6 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         }
     }
 
-    const dowloandCurriculum = async () => {
-        await axios
-            .get(`api/fetchPDF/${2}`, { responseType: 'blob', headers: { 'accept': 'application/json' } }) // Importante: usa responseType 'blob'
-            .then((response) => {
-                const fileURL = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-                window.open(fileURL);
-            })
-            .catch((error) => {
-                console.error('Error generando el PDF:', error);
-            });
-    }
-
     const createContinuingEducation = async (form) => {
         try {
             const param = await axios.post("api/createEducation", form, {
@@ -398,6 +386,18 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
             });
             throw error;
         }
+    }
+
+    const dowloandCurriculum = async () => {
+        await axios
+            .get(`api/fetchPDF/${2}`, { responseType: 'blob', headers: { 'accept': 'application/json' } }) // Importante: usa responseType 'blob'
+            .then((response) => {
+                const fileURL = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                window.open(fileURL);
+            })
+            .catch((error) => {
+                console.error('Error generando el PDF:', error);
+            });
     }
 
     return {

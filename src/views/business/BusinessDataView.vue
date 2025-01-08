@@ -1,16 +1,5 @@
 <template>
   <v-container>
-    <v-row class="pb-5">
-      <v-col cols="12">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
-          provident ipsum quae voluptatem molestiae, fugit itaque adipisci, rem,
-          esse neque perferendis aspernatur repellendus dolore. Repudiandae
-          aliquam nobis tempora qui?
-        </p>
-      </v-col>
-    </v-row>
-
     <v-expansion-panels v-model="panel" multiple>
       <v-expansion-panel>
         <v-expansion-panel-title color="#f8f8f8">
@@ -24,6 +13,14 @@
           </template>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
+          <v-row class="pb-5">
+            <v-col cols="12">
+              <p>
+                Agregue el logotipo de la institución (Tamaño máximo de archivo
+                300k, en formato jpg o png).
+              </p>
+            </v-col>
+          </v-row>
           <UserPhoto :photos="businessPhoto" />
         </v-expansion-panel-text>
       </v-expansion-panel>

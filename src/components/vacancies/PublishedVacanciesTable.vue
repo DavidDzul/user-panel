@@ -7,6 +7,21 @@
     :search="search"
     item-value="id"
   >
+    <template #top>
+      <v-toolbar :flat="true">
+        <p style="font-size: 18px; margin: 15px">Vacantes publicadas</p>
+        <v-text-field
+          class="mx-10"
+          v-model="search"
+          hide-details
+          prepend-icon="mdi-magnify"
+          density="compact"
+          single-line
+          label="Buscar"
+          :clearable="true"
+        ></v-text-field>
+      </v-toolbar>
+    </template>
     <template #[`item.category`]="{ item }">
       {{ logCategory(item.category) }}
     </template>

@@ -69,6 +69,14 @@ const routes = [
         name: "VacantDetailsView",
         component: () => import("@/views/vacancies/VacantDetailsView.vue"),
       },
+      {
+        path: "/candidatos",
+        name: "CandidatesView",
+        component: () => import("@/views/candidates/CandidatesView.vue"),
+        meta: {
+          title: 'Candidatos visibles'
+        },
+      },
     ],
   },
   {
