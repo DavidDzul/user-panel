@@ -24,7 +24,7 @@ html {
   justify-content: center;
   align-items: center;
   color: white;
-  background: rgba(0, 0, 0, 0.4);
+  // background: rgba(0, 0, 0, 0.4);
 }
 
 .bg-img-title {
@@ -33,7 +33,12 @@ html {
 }
 
 .extension-bar .v-btn--variant-text .v-btn__overlay {
-  background: rgba(0, 183, 255, 0.5); /* Cambia el color y la opacidad según lo que necesites */
+  background: rgba(
+    255,
+    251,
+    0,
+    0.877
+  ); /* Cambia el color y la opacidad según lo que necesites */
 }
 
 .extension-bar .v-btn.v-btn--density-default {

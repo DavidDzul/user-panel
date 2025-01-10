@@ -41,7 +41,6 @@ export const useAuthStore = defineStore("authStore", () => {
             localStorage.removeItem('token')
             await router.push({ path: "/login" });
         }).catch((error) => {
-            console.log(error)
             showAlert({
                 title: "Error al cerrar sesión.",
                 status: "error",

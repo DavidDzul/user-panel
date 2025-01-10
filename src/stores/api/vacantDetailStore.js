@@ -14,7 +14,6 @@ export const useVacantDetailStore = defineStore("vacantDetailStore", () => {
             const res = await axios.get(`api/getVacant/${id}`, {
                 headers: { 'accept': 'application/json' }
             });
-            console.log(res)
             resVacantDetail.value = res.data.vacant;
             return res.data
         } catch (error) {
@@ -22,9 +21,34 @@ export const useVacantDetailStore = defineStore("vacantDetailStore", () => {
         }
     };
 
+    const createApplication = async (form) => {
+        try {
+            const param = await axios.post("api/createApplication", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: param.data.msg || "Información guardada exitosamente.",
+                    status: "success",
+                });
+
+                return true;
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.msg || "Error al guardar la información, intente nuevamente.";
+            showAlert({
+                title: errorMessage,
+                status: "error",
+            });
+
+            throw error;
+        }
+    };
+
 
     return {
         resVacantDetail,
-        getVacantDetail
+        getVacantDetail,
+        createApplication,
     };
 });

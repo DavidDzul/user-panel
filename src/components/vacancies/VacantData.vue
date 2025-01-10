@@ -3,7 +3,7 @@
     class="pb-5"
     justify="center"
     style="
-      background-color: rgba(255, 248, 194, 0.3);
+      background-color: rgba(255, 121, 0, 0.7);
       border-bottom: solid 1px rgb(255, 248, 194, 0.8);
     "
   >
@@ -224,7 +224,7 @@
     large
     class="postularme-button"
     prepend-icon="mdi-briefcase-check"
-    @click="applyToVacancy"
+    @click="applyToVacancy(props.vacant.id, props.vacant.user_id)"
   >
     Postularme
   </v-btn>
@@ -244,8 +244,10 @@ const props = defineProps({
 dayjs.extend(relativeTime);
 dayjs.locale("es");
 
-const applyToVacancy = () => {
-  alert("¡Gracias por postularte! Nos pondremos en contacto contigo pronto.");
+const emit = defineEmits(["submit"]);
+
+const applyToVacancy = (vacantId, businessId) => {
+  emit("submit", vacantId, businessId);
 };
 
 const photoUrl = (value) => {
@@ -266,7 +268,7 @@ const openWebSite = (url) => {
 
 <style scoped>
 h2 {
-  color: #ff7900;
+  color: #000000;
   font-weight: bold;
 }
 

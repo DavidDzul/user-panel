@@ -33,7 +33,7 @@
     <template v-if="!mobile" v-slot:extension>
       <v-row class="fill-height extension-bar" justify="center">
         <v-btn active-class="active-btn" :to="'/inicio'">
-          <v-icon>mdi-home</v-icon> INICIO
+          <v-icon>mdi-home</v-icon> Inicio
         </v-btn>
         <template
           v-if="userType === 'BEC_ACTIVE' || userType === 'BEC_INACTIVE'"
@@ -44,7 +44,9 @@
           <v-btn :to="'/vacantes'">
             <v-icon>mdi-briefcase</v-icon> Vacantes
           </v-btn>
-          <v-btn> <v-icon>mdi-bell</v-icon> Notificaciones </v-btn>
+          <v-btn :to="'/postulaciones-realizadas'">
+            <v-icon>mdi-briefcase-check</v-icon> Postulaciones
+          </v-btn>
         </template>
         <template v-if="userType === 'BUSINESS'">
           <v-btn :to="'/empresa'"> <v-icon>mdi-city</v-icon> Mi empresa</v-btn>
@@ -53,6 +55,9 @@
           >
           <v-btn :to="'/candidatos'">
             <v-icon>mdi-account-multiple</v-icon> Candidatos</v-btn
+          >
+          <v-btn :to="'/postulaciones-recibidas'">
+            <v-icon>mdi-briefcase-check</v-icon> Postulaciones</v-btn
           >
         </template>
       </v-row>
@@ -63,7 +68,7 @@
   <v-navigation-drawer v-if="mobile" v-model="drawer" app temporary>
     <v-list>
       <v-list-item :to="'/inicio'">
-        <v-icon>mdi-home</v-icon> INICIO
+        <v-icon>mdi-home</v-icon> Inicio
       </v-list-item>
       <template v-if="userType === 'BEC_ACTIVE' || userType === 'BEC_INACTIVE'">
         <v-list-item :to="'/curriculum'">
@@ -72,7 +77,9 @@
         <v-list-item :to="'/vacantes'">
           <v-icon>mdi-briefcase</v-icon> Vacantes
         </v-list-item>
-        <v-list-item> <v-icon>mdi-bell</v-icon> Notificaciones </v-list-item>
+        <v-list-item :to="'/postulaciones-realizadas'">
+          <v-icon>mdi-briefcase-check</v-icon> postulaciones
+        </v-list-item>
       </template>
       <template v-if="userType === 'BUSINESS'">
         <v-list-item :to="'/empresa'">
@@ -83,6 +90,9 @@
         >
         <v-list-item :to="'/candidatos'">
           <v-icon>mdi-account-multiple</v-icon> Candidatos</v-list-item
+        >
+        <v-list-item :to="'/postulaciones-recibidas'">
+          <v-icon>mdi-briefcase-check</v-icon> Postulaciones</v-list-item
         >
       </template>
     </v-list>

@@ -43,7 +43,6 @@ const fab = ref<{ items: boolean[] }>({ items: [] });
 
 const photoUrl = (value) => {
   const url = API_URL + "storage/" + value.url;
-  console.log(url);
   return url;
 };
 

@@ -1,7 +1,9 @@
 import { defineStore, storeToRefs } from "pinia";
 import { useCurriculumStore } from "@/stores/api/curriculumStore";
+import { useAuthStore } from "@/stores/api/authStore";
 import { useAppStore } from "@/stores/app";
 import { computed, onBeforeMount, ref } from "vue";
+import { stringifyQuery } from "vue-router";
 
 export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const { setLoading } = useAppStore();
@@ -12,6 +14,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         resAcademicInformation,
         resContinuingEducation
     } = storeToRefs(useCurriculumStore());
+
+    const { userProfile } = storeToRefs(useAuthStore())
 
     const { createImage,
         fetchCurriculum,
@@ -110,7 +114,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     }
 
     const openCurriculumPDF = async () => {
-        await dowloandCurriculum()
+        if (!userProfile.value) return
+        await dowloandCurriculum(userProfile.value.id)
     }
 
     const changePhoto = (event) => {

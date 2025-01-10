@@ -25,8 +25,7 @@
             <v-card-title>
               <h3 style="color: #ff7900">{{ item.vacant_name }}</h3>
             </v-card-title>
-            {{ item }}
-            <!-- <v-card-text>
+            <v-card-text>
               <v-row>
                 <v-col cols="12">
                   <h4>{{ item.business.bs_name }}</h4>
@@ -39,7 +38,7 @@
                   {{ item.activities.substr(0, 150) }}...
                 </v-col>
               </v-row>
-            </v-card-text> -->
+            </v-card-text>
             <v-card-actions>
               <small class="mx-3" style="color: #275ffc">
                 Publicado: {{ formattedHistory(item.created_at) }}

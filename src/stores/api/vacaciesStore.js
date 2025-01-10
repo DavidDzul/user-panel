@@ -27,7 +27,6 @@ export const useVacanciesStore = defineStore("vacanciesStore", () => {
             const res = await axios.get(`api/getVacant/${id}`, {
                 headers: { 'accept': 'application/json' }
             });
-            console.log(res)
             resVacantDetail.value = res.data.vacant;
             return res.data
         } catch (error) {

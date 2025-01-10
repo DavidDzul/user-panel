@@ -54,7 +54,7 @@ const currentBackgroundImage = computed(() => route.meta.backgroundImage);
 
 .background-gradient {
   height: 100px; /* Ajusta la altura */
-  background: linear-gradient(15deg, #ff5dd1, #cc85ff);
+  background: rgba(35, 180, 254, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@ const currentBackgroundImage = computed(() => route.meta.backgroundImage);
 
 .bg-img-title {
   font-size: 24px; /* Ajusta el tamaño del texto */
-  color: white; /* Color del título */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
+  color: rgb(0, 0, 0); /* Color del título */
+  // text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
 }
 </style>

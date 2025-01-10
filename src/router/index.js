@@ -75,6 +75,22 @@ const routes = [
         component: () => import("@/views/candidates/CandidatesView.vue"),
         meta: {
           title: 'Candidatos visibles'
+        }
+      },
+      {
+        path: "/postulaciones-recibidas",
+        name: "JobApplicationsView",
+        component: () => import("@/views/applications/JobApplicationsView.vue"),
+        meta: {
+          title: 'Postulaciones recibidas'
+        },
+      },
+      {
+        path: "/postulaciones-realizadas",
+        name: "UserApplicationsView",
+        component: () => import("@/views/applications/UserApplicationsView.vue"),
+        meta: {
+          title: 'Postulaciones realizadas'
         },
       },
     ],

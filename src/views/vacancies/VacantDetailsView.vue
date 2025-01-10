@@ -1,5 +1,9 @@
 <template>
-  <VacantData v-if="loadVacant" :vacant="vacantDetail" />
+  <VacantData
+    v-if="loadVacant"
+    :vacant="vacantDetail"
+    @submit="confirmApplication"
+  />
 </template>
 
 <script setup>
@@ -8,7 +12,7 @@ import { useVacantDetailsPageStore } from "@/stores/views/vacantDetailsPage";
 import VacantData from "@/components/vacancies/VacantData.vue";
 
 const { vacantDetail, loadVacant } = storeToRefs(useVacantDetailsPageStore());
-const {} = useVacantDetailsPageStore();
+const { confirmApplication } = useVacantDetailsPageStore();
 </script>
 
 <style scoped></style>
