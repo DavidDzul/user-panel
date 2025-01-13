@@ -32,6 +32,18 @@
       <v-icon v-if="item.status" color="success">mdi-check</v-icon>
       <v-icon v-else color="error">mdi-close</v-icon>
     </template>
+    <template #[`item.candidate_type`]="{ item }">
+      {{
+        item.candidate_type === "INTERNAL"
+          ? "CANDIDATO INTERNO IU"
+          : item.candidate_type === "EXTERNAL"
+          ? "CANDIDATO EXTERNO"
+          : item.candidate_type === "NOT_COVERED"
+          ? "NO CUBIERTA"
+          : ""
+      }}
+    </template>
+
     <template #[`item.actions`]="{ item }">
       <div style="width: 100%; text-align: right">
         <v-tooltip text="Editar" location="bottom">
@@ -131,6 +143,10 @@ const headers = computed(() => [
   {
     title: "Activo",
     key: "status",
+  },
+  {
+    title: "Estatus",
+    key: "candidate_type",
   },
   {
     title: "",

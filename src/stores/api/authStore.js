@@ -12,6 +12,11 @@ export const useAuthStore = defineStore("authStore", () => {
     const loggedUser = ref(false);
     const userProfile = ref(null);
     const permissions = ref([])
+    const openUserProfileDialog = ref(false)
+
+    const openUserDialog = () => {
+        openUserProfileDialog.value = true;
+    };
 
     const login = async (email, password) => {
         const credentials = { email, password };
@@ -63,6 +68,30 @@ export const useAuthStore = defineStore("authStore", () => {
             });
     };
 
+    const updateUserProfile = async (form) => {
+        try {
+            const param = await axios.post("api/updateUser", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información guardada exitosamente.",
+                    status: "success",
+                });
+                userProfile.value = param.data.user
+                openUserProfileDialog.value = false
+                return param.data.res
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al guardar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     const getUserPermissions = async (authToken) => {
         try {
             const response = await axios.get("/api/user/permissions", {
@@ -87,6 +116,8 @@ export const useAuthStore = defineStore("authStore", () => {
         login,
         logout,
         getProfile,
+        openUserDialog,
+        updateUserProfile,
         getUserPermissions,
         token,
         userType,
@@ -95,5 +126,6 @@ export const useAuthStore = defineStore("authStore", () => {
         permissions,
         userProfile,
         userInitials,
+        openUserProfileDialog,
     };
 });

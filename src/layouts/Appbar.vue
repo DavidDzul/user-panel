@@ -25,6 +25,7 @@
         :user="userProfile"
         :initials="userInitials"
         :full-name="fullName"
+        @configuration="openUserDialog"
         @logout="logout"
       />
     </template>
@@ -97,6 +98,12 @@
       </template>
     </v-list>
   </v-navigation-drawer>
+
+  <UserProfileDialog
+    v-model="openUserProfileDialog"
+    :edit-item="userProfile"
+    @submit="updateUserProfile"
+  />
 </template>
 
 <script setup>
@@ -105,15 +112,15 @@ import { useDisplay } from "vuetify";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/api/authStore";
 
+import UserProfileDialog from "@/components/auth/UserProfileDialog";
 import ProfileMenu from "@/layouts/ProfileMenu.vue";
 
 const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);
 
-const { logout } = useAuthStore();
-const { userProfile, userInitials, fullName, userType } = storeToRefs(
-  useAuthStore()
-);
+const { logout, updateUserProfile, openUserDialog } = useAuthStore();
+const { userProfile, userInitials, fullName, userType, openUserProfileDialog } =
+  storeToRefs(useAuthStore());
 
 const onClick = () => {
   drawer.value = !drawer.value;

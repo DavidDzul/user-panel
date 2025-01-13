@@ -19,6 +19,8 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const updatePracticeDialog = ref(false)
     const editVacant = ref(undefined)
     const editPractice = ref(undefined)
+    const vacantId = ref(undefined)
+    const disabledvacantDialog = ref(false)
 
     const { fetchVacancies, createVacant, updateVacant, removeVacant, statusVacant, createPractice, updatePractice } = useBusinessVacanciesStore();
 
@@ -42,6 +44,12 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         if (!practice) return
         editPractice.value = { ...practice }
         updatePracticeDialog.value = true
+    }
+
+    const openDisabledVacantDialog = (id) => {
+        if (!id) return
+        vacantId.value = id
+        disabledvacantDialog.value = true
     }
 
     onBeforeMount(async () => {
@@ -89,10 +97,20 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         }
     }
 
+    const onDisabledSVacant = async (candidate) => {
+        if (!vacantId.value) return
+        try {
+            await statusVacant(vacantId.value, candidate)
+            disabledvacantDialog.value = false
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     const onStatusVacant = async (id) => {
         if (!id) return
         try {
-            await statusVacant(id)
+            await statusVacant(id, null)
         } catch (e) {
             console.error(e)
         }
@@ -136,6 +154,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         updatePracticeDialog,
         userProfile,
         businessData,
+        disabledvacantDialog,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,
@@ -145,6 +164,8 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         openVacantDialog,
         openEditPractice,
         onUpdatePractice,
+        onDisabledSVacant,
         openPracticeDialog,
+        openDisabledVacantDialog,
     };
 });

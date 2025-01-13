@@ -19,11 +19,11 @@
           </div>
         </v-list-item>
         <v-divider class="my-3"></v-divider>
-        <!-- <v-list-item
+        <v-list-item
           prepend-icon="mdi-cog"
           title="Configurar"
-          :to="`/perfil`"
-        ></v-list-item> -->
+          @click="$emit('configuration')"
+        ></v-list-item>
         <v-list-item
           prepend-icon="mdi-exit-to-app"
           title="Cerrar sesión"

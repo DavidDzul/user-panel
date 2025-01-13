@@ -93,18 +93,18 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     }
 
-    const statusVacant = async (id) => {
+    const statusVacant = async (id, candidateType) => {
         try {
-            const param = await axios.post(`api/updateStatusVacant/${id}`, {
-                headers: { 'accept': 'application/json' }
+            const response = await axios.post(`api/updateStatusVacant/${id}`, { candidate_type: candidateType }, {
+                headers: { 'accept': 'application/json' },
             });
-            if (param) {
+            if (response.data.res) {
                 showAlert({
                     title: "Estatus actualizado exitosamente.",
                     status: "success",
                 });
-                resVacancies.value.set(param.data.vacant.id, param.data.vacant)
-                return param.data.res
+                resVacancies.value.set(response.data.vacant.id, response.data.vacant);
+                return response.data.res;
             }
         } catch (error) {
             console.error(error);
@@ -114,7 +114,7 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
             });
             throw error;
         }
-    }
+    };
 
     const createPractice = async (form) => {
         try {

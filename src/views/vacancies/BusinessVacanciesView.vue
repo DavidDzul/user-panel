@@ -63,6 +63,10 @@
     @submit="onUpdatePractice"
   />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
+  <DisabledVacantDialog
+    v-model="disabledvacantDialog"
+    @submit="onDisabledSVacant"
+  />
 </template>
 <script setup>
 import { onBeforeMount, ref } from "vue";
@@ -75,6 +79,7 @@ import CreateVacantDialog from "@/components/vacancies/CreateVacantDialog.vue";
 import UpdateVacantDialog from "@/components/vacancies/UpdateVacantDialog.vue";
 import CreatePracticeVacantDialog from "@/components/vacancies/CreatePracticeVacantDialog.vue";
 import UpdatePracticeVacantDialog from "@/components/vacancies/UpdatePracticeVacantDialog.vue";
+import DisabledVacantDialog from "@/components/vacancies/DisabledVacantDialog.vue";
 
 const confirmationDialog = ref();
 
@@ -88,6 +93,7 @@ const {
   updatePracticeDialog,
   userProfile,
   businessData,
+  disabledvacantDialog,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {
@@ -101,6 +107,8 @@ const {
   openPracticeDialog,
   openEditPractice,
   onUpdatePractice,
+  onDisabledSVacant,
+  openDisabledVacantDialog,
 } = useBusinessVacanciesPageStore();
 
 const onVacantDelete = async (id) => {
@@ -115,13 +123,15 @@ const onVacantDelete = async (id) => {
 
 const onVacantStatus = async (item) => {
   if (!item) return;
-  const response = await confirmationDialog.value?.open({
-    title: item.status ? "Desactivar vacante" : "Activar vacante",
-    body: item.status
-      ? "Al aceptar, la vacante se deshabilitará y ya no estará visible para los usuarios. ¿Desea continuar?"
-      : "Al aceptar, la vacante se habilitará y estará visible para los usuarios. ¿Desea continuar?",
-  });
-  if (!response) return;
-  await onStatusVacant(item.id);
+  if (item.status) {
+    openDisabledVacantDialog(item.id);
+  } else {
+    const response = await confirmationDialog.value?.open({
+      title: "Activar vacante",
+      body: "Al aceptar, la vacante se habilitará y estará visible para los usuarios. ¿Desea continuar?",
+    });
+    if (!response) return;
+    await onStatusVacant(item.id);
+  }
 };
 </script>
