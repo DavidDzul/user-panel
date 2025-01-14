@@ -106,6 +106,123 @@
       </div>
 
       <div class="contact-section text-center">
+        <v-container class="contact-section pt-10" max-width="lg" fluid>
+          <v-row justify="center" align="center">
+            <v-col cols="12">
+              <h2 class="text-center" style="color: #ff7900">
+                NUESTROS TESTIMONIOS
+              </h2>
+            </v-col>
+          </v-row>
+          <v-carousel
+            cycle
+            :show-arrows="false"
+            height="350"
+            hide-delimiter-background
+            hide-delimiters
+            class="pa-10"
+          >
+            <v-carousel-item class="pa-5">
+              <v-sheet height="100%">
+                <v-row>
+                  <v-col cols="12" md="12" lg="6">
+                    <v-card>
+                      <v-card-text style="text-align: center">
+                        <v-avatar
+                          color="grey-darken-3"
+                          image="@/assets/img/logo-amarillo.jpg"
+                        ></v-avatar>
+                        <p style="font-size: 16px; font-weight: 500">
+                          David Fernando Dzul Tzab
+                        </p>
+                        <p>Ingeniero En Sistemas Computacionales</p>
+
+                        <p class="pt-5">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Itaque excepturi harum laboriosam illo. Itaque,
+                          cumque ut. Id quas ab reprehenderit minus assumenda?
+                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                        </p>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="6">
+                    <v-card>
+                      <v-card-text style="text-align: center">
+                        <v-avatar
+                          color="grey-darken-3"
+                          image="@/assets/img/logo-amarillo.jpg"
+                        ></v-avatar>
+                        <p style="font-size: 16px; font-weight: 500">
+                          David Fernando Dzul Tzab
+                        </p>
+                        <p>Ingeniero En Sistemas Computacionales</p>
+
+                        <p class="pt-5">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Itaque excepturi harum laboriosam illo. Itaque,
+                          cumque ut. Id quas ab reprehenderit minus assumenda?
+                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                        </p>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+            <v-carousel-item class="pa-5">
+              <v-sheet height="100%">
+                <v-row>
+                  <v-col cols="12" md="12" lg="6">
+                    <v-card>
+                      <v-card-text style="text-align: center">
+                        <v-avatar
+                          color="grey-darken-3"
+                          image="@/assets/img/logo-amarillo.jpg"
+                        ></v-avatar>
+                        <p style="font-size: 16px; font-weight: 500">
+                          David Fernando Dzul Tzab
+                        </p>
+                        <p>Ingeniero En Sistemas Computacionales</p>
+
+                        <p class="pt-5">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Itaque excepturi harum laboriosam illo. Itaque,
+                          cumque ut. Id quas ab reprehenderit minus assumenda?
+                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                        </p>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="6">
+                    <v-card>
+                      <v-card-text style="text-align: center">
+                        <v-avatar
+                          color="grey-darken-3"
+                          image="@/assets/img/logo-amarillo.jpg"
+                        ></v-avatar>
+                        <p style="font-size: 16px; font-weight: 500">
+                          David Fernando Dzul Tzab
+                        </p>
+                        <p>Ingeniero En Sistemas Computacionales</p>
+
+                        <p class="pt-5">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Itaque excepturi harum laboriosam illo. Itaque,
+                          cumque ut. Id quas ab reprehenderit minus assumenda?
+                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                        </p>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+        </v-container>
+      </div>
+
+      <div class="contact-section text-center">
         <v-container class="contact-section" max-width="lg" fluid>
           <v-row justify="center" align="center">
             <v-col cols="12">
@@ -206,6 +323,9 @@ const { show, config } = storeToRefs(useAlertStore());
 const emit = defineEmits(["user", "business"]);
 
 // Images for the carousel
+
+const slides = ["First", "Second", "Third", "Fourth", "Fifth"];
+
 const images = [
   {
     src: "https://iu.org.mx/wp-content/uploads/2024/11/IMG_9126.jpg",

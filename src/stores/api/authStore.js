@@ -38,6 +38,26 @@ export const useAuthStore = defineStore("authStore", () => {
         }
     };
 
+    const enrollmentLogin = async (enrollment, password) => {
+        const credentials = { enrollment, password };
+        try {
+            await axios.get("sanctum/csrf-cookie");
+            const res = await axios.post("api/enrollmentLogin", credentials, {
+                headers: { 'accept': 'application/json' }
+            }, { withCredentials: true });
+            token.value = res.data.token;
+            localStorage.setItem("token", token.value);
+            await getUserPermissions(res.data.token)
+            await router.push({ path: "/" });
+        } catch (error) {
+            console.error("Error en login:", error);
+            showAlert({
+                title: "Error al iniciar sesión, verifica tu usuario y/o contraseña.",
+                status: "error",
+            })
+        }
+    };
+
     const logout = async () => {
         await axios.post("api/logout").then(async () => {
             loggedUser.value = false;
@@ -117,6 +137,7 @@ export const useAuthStore = defineStore("authStore", () => {
         logout,
         getProfile,
         openUserDialog,
+        enrollmentLogin,
         updateUserProfile,
         getUserPermissions,
         token,

@@ -19,12 +19,10 @@
           <v-item-group mandatory class="mt-1">
             <v-container>
               <v-text-field
-                v-model="enrollment"
-                label="Matrícula"
+                v-model="email"
+                label="Correo electrónico"
                 prepend-inner-icon="mdi-account"
-                maxlength="9"
-                :rules="[rules.maxLength]"
-                required
+                @update:model-value="email = email?.replace(/\s/g, '')"
               ></v-text-field>
               <v-text-field
                 v-model="password"
@@ -47,7 +45,6 @@
                 color="primary"
                 :loading="loading"
                 @click="save"
-                :disabled="enrollment.length === 9 ? false : true"
                 >INICIAR SESIÓN</v-btn
               >
             </v-container>
@@ -70,20 +67,16 @@ defineProps({
 });
 
 const show = ref(false);
-const enrollment = ref("");
+const email = ref("");
 const password = ref("");
 
 const emit = defineEmits(["submit", "update:modelValue"]);
-
-const rules = {
-  maxLength: (value) => value.length >= 9 || "Mínimo 9 caracteres permitidos",
-};
 
 const close = () => {
   emit("update:modelValue", false);
 };
 
 const save = () => {
-  emit("submit", enrollment.value, password.value);
+  emit("submit", email.value, password.value);
 };
 </script>
