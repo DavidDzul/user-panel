@@ -13,7 +13,7 @@
   </template>
   <template v-else>
     <div>
-      <v-sheet class="pa-10" color="primary" height="100%">
+      <v-sheet class="pa-10" color="warning" height="100%">
         <v-row class="fill-height" align="center" justify="center">
           <div class="text-h2">Sin foto</div>
         </v-row>

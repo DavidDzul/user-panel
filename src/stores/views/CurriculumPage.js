@@ -2,11 +2,12 @@ import { defineStore, storeToRefs } from "pinia";
 import { useCurriculumStore } from "@/stores/api/curriculumStore";
 import { useAuthStore } from "@/stores/api/authStore";
 import { useAppStore } from "@/stores/app";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref, reactive } from "vue";
 import { stringifyQuery } from "vue-router";
 
 export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const { setLoading } = useAppStore();
+
     const { resPhoto,
         resCurriculumInfo,
         resWorkExperience,
@@ -53,6 +54,9 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const editKnowledge = ref(undefined)
     const file = ref()
     const previewUrl = ref("")
+
+    //loading
+    const loadingPhoto = ref(false)
 
     onBeforeMount(async () => {
         await fetchCurriculum()
@@ -133,6 +137,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
 
     const savePhoto = async () => {
         if (file.value) {
+            loadingPhoto.value = true
             try {
                 const res = await createImage(file.value);
                 if (res) {
@@ -141,6 +146,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
             } catch (error) {
                 console.error(error);
             }
+            loadingPhoto.value = false;
         }
     };
 
@@ -323,6 +329,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         technicalKnowledgeDialog,
         editKnowledge,
         editKnowledgeDialog,
+        loadingPhoto,
         savePhoto,
         openEditAcademic,
         changePhoto,

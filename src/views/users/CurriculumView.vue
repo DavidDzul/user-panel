@@ -152,6 +152,7 @@
   <CreatePhotoDialog
     v-model="photoDialog"
     :preview-url="previewUrl"
+    :loading="loadingPhoto"
     @submit="savePhoto"
   />
   <PersonalDataDialog
@@ -245,6 +246,7 @@ const {
   userTechnicalKnowledge,
   editKnowledge,
   editKnowledgeDialog,
+  loadingPhoto,
 } = storeToRefs(useCurriculumPageStore());
 const {
   savePhoto,

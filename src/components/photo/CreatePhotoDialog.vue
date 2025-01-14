@@ -18,7 +18,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" variant="text" @click="close">Cancelar</v-btn>
+          <v-btn color="error" variant="text" :disabled="loading" @click="close"
+            >Cancelar</v-btn
+          >
           <v-btn
             color="primary"
             :loading="loading"
