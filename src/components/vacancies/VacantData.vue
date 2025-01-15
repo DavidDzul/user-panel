@@ -3,7 +3,7 @@
     class="pb-5"
     justify="center"
     style="
-      background-color: rgba(255, 121, 0, 0.7);
+      background-color: white;
       border-bottom: solid 1px rgb(255, 248, 194, 0.8);
     "
   >
@@ -11,11 +11,11 @@
       <v-img
         class="img-business mx-auto"
         :src="photoUrl(props.vacant.image)"
-        max-height="200"
-        max-width="200"
+        max-height="160"
+        max-width="160"
         contain
       ></v-img>
-      <h2>{{ props.vacant.vacant_name }}</h2>
+      <h2 style="color: #ff7900">{{ props.vacant.vacant_name }}</h2>
       <p class="text-subtitle-1" style="font-weight: 600">
         {{ props.vacant.business.bs_name }}
       </p>
@@ -225,6 +225,7 @@
     class="postularme-button"
     prepend-icon="mdi-briefcase-check"
     @click="applyToVacancy(props.vacant.id, props.vacant.user_id)"
+    :loading="loading"
   >
     Postularme
   </v-btn>

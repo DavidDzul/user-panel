@@ -2,6 +2,7 @@
   <VacantData
     v-if="loadVacant"
     :vacant="vacantDetail"
+    :loading="loadingApplication"
     @submit="confirmApplication"
   />
 </template>
@@ -11,7 +12,9 @@ import { storeToRefs } from "pinia";
 import { useVacantDetailsPageStore } from "@/stores/views/vacantDetailsPage";
 import VacantData from "@/components/vacancies/VacantData.vue";
 
-const { vacantDetail, loadVacant } = storeToRefs(useVacantDetailsPageStore());
+const { vacantDetail, loadVacant, loadingApplication } = storeToRefs(
+  useVacantDetailsPageStore()
+);
 const { confirmApplication } = useVacantDetailsPageStore();
 </script>
 

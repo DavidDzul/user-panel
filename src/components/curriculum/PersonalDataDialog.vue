@@ -35,7 +35,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <v-select
                 v-model.number="form.day_birth"
                 :items="daysBirth"
@@ -45,7 +45,7 @@
                 label="Día de nacimiento"
               ></v-select>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <v-select
                 v-model.number="form.month_birth"
                 :items="monthBirth"
@@ -55,7 +55,7 @@
                 label="Mes de nacimiento"
               ></v-select>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <v-text-field
                 v-model.number="form.year_birth"
                 label="Año de nacimiento"
@@ -172,8 +172,13 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" @click="close">Cancelar</v-btn>
-        <v-btn color="primary" :disabled="!formValid" @click="save">
+        <v-btn color="error" @click="close" :disabled="loading">Cancelar</v-btn>
+        <v-btn
+          color="primary"
+          :disabled="!formValid"
+          @click="save"
+          :loading="loading"
+        >
           Guardar
         </v-btn>
       </v-card-actions>
@@ -189,6 +194,7 @@ import { daysBirth, monthBirth } from "@/constants";
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
   initialData: { type: Object, required: false, default: null },
+  loading: { type: Boolean, default: () => false },
 });
 
 const formValid = ref(false);

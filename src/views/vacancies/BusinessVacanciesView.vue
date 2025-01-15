@@ -43,23 +43,27 @@
   <CreateVacantDialog
     v-model="vacantDialog"
     :user="userProfile"
+    :loading="loadingVacant"
     @submit="onSaveVacant"
   />
   <UpdateVacantDialog
     v-model="updateVacantDialog"
     :edit-item="editVacant"
     :user="userProfile"
+    :loading="loadingVacant"
     @submit="onUpdateVacant"
   />
   <CreatePracticeVacantDialog
     v-model="practiceDialog"
     :user="userProfile"
+    :loading="loadingPractice"
     @submit="onSavePractive"
   />
   <UpdatePracticeVacantDialog
     v-model="updatePracticeDialog"
     :edit-item="editPractice"
     :user="userProfile"
+    :loading="loadingPractice"
     @submit="onUpdatePractice"
   />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
@@ -94,6 +98,8 @@ const {
   userProfile,
   businessData,
   disabledvacantDialog,
+  loadingVacant,
+  loadingPractice,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {

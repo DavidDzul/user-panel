@@ -9,48 +9,62 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
     const { setLoading } = useAppStore();
     const { resVacantDetail } = storeToRefs(useVacantDetailStore());
     const { userProfile } = storeToRefs(useAuthStore());
+    const { getVacantDetail, createApplication } = useVacantDetailStore();
 
-    const { getVacantDetail, createApplication
-    } = useVacantDetailStore();
+    const route = useRoute();
+    const loadVacant = ref(false);
+    const loadingApplication = ref(false);
 
-    const route = useRoute()
-    const loadVacant = ref(false)
-
-    onBeforeMount(async () => {
-        checkRouteId(route.params.id)
-    })
+    onBeforeMount(() => {
+        validateAndFetchVacantDetail();
+    });
 
     watch(
-        () => route.params.id,
-        (idString) => checkRouteId(idString),
-    )
+        () => route.fullPath,
+        () => validateAndFetchVacantDetail()
+    );
 
-    const checkRouteId = async (idString) => {
-        const id = !Array.isArray(idString) ? parseInt(idString) : NaN
-        await getVacantDetail(id)
-        loadVacant.value = true
-    }
+    const validateAndFetchVacantDetail = async () => {
+        // Verificar si la ruta coincide con "/vacantes/:id"
+        if (!route.path.startsWith("/vacantes/")) return;
 
-    const vacantDetail = computed(() => resVacantDetail.value)
+        const id = parseInt(route.params.id, 10);
+        if (isNaN(id) || id <= 0) {
+            console.error("Invalid or missing ID in route:", route.params.id);
+            loadVacant.value = false;
+            return;
+        }
 
+        try {
+            await getVacantDetail(id);
+            loadVacant.value = true;
+        } catch (error) {
+            console.error("Error fetching vacant detail:", error);
+            loadVacant.value = false;
+        }
+    };
+
+    const vacantDetail = computed(() => resVacantDetail.value);
 
     const confirmApplication = async (vacantId, businessId) => {
-        if (!userProfile.value) return
-
+        if (!userProfile.value) return;
+        loadingApplication.value = true;
         try {
             await createApplication({
                 user_id: userProfile.value.id,
                 business_id: businessId,
-                vacant_id: vacantId
-            })
+                vacant_id: vacantId,
+            });
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
-    }
+        loadingApplication.value = false;
+    };
 
     return {
         vacantDetail,
         loadVacant,
+        loadingApplication,
         confirmApplication,
     };
 });

@@ -14,6 +14,7 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
 
     const { dowloandCurriculum } = useCurriculumStore()
     const router = useRouter()
+    const loadingCV = ref(false)
 
     onBeforeMount(async () => {
         await fetchBusinessApplications()
@@ -22,11 +23,13 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
     const applications = computed(() => [...resBusinessApplications.value.values()])
 
     const openUserCV = async (userId) => {
+        loadingCV.value = true
         try {
             await dowloandCurriculum(userId)
         } catch (error) {
             console.log(error)
         }
+        loadingCV.value = false
     }
 
     const onRemoveApplication = async (id) => {
@@ -39,6 +42,7 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
 
     return {
         applications,
+        loadingCV,
         openUserCV,
         onRemoveApplication,
     };

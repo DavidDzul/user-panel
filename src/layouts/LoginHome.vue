@@ -243,7 +243,7 @@
               </h3>
               <p>
                 <a href="mailto:contacto@impulsouniversitario.com">
-                  contacto@impulsouniversitario.com
+                  vinculacion.laboral@iu.org.mx
                 </a>
               </p>
             </v-col>
@@ -251,7 +251,7 @@
             <v-col cols="12" md="4" class="info-block">
               <h3><v-icon size="small">mdi-phone</v-icon> Teléfono</h3>
               <p>
-                <a href="tel:+521234567890">+52 123 456 7890</a>
+                <a href="tel:+521234567890">+52 999 359 7411</a>
               </p>
             </v-col>
 

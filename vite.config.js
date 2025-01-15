@@ -46,5 +46,12 @@ export default defineConfig({
     //     rewrite: (path) => path.replace(/^\/api/, ""),
     //   },
     // }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // or "modern"
+      }
+    }
   }
 })

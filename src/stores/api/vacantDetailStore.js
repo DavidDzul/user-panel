@@ -1,13 +1,15 @@
 import axios from "@/axiosConfig";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAlertStore } from "@/stores/alert"
+import { useApplicationsStore } from "./applicationsStore";
 
 export const useVacantDetailStore = defineStore("vacantDetailStore", () => {
     const router = useRouter();
     const { showAlert } = useAlertStore()
     const resVacantDetail = ref(null)
+    const { resUserApplications } = storeToRefs(useApplicationsStore())
 
     const getVacantDetail = async (id) => {
         try {
@@ -31,7 +33,7 @@ export const useVacantDetailStore = defineStore("vacantDetailStore", () => {
                     title: param.data.msg || "Información guardada exitosamente.",
                     status: "success",
                 });
-
+                resUserApplications.value.set(param.data.application.id, param.data.application)
                 return true;
             }
         } catch (error) {

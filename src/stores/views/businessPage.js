@@ -18,6 +18,10 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
     const file = ref()
     const previewUrl = ref("")
 
+    //loadings
+    const loadingBusinessPhoto = ref(false)
+    const loadingBusinessData = ref(false)
+
     onBeforeMount(async () => {
         await fetchBusiness()
     })
@@ -44,6 +48,7 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
     }
 
     const savePhoto = async () => {
+        loadingBusinessPhoto.value = true
         if (file.value) {
             try {
                 const res = await createImage(file.value);
@@ -54,9 +59,11 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
                 console.error(error);
             }
         }
+        loadingBusinessPhoto.value = false
     };
 
     const onUpdateBusinessData = async (form) => {
+        loadingBusinessData.value = true
         if (form) {
             try {
                 const res = await updateBusinessData(form);
@@ -67,6 +74,7 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
                 console.error(error);
             }
         }
+        loadingBusinessData.value = false
     };
 
     return {
@@ -75,6 +83,8 @@ export const useBusinessPageStore = defineStore("businessPage", () => {
         businessData,
         businessPhoto,
         editBusinessDialog,
+        loadingBusinessPhoto,
+        loadingBusinessData,
         savePhoto,
         changePhoto,
         onUpdateBusinessData,

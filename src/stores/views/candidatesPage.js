@@ -12,6 +12,7 @@ export const useCandidatesPageStore = defineStore("candidatesPage", () => {
     } = useCandidatesStore();
 
     const router = useRouter()
+    const loadingCard = ref(false)
 
     onBeforeMount(async () => {
         await fetchCandidates()
@@ -20,15 +21,18 @@ export const useCandidatesPageStore = defineStore("candidatesPage", () => {
     const candidates = computed(() => [...resCandidates.value.values()])
 
     const openUserCV = async ($id) => {
+        loadingCard.value = true
         try {
             await validateVisualizations($id)
         } catch (e) {
             console.error(e)
         }
+        loadingCard.value = false
     }
 
     return {
         candidates,
+        loadingCard,
         openUserCV,
     };
 });

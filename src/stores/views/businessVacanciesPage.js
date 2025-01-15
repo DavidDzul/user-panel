@@ -22,6 +22,10 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const vacantId = ref(undefined)
     const disabledvacantDialog = ref(false)
 
+    //loadings
+    const loadingVacant = ref(false)
+    const loadingPractice = ref(false)
+
     const { fetchVacancies, createVacant, updateVacant, removeVacant, statusVacant, createPractice, updatePractice } = useBusinessVacanciesStore();
 
     const openVacantDialog = () => {
@@ -61,6 +65,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const businessData = computed(() => resBusinessData.value)
 
     const onSaveVacant = async (form) => {
+        loadingVacant.value = true
         if (!form) return
         if (form) {
             try {
@@ -72,9 +77,11 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
                 console.error(error);
             }
         }
+        loadingVacant.value = false
     };
 
     const onUpdateVacant = async (form) => {
+        loadingVacant.value = true
         if (!form) return
         if (form) {
             try {
@@ -86,6 +93,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
                 console.error(error);
             }
         }
+        loadingVacant.value = false
     };
 
     const onRemoveVacant = async (id) => {
@@ -117,6 +125,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     }
 
     const onSavePractive = async (form) => {
+        loadingPractice.value = true
         if (!form) return
         if (form) {
             try {
@@ -128,9 +137,11 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
                 console.error(error);
             }
         }
+        loadingPractice.value = false
     };
 
     const onUpdatePractice = async (form) => {
+        loadingPractice.value = true
         if (!form) return
         if (form) {
             try {
@@ -142,6 +153,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
                 console.error(error);
             }
         }
+        loadingPractice.value = false
     };
 
     return {
@@ -155,6 +167,8 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         userProfile,
         businessData,
         disabledvacantDialog,
+        loadingVacant,
+        loadingPractice,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,

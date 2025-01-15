@@ -56,7 +56,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const previewUrl = ref("")
 
     //loading
+    const loadingDowloandCV = ref(false)
     const loadingPhoto = ref(false)
+    const loadingPersonalData = ref(false)
+    const loadingWorkExperience = ref(false)
+    const loadingAcademicInformation = ref(false)
+    const loadingContinuingEducation = ref(false)
+    const loadingTechnicalKnowledge = ref(false)
 
     onBeforeMount(async () => {
         await fetchCurriculum()
@@ -118,8 +124,10 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     }
 
     const openCurriculumPDF = async () => {
+        loadingDowloandCV.value = true
         if (!userProfile.value) return
         await dowloandCurriculum(userProfile.value.id)
+        loadingDowloandCV.value = false
     }
 
     const changePhoto = (event) => {
@@ -151,6 +159,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     };
 
     const onSavePersonalData = async (form) => {
+        loadingPersonalData.value = true
         if (form) {
             try {
                 const res = await createPersonalData(form);
@@ -161,9 +170,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingPersonalData.value = false
     };
 
     const onSaveWorkExperience = async (form) => {
+        loadingWorkExperience.value = true
         if (form) {
             try {
                 const res = await createWorkExperience(form);
@@ -174,9 +185,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingWorkExperience.value = false
     };
 
     const onUpdateWorkExperience = async (form) => {
+        loadingWorkExperience.value = true
         if (form) {
             try {
                 const res = await updateWorkExperience(form);
@@ -187,6 +200,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingWorkExperience.value = false
     };
 
     const onRemoveWorkExperience = async (id) => {
@@ -198,6 +212,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     }
 
     const onSaveAcademicInformation = async (form) => {
+        loadingAcademicInformation.value = true
         if (form) {
             try {
                 const res = await createAcademicInformation(form);
@@ -208,9 +223,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingAcademicInformation.value = false
     };
 
     const onUpdateAcademicInformation = async (form) => {
+        loadingAcademicInformation.value = true
         if (form) {
             try {
                 const res = await updateAcademicInformation(form);
@@ -221,6 +238,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingAcademicInformation.value = false
     };
 
     const onAcademicInformation = async (id) => {
@@ -232,6 +250,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     }
 
     const onSaveContinuingEducation = async (form) => {
+        loadingContinuingEducation.value = true
         if (form) {
             try {
                 const res = await createContinuingEducation(form);
@@ -242,9 +261,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingContinuingEducation.value = false
     };
 
     const onUpdateContinuingEducation = async (form) => {
+        loadingContinuingEducation.value = true
         if (form) {
             try {
                 const res = await updateContinuingEducation(form);
@@ -255,6 +276,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingContinuingEducation.value = false
     };
 
     const onRemoveContinuingEducation = async (id) => {
@@ -266,6 +288,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     }
 
     const onSaveTechnicalKnowledge = async (form) => {
+        loadingTechnicalKnowledge.value = true
         if (form) {
             try {
                 const res = await createTechnicalKnowledge(form);
@@ -276,9 +299,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingTechnicalKnowledge.value = false
+
     };
 
     const onUpdateTechnicalKnowledge = async (form) => {
+        loadingTechnicalKnowledge.value = true
+
         if (form) {
             try {
                 const res = await updateTechnicalKnowledge(form);
@@ -289,6 +316,8 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
                 console.error(error);
             }
         }
+        loadingTechnicalKnowledge.value = false
+
     };
 
     const onRemoveTechnicalKnowledge = async (id) => {
@@ -329,7 +358,14 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         technicalKnowledgeDialog,
         editKnowledge,
         editKnowledgeDialog,
+        //loadings
+        loadingDowloandCV,
         loadingPhoto,
+        loadingPersonalData,
+        loadingWorkExperience,
+        loadingAcademicInformation,
+        loadingContinuingEducation,
+        loadingTechnicalKnowledge,
         savePhoto,
         openEditAcademic,
         changePhoto,

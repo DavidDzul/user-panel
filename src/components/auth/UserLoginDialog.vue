@@ -25,6 +25,7 @@
                 maxlength="9"
                 :rules="[rules.maxLength]"
                 required
+                @input="enrollment = enrollment.toUpperCase()"
               ></v-text-field>
               <v-text-field
                 v-model="password"

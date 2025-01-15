@@ -52,11 +52,13 @@
   <CreatePhotoDialog
     v-model="photoDialog"
     :preview-url="previewUrl"
+    :loading="loadingBusinessPhoto"
     @submit="savePhoto"
   />
   <UpdateBusinessInformationDialog
     v-model="editBusinessDialog"
     :edit-item="businessData"
+    :loading="loadingBusinessData"
     @submit="onUpdateBusinessData"
   />
 
@@ -82,6 +84,8 @@ const {
   photoDialog,
   previewUrl,
   editBusinessDialog,
+  loadingBusinessPhoto,
+  loadingBusinessData,
 } = storeToRefs(useBusinessPageStore());
 
 const {

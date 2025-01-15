@@ -16,7 +16,11 @@
           @click="onChangePlibicCV(1)"
           >HABILITAR VISUALIZACIÓN DE CV</v-btn
         >
-        <v-btn color="blue" class="mx-2 mb-2" @click="openCurriculumPDF"
+        <v-btn
+          color="blue"
+          class="mx-2 mb-2"
+          @click="openCurriculumPDF"
+          :loading="loadingDowloandCV"
           >DESCARGAR CV</v-btn
         >
       </v-col>
@@ -158,43 +162,52 @@
   <PersonalDataDialog
     v-model="personalDialog"
     :initial-data="userInfo"
+    :loading="loadingPersonalData"
     @submit="onSavePersonalData"
   />
   <CreateWorkExperienceDialog
     v-model="workExperienceDialog"
     @submit="onSaveWorkExperience"
+    :loading="loadingWorkExperience"
   />
   <UpdateWorkExperienceDialog
     v-model="editWorkDialog"
     :edit-item="editWork"
     @submit="onUpdateWorkExperience"
+    :loading="loadingWorkExperience"
   />
   <CreateAcademicInformationDialog
     v-model="academicInformationDialog"
     @submit="onSaveAcademicInformation"
+    :loading="loadingAcademicInformation"
   />
   <updateAcademicInformationDialog
     v-model="editAcademicDialog"
     :edit-item="editAcademic"
     @submit="onUpdateAcademicInformation"
+    :loading="loadingAcademicInformation"
   />
   <CreateContinuingEducationDialog
     v-model="continuingEducationDialog"
     @submit="onSaveContinuingEducation"
+    :loading="loadingContinuingEducation"
   />
   <UpdateContinuingEducationDialog
     v-model="editEducationDialog"
     :edit-item="editEducation"
     @submit="onUpdateContinuingEducation"
+    :loading="loadingContinuingEducation"
   />
   <CreateTechnicalKnowledgeDialog
     v-model="technicalKnowledgeDialog"
     @submit="onSaveTechnicalKnowledge"
+    :loading="loadingTechnicalKnowledge"
   />
   <UpdateTechnicalKnowledgeDialog
     v-model="editKnowledgeDialog"
     :edit-item="editKnowledge"
     @submit="onUpdateTechnicalKnowledge"
+    :loading="loadingTechnicalKnowledge"
   />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
 </template>
@@ -247,6 +260,12 @@ const {
   editKnowledge,
   editKnowledgeDialog,
   loadingPhoto,
+  loadingPersonalData,
+  loadingWorkExperience,
+  loadingAcademicInformation,
+  loadingContinuingEducation,
+  loadingTechnicalKnowledge,
+  loadingDowloandCV,
 } = storeToRefs(useCurriculumPageStore());
 const {
   savePhoto,

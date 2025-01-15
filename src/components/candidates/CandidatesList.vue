@@ -32,6 +32,8 @@
           @mouseenter="hover = index"
           @mouseleave="hover = null"
           :style="cardStyle(index)"
+          :disabled="loading"
+          :loading="loading"
         >
           <v-card-title class="pa-5">
             <h3 style="color: #ff7900">

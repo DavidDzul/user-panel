@@ -6,6 +6,7 @@
           :applications="applications"
           @submit="openUserCV"
           @remove="onApplicationDelete"
+          :loading="loadingCV"
         />
       </v-col>
     </v-row>
@@ -21,7 +22,7 @@ import { useApplicationsPageStore } from "@/stores/views/applicationsPage";
 import ConfirmationDialog from "@/components/shared/ConfirmationDialog.vue";
 
 import BusinessApplications from "@/components/applications/BusinessApplications.vue";
-const { applications } = storeToRefs(useApplicationsPageStore());
+const { applications, loadingCV } = storeToRefs(useApplicationsPageStore());
 const { openUserCV, onRemoveApplication } = useApplicationsPageStore();
 
 const confirmationDialog = ref();

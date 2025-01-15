@@ -36,6 +36,8 @@
         density="comfortable"
         class="mr-2"
         @click="openCV(item)"
+        :disabled="loading"
+        :loading="loading"
       >
         <v-icon size="small" class="mr-2">mdi-eye</v-icon>
         Abrir
