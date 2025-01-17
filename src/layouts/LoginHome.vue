@@ -234,7 +234,6 @@
                 <v-icon size="small">mdi-timer</v-icon> Horarios de atención
               </h3>
               <p>Lunes a Viernes: 9:00 AM - 5:00 PM</p>
-              <p>Sábado: 8:00 AM - 2:00 PM</p>
             </v-col>
 
             <v-col cols="12" md="4" class="info-block">
@@ -273,10 +272,11 @@
         <div>
           <v-btn
             v-for="icon in icons"
-            :key="icon"
-            :icon="icon"
+            :key="icon.red"
+            :icon="icon.red"
             class="mx-4"
             variant="text"
+            @click="openUrl(icon.url)"
           ></v-btn>
         </div>
 
@@ -366,11 +366,19 @@ onMounted(() => {
 });
 
 const icons = ref([
-  "mdi-facebook",
-  "mdi-twitter",
-  "mdi-linkedin",
-  "mdi-instagram",
+  {
+    red: "mdi-facebook",
+    url: "https://www.facebook.com/impulsouniversitarioac",
+  },
+  {
+    red: "mdi-instagram",
+    url: "https://www.instagram.com/impulsouniversitario/",
+  },
 ]);
+
+const openUrl = (url: string) => {
+  window.open(url, "_blank");
+};
 </script>
 
 <style scoped lang="scss">

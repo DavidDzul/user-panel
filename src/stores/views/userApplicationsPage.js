@@ -8,7 +8,7 @@ export const useUserApplicationsPageStore = defineStore("userApplicationsPage", 
     const { setLoading } = useAppStore();
     const { resUserApplications } = storeToRefs(useApplicationsStore());
 
-    const { fetchUserApplications, removeUserApplication
+    const { fetchUserApplications, updateUserStatusApplications
     } = useApplicationsStore();
 
     const router = useRouter()
@@ -27,9 +27,9 @@ export const useUserApplicationsPageStore = defineStore("userApplicationsPage", 
         }
     }
 
-    const onRemoveUserApplication = async (id) => {
+    const onRejectedUserApplication = async (id) => {
         try {
-            await removeUserApplication(id)
+            await updateUserStatusApplications(id, 'REJECTED')
         } catch (e) {
             console.error(e)
         }
@@ -38,6 +38,6 @@ export const useUserApplicationsPageStore = defineStore("userApplicationsPage", 
     return {
         applications,
         openVacantDetail,
-        onRemoveUserApplication,
+        onRejectedUserApplication,
     };
 });

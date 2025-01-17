@@ -27,7 +27,10 @@
             title="Giro:"
             :subtitle="lineBusinessMap.get(business?.bs_line)?.text"
           />
-          <v-list-item title="Sitio web:" :subtitle="business?.bs_website" />
+          <v-list-item
+            title="Enlace de información:"
+            :subtitle="business?.bs_website"
+          />
         </v-list>
       </v-col>
 

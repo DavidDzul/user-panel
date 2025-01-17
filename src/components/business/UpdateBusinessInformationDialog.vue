@@ -91,10 +91,17 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
+              <span
+                >Por favor, ingresa un enlace al sitio web, perfil de redes
+                sociales o cualquier plataforma que permita a los usuarios
+                conocer más sobre la empresa.</span
+              >
               <v-text-field
+                class="mt-2"
                 v-model="bs_website"
                 v-bind="bs_websiteProps"
-                label="Sitio web"
+                label="Enlace de información"
+                placeholder="Ej: https://www.tuempresa.com"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">

@@ -9,7 +9,7 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
     const { setLoading } = useAppStore();
     const { resBusinessApplications } = storeToRefs(useApplicationsStore());
 
-    const { fetchBusinessApplications, removeApplication
+    const { fetchBusinessApplications, updateStatusApplications
     } = useApplicationsStore();
 
     const { dowloandCurriculum } = useCurriculumStore()
@@ -32,9 +32,17 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
         loadingCV.value = false
     }
 
-    const onRemoveApplication = async (id) => {
+    const onRejectedApplication = async (id) => {
         try {
-            await removeApplication(id)
+            await updateStatusApplications(id, 'REJECTED')
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const onAcceptedApplication = async (id) => {
+        try {
+            await updateStatusApplications(id, 'ACCEPTED')
         } catch (e) {
             console.error(e)
         }
@@ -44,6 +52,7 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
         applications,
         loadingCV,
         openUserCV,
-        onRemoveApplication,
+        onRejectedApplication,
+        onAcceptedApplication,
     };
 });

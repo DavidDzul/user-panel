@@ -34,30 +34,67 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
         }
     };
 
-    const removeApplication = async (id) => {
+    const updateStatusApplications = async (id, status) => {
         try {
-            const param = await axios.delete(`api/deleteApplication/${id}`, {
-                headers: { 'accept': 'application/json' }
+            const param = await axios.post(`api/updateStatusApplications/${id}/status`, {
+                status: status,
             });
+
             if (param) {
                 showAlert({
-                    title: "Información eliminada exitosamente.",
+                    title: "Información actualizada exitosamente.",
                     status: "success",
                 });
-                resBusinessApplications.value.delete(id)
+
+                resBusinessApplications.value.set(param.data.application.id, param.data.application)
                 return param.data
             }
         } catch (error) {
-            console.error(error);
-            showAlert({
-                title: "Error al eliminar la información, intente nuevamente.",
-                status: "error",
-            });
-            throw error;
+            if (error.response) {
+                showAlert({
+                    title: error.response.data.msg,
+                    status: "error",
+                });
+            } else {
+                showAlert({
+                    title: "Error de red, intenta más tarde.",
+                    status: "error",
+                });
+            }
         }
-    }
+    };
 
-    const removeUserApplication = async (id) => {
+    const updateUserStatusApplications = async (id, status) => {
+        try {
+            const param = await axios.post(`api/updateStatusApplications/${id}/status`, {
+                status: status,
+            });
+
+            if (param) {
+                showAlert({
+                    title: "Información actualizada exitosamente.",
+                    status: "success",
+                });
+
+                resUserApplications.value.set(param.data.application.id, param.data.application)
+                return param.data
+            }
+        } catch (error) {
+            if (error.response) {
+                showAlert({
+                    title: error.response.data.msg,
+                    status: "error",
+                });
+            } else {
+                showAlert({
+                    title: "Error de red, intenta más tarde.",
+                    status: "error",
+                });
+            }
+        }
+    };
+
+    const removeApplication = async (id) => {
         try {
             const param = await axios.delete(`api/deleteApplication/${id}`, {
                 headers: { 'accept': 'application/json' }
@@ -85,7 +122,7 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
         resUserApplications,
         fetchBusinessApplications,
         fetchUserApplications,
-        removeApplication,
-        removeUserApplication,
+        updateStatusApplications,
+        updateUserStatusApplications,
     };
 });

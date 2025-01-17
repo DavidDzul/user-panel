@@ -43,27 +43,42 @@
         </template>
       </v-tooltip>
     </template>
+    <template #[`item.status`]="{ item }">
+      <p
+        :style="{
+          color:
+            item.status === 'ACCEPTED'
+              ? 'green'
+              : item.status === 'REJECTED'
+              ? 'red'
+              : '',
+        }"
+      >
+        {{ statusApplicationMap.get(item.status).text }}
+      </p>
+    </template>
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
     </template>
     <template #[`item.actions`]="{ item }">
-      <div style="width: 100%; text-align: right">
-        <v-tooltip text="Eliminar" location="bottom">
-          <template v-slot:activator="{ props }">
-            <v-btn
-              v-bind="props"
-              variant="text"
-              color="error"
-              size="small"
-              density="comfortable"
-              icon="mdi-delete"
-              class="mr-2"
-              @click="deleteItem(item)"
-            >
-            </v-btn>
-          </template>
-        </v-tooltip>
-      </div>
+      <template v-if="item.status === 'PENDING'">
+        <div style="width: 100%; text-align: right">
+          <v-tooltip text="Descartar" location="bottom">
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                variant="text"
+                color="warning"
+                density="comfortable"
+                icon="mdi-account-remove"
+                class="mr-2"
+                @click="rejectedItem(item)"
+              >
+              </v-btn>
+            </template>
+          </v-tooltip>
+        </div>
+      </template>
     </template>
     <template #no-data> No existen datos registrados </template>
   </v-data-table>
@@ -73,6 +88,8 @@
 import { computed, ref } from "vue";
 import dayjs from "dayjs";
 
+import { statusApplicationMap } from "../../constants";
+
 const props = defineProps({
   applications: { type: Array, default: () => [] },
   loading: { type: Boolean, default: () => false },
@@ -81,7 +98,7 @@ const props = defineProps({
 const search = ref("");
 const groupBy = ref(undefined);
 
-const emit = defineEmits(["submit", "remove"]);
+const emit = defineEmits(["submit", "rejected"]);
 
 const headers = computed(() => [
   {
@@ -97,6 +114,10 @@ const headers = computed(() => [
     key: "vacant_id",
   },
   {
+    title: "Estatus",
+    key: "status",
+  },
+  {
     title: "Fecha",
     key: "created_at",
   },
@@ -106,8 +127,8 @@ const headers = computed(() => [
   },
 ]);
 
-const deleteItem = (item) => {
-  emit("remove", item.id);
+const rejectedItem = (item) => {
+  emit("rejected", item.id);
 };
 
 const openVacant = (item) => {

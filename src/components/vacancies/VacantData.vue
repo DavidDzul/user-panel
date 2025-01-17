@@ -193,9 +193,17 @@
             <b> {{ props.vacant.business.bs_name }} </b>
             <p>
               {{ props.vacant.business.bs_description }}
-              <a :href="props.vacant.business.bs_website" target="_blank"
-                >Cónoce más sobre nosotros haciendo clic aquí.</a
+              <span
+                @click="openWebSite(props.vacant.business.bs_website)"
+                style="
+                  font-style: normal;
+                  cursor: pointer;
+                  text-decoration: underline;
+                  color: blue;
+                "
               >
+                Conoce más sobre nosotros haciendo clic aquí.
+              </span>
             </p>
             <!-- <v-btn
               prepend-icon="mdi-web"
@@ -263,7 +271,9 @@ const formattedHistory = (time) => {
 };
 
 const openWebSite = (url) => {
-  window.open(url, "_blank");
+  const regex = /^(http|https):\/\//;
+  const fullUrl = regex.test(url) ? url : `https://${url}`;
+  window.open(fullUrl, "_blank");
 };
 </script>
 
