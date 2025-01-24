@@ -22,6 +22,24 @@
         ></v-text-field>
       </v-toolbar>
     </template>
+    <template #[`item.vacant_name`]="{ item }">
+      {{ item.vacant_name }}
+      <v-tooltip text="Visualizar" location="bottom">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            variant="text"
+            color="warning"
+            size="small"
+            density="comfortable"
+            icon="mdi-eye"
+            class="ml-2"
+            @click="openVacant(item)"
+          >
+          </v-btn>
+        </template>
+      </v-tooltip>
+    </template>
     <template #[`item.category`]="{ item }">
       {{ logCategory(item.category) }}
     </template>
@@ -125,7 +143,14 @@ const props = defineProps({
 
 const search = ref("");
 
-const emit = defineEmits(["create", "edit", "remove", "status", "practice"]);
+const emit = defineEmits([
+  "open",
+  "create",
+  "edit",
+  "remove",
+  "status",
+  "practice",
+]);
 
 const headers = computed(() => [
   {
@@ -174,5 +199,9 @@ const deleteItem = (item) => {
 
 const statusItem = (item) => {
   emit("status", item);
+};
+
+const openVacant = (item) => {
+  emit("open", item.id);
 };
 </script>

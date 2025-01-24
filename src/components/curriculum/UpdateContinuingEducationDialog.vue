@@ -21,7 +21,7 @@
               <v-text-field
                 v-model="course_name"
                 v-bind="course_nameProps"
-                label="Puesto del curso"
+                label="Nombre del posgrado/curso/diploma"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">

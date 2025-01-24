@@ -81,10 +81,7 @@ const headers = computed(() => [
     title: "Responsabilidades",
     key: "responsibility",
   },
-  {
-    title: "Logros",
-    key: "achievement",
-  },
+
   {
     title: "",
     key: "actions",

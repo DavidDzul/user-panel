@@ -61,7 +61,7 @@ const emit = defineEmits(["create", "edit", "remove"]);
 
 const headers = computed(() => [
   {
-    title: "Nombre del curso",
+    title: "Nombre del posgrado/curso/diploma",
     key: "course_name",
   },
   {

@@ -118,6 +118,7 @@
                 v-model="form.professional_title"
                 label="Título profesional"
                 :rules="[rules.required]"
+                placeholder="Ej: Licenciado/a en Psicología"
                 required
               ></v-text-field>
             </v-col>

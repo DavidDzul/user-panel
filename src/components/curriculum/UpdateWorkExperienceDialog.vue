@@ -59,14 +59,6 @@
                 rows="3"
               ></v-textarea>
             </v-col>
-            <v-col cols="12" md="12">
-              <v-textarea
-                v-model="achievement"
-                v-bind="achievementProps"
-                label="Logros"
-                rows="3"
-              ></v-textarea>
-            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
@@ -112,7 +104,6 @@ const { defineField, meta, values, resetField, setValues, resetForm } = useForm(
         start_date: validations.start_date(),
         end_date: validations.end_date(),
         responsibility: validations.responsibility(),
-        achievement: validations.achievement(),
       })
     ),
   }
@@ -130,10 +121,6 @@ const [start_date, start_dateProps] = defineField("start_date", vuetifyConfig);
 const [end_date, end_dateProps] = defineField("end_date", vuetifyConfig);
 const [responsibility, responsibilityProps] = defineField(
   "responsibility",
-  vuetifyConfig
-);
-const [achievement, achievementProps] = defineField(
-  "achievement",
   vuetifyConfig
 );
 
@@ -160,7 +147,6 @@ watch(
           start_date: props.editItem.start_date,
           end_date: props.editItem.end_date,
           responsibility: props.editItem.responsibility,
-          achievement: props.editItem.achievement,
         });
       }
     } else {

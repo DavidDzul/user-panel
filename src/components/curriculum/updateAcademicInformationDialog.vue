@@ -21,7 +21,7 @@
               <v-text-field
                 v-model="postgraduate_name"
                 v-bind="postgraduate_nameProps"
-                label="Nombre del posgrado"
+                label="Nombre de la licenciatura"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
@@ -50,16 +50,6 @@
                 hint="Ej: Diciembre 2024"
                 persistent-hint
               ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-textarea
-                v-model="highlight"
-                v-bind="highlightProps"
-                label="Información a destacar"
-                rows="3"
-                hint="Información a destacar, ej: promedio de egreso, medio de titulación, premios recibidos, intercambios o estancia académica."
-                persistent-hint
-              ></v-textarea>
             </v-col>
           </v-row>
         </v-card-text>
@@ -104,7 +94,6 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       institute_name: validations.institute_name(),
       postgraduate_start_date: validations.postgraduate_start_date(),
       postgraduate_end_date: validations.postgraduate_end_date(),
-      highlight: validations.highlight(),
     })
   ),
 });
@@ -125,7 +114,6 @@ const [postgraduate_end_date, postgraduate_end_dateProps] = defineField(
   "postgraduate_end_date",
   vuetifyConfig
 );
-const [highlight, highlightProps] = defineField("highlight", vuetifyConfig);
 
 const props = defineProps({
   modelValue: { type: Boolean, default: () => false },
@@ -149,7 +137,6 @@ watch(
           institute_name: props.editItem.institute_name,
           postgraduate_start_date: props.editItem.postgraduate_start_date,
           postgraduate_end_date: props.editItem.postgraduate_end_date,
-          highlight: props.editItem.highlight,
         });
       }
     } else {

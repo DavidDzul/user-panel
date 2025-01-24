@@ -30,8 +30,13 @@
   </v-row>
   <v-row style="background-color: white">
     <v-col class="px-10" cols="12">
-      <span>
+      <span v-if="!isBusiness">
         <a href="/vacantes">Vacantes</a>
+        <v-icon size="x-small" class="ml-2">mdi-chevron-double-right</v-icon>
+        {{ props.vacant.vacant_name }}</span
+      >
+      <span v-else>
+        <a href="/publicaciones">Mis vacantes</a>
         <v-icon size="x-small" class="ml-2">mdi-chevron-double-right</v-icon>
         {{ props.vacant.vacant_name }}</span
       >
@@ -51,7 +56,7 @@
           <v-card-text class="ma-4">
             <template v-if="props.vacant.category === 'JOB_POSITION'">
               <ul>
-                <li><b>Tipo:</b> {{ props.vacant.category }}</li>
+                <li><b>Tipo:</b> Vacante laboral</li>
                 <li>
                   <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
                 </li>
@@ -75,7 +80,7 @@
             </template>
             <template v-if="props.vacant.category === 'PROFESSIONAL_PRACTICE'">
               <ul>
-                <li><b>Tipo:</b> {{ props.vacant.category }}</li>
+                <li><b>Tipo:</b> Vacante para prácticas profesionales</li>
                 <li>
                   <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
                 </li>
@@ -159,23 +164,58 @@
                       props.vacant.saturday_end_minute
                     }}
                   </li>
+                  <li v-if="props.vacant.additional_time_info">
+                    <b>Información adicional respecto al horario:</b>
+                    {{ props.vacant.additional_time_info }}
+                  </li>
                 </ul>
               </li>
             </ul>
             <ul v-if="props.vacant.category === 'JOB_POSITION'">
               <li><b>Prestaciones de ley</b></li>
               <ul class="mx-5 my-2">
-                <li v-if="props.vacant.social_security">Seguro social</li>
+                <li v-if="props.vacant.employment_contract">
+                  Contrato laboral
+                </li>
+                <li v-if="props.vacant.vacation">Vacaciones</li>
                 <li v-if="props.vacant.christmas_bonus">Aguinaldo</li>
+                <li v-if="props.vacant.social_security">Seguro social</li>
                 <li v-if="props.vacant.vacation_bonus">Prima vacacional</li>
+                <li v-if="props.vacant.grocery_vouchers">Vales de despensa</li>
                 <li v-if="props.vacant.savings_fund">Fondo de ahorro</li>
                 <li v-if="props.vacant.life_insurance">Seguro de vida</li>
                 <li v-if="props.vacant.medical_expenses">
-                  Gastos médicos mayores
+                  Seguro de gastos médicos
+                </li>
+                <li v-if="props.vacant.day_off">Día de descanso obligatorio</li>
+                <li v-if="props.vacant.sunday_bonus">Prima dominical</li>
+                <li v-if="props.vacant.paternity_leave">
+                  Licencia de maternidad/paternidad, de lactancia y/o adpoción
+                </li>
+
+                <li v-if="props.vacant.transportation_help">
+                  Ayuda o servicios de transporte (vales de gasolina,
+                  transporte)
+                </li>
+                <li v-if="props.vacant.productivity_bonus">
+                  Bonos de productividad
+                </li>
+                <li v-if="props.vacant.automobile">Automóvil</li>
+                <li v-if="props.vacant.dining_room">Servicio de comedor</li>
+                <li v-if="props.vacant.loans">Préstamos y/o créditos</li>
+                <li v-if="props.vacant.other">
+                  {{ props.vacant.benefit_description }}
                 </li>
               </ul>
 
               <!-- Agregar más beneficios según los datos -->
+            </ul>
+
+            <ul>
+              <li v-if="props.vacant.observations">
+                <b>Observaciones:</b>
+                {{ props.vacant.observations }}
+              </li>
             </ul>
           </v-card-text>
         </v-card>
@@ -226,6 +266,7 @@
   </v-container>
 
   <v-btn
+    v-if="!isBusiness"
     fixed
     bottom
     color="primary"
@@ -248,6 +289,7 @@ import { API_URL } from "../../constants";
 const props = defineProps({
   vacant: { type: Object, required: true },
   loading: { type: Boolean, default: true },
+  isBusiness: { type: Boolean, default: false },
 });
 
 dayjs.extend(relativeTime);

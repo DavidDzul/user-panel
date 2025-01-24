@@ -6,6 +6,7 @@
     :loading="loading"
     :search="search"
     item-value="id"
+    locale="es"
   >
     <template #[`item.actions`]="{ item }">
       <div style="width: 100%; text-align: right">
@@ -61,7 +62,7 @@ const emit = defineEmits(["create", "edit", "remove"]);
 
 const headers = computed(() => [
   {
-    title: "Nombre del prosgrado",
+    title: "Nombre de la licenciatura",
     key: "postgraduate_name",
   },
   {
@@ -75,10 +76,6 @@ const headers = computed(() => [
   {
     title: "Fecha de término",
     key: "postgraduate_end_date",
-  },
-  {
-    title: "Destacado",
-    key: "highlight",
   },
   {
     title: "",

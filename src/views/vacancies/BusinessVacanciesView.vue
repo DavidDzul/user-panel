@@ -34,6 +34,7 @@
 
     <PublishedVacanciesTable
       :vacant="vacancies"
+      @open="openVacantDetail"
       @edit="openEditVacant"
       @practice="openEditPractice"
       @remove="onVacantDelete"
@@ -115,6 +116,7 @@ const {
   onUpdatePractice,
   onDisabledSVacant,
   openDisabledVacantDialog,
+  openVacantDetail,
 } = useBusinessVacanciesPageStore();
 
 const onVacantDelete = async (id) => {

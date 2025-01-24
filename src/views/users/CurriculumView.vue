@@ -42,9 +42,10 @@
           <v-row class="pb-5">
             <v-col cols="12">
               <p>
-                Fotografía de frente con el rostro descubierto (No lentes de
-                sol, gorros, bufandas o artículos parecidos), debe ser clara,
-                tamaño máximo de archivo 300k, en formato jpg o png.
+                Fotografía tomada de frente, centrada y con el rostro
+                completamente descubierto (sin lentes de sol, gorros, bufandas u
+                otros accesorios similares). La imagen debe ser clara, con un
+                tamaño máximo de archivo de 300 KB, y en formato JPG o PNG.
               </p>
             </v-col>
           </v-row>

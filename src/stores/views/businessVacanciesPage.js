@@ -4,6 +4,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import { useBusinessVacanciesStore } from "@/stores/api/businessVacanciesStore";
 import { useBusinessStore } from "@/stores/api/businessStore";
 import { useAuthStore } from "@/stores/api/authStore";
+import { useRoute, useRouter } from "vue-router"
 
 export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage", () => {
     const { setLoading } = useAppStore();
@@ -12,6 +13,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const { userProfile } = storeToRefs(useAuthStore())
     const { resBusinessData } = storeToRefs(useBusinessStore())
     const { fetchBusiness } = useBusinessStore()
+    const router = useRouter()
 
     const vacantDialog = ref(false)
     const practiceDialog = ref(false)
@@ -156,6 +158,14 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         loadingPractice.value = false
     };
 
+    const openVacantDetail = async (id) => {
+        try {
+            await router.push("vacantes/" + id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return {
         vacancies,
         vacantDialog,
@@ -181,5 +191,6 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         onDisabledSVacant,
         openPracticeDialog,
         openDisabledVacantDialog,
+        openVacantDetail,
     };
 });

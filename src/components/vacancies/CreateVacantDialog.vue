@@ -63,6 +63,7 @@
                       v-model="study_profile"
                       v-bind="study_profileProps"
                       label="Perfil de estudios"
+                      placeholder="Ej: Licenciado/a en Psicología"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">

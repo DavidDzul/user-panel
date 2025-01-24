@@ -45,6 +45,7 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
     };
 
     const vacantDetail = computed(() => resVacantDetail.value);
+    const isBusiness = computed(() => userProfile.value.user_type === 'BUSINESS');
 
     const confirmApplication = async (vacantId, businessId) => {
         if (!userProfile.value) return;
@@ -65,6 +66,7 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
         vacantDetail,
         loadVacant,
         loadingApplication,
+        isBusiness,
         confirmApplication,
     };
 });

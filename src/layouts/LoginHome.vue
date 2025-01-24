@@ -91,11 +91,12 @@
             </v-col>
             <v-col cols="12" md="8">
               <p style="color: white; margin: 20px">
-                <b>Impulso Universitario A.C.</b> conecta a becarios y egresados
-                con empresas, creando oportunidades laborales que potencian su
-                desarrollo profesional. Nuestra plataforma facilita el encuentro
-                entre jóvenes talentos y equipos empresariales que buscan
-                innovadores y líderes del futuro.
+                <b>Impulso Universitario A.C.</b> conecta a jóvenes en formación
+                y egresados con empresas, creando oportunidades laborales que
+                potencian su desarrollo profesional y personal. Nuestra
+                plataforma facilita el encuentro entre jóvenes talentos y
+                equipos empresariales que buscan innovar y crear líderes del
+                futuro.
               </p>
               <p style="font-weight: 600; color: white">
                 ¡Juntos construimos el éxito de la próxima generación!

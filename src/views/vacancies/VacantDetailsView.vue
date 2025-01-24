@@ -3,6 +3,7 @@
     v-if="loadVacant"
     :vacant="vacantDetail"
     :loading="loadingApplication"
+    :is-business="isBusiness"
     @submit="confirmApplication"
   />
 </template>
@@ -12,9 +13,8 @@ import { storeToRefs } from "pinia";
 import { useVacantDetailsPageStore } from "@/stores/views/vacantDetailsPage";
 import VacantData from "@/components/vacancies/VacantData.vue";
 
-const { vacantDetail, loadVacant, loadingApplication } = storeToRefs(
-  useVacantDetailsPageStore()
-);
+const { vacantDetail, loadVacant, loadingApplication, isBusiness } =
+  storeToRefs(useVacantDetailsPageStore());
 const { confirmApplication } = useVacantDetailsPageStore();
 </script>
 
