@@ -114,15 +114,6 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                v-model="form.professional_title"
-                label="Título profesional"
-                :rules="[rules.required]"
-                placeholder="Ej: Licenciado/a en Psicología"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
               <v-textarea
                 variant="underlined"
                 v-model="form.professional_summary"
@@ -222,7 +213,6 @@ const defaultForm = {
   state: "",
   locality: "",
   linkedin: "",
-  professional_title: "",
   professional_summary: "",
   skill_1: "",
   skill_2: "",

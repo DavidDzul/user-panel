@@ -29,9 +29,6 @@
       </v-col>
 
       <v-col cols="12" md="12">
-        <p style="font-weight: 500">Título profesional:</p>
-        <p>{{ personal?.professional_title }}</p>
-        <br />
         <p style="font-weight: 500">Resumen profesional:</p>
         <p>{{ personal?.professional_summary }}</p>
       </v-col>

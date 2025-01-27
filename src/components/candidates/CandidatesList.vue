@@ -44,7 +44,13 @@
           <v-card-text>
             <v-row class="pt-0">
               <v-col cols="12">
-                <h3>{{ item.professional_title }}</h3>
+                <h3>
+                  {{
+                    item.academic_information
+                      ? item.academic_information.postgraduate_name
+                      : ""
+                  }}
+                </h3>
 
                 <p>
                   {{ item.locality }}, {{ item.state }},
@@ -97,16 +103,25 @@ const emit = defineEmits(["open", "remove"]);
 
 const filteredList = computed(() => {
   const searchTerm = search.value.toLowerCase();
+
   return props.list.filter((item) => {
-    const matchesSearch =
-      item.professional_title.toLowerCase().includes(searchTerm) ||
+    // Verifica si academic_information existe y busca en postgraduate_name
+    const matchesAcademicInfo = item.academic_information
+      ? item.academic_information.postgraduate_name
+          .toLowerCase()
+          .includes(searchTerm)
+      : false;
+
+    // Verifica en otros campos
+    const matchesOtherFields =
       item.professional_summary.toLowerCase().includes(searchTerm) ||
       item.first_name.toLowerCase().includes(searchTerm) ||
       item.last_name.toLowerCase().includes(searchTerm) ||
       item.locality.toLowerCase().includes(searchTerm) ||
       item.state.toLowerCase().includes(searchTerm);
 
-    return matchesSearch;
+    // Combina todas las condiciones
+    return matchesAcademicInfo || matchesOtherFields;
   });
 });
 

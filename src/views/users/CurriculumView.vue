@@ -79,25 +79,6 @@
         <v-expansion-panel-title color="#f8f8f8">
           <template #default="{ expanded }">
             <PanelHeaderOptions
-              title="Experiencia laboral"
-              button-text="Agregar"
-              :expanded="expanded"
-              @button-click="openWorkExperienceDialog"
-            />
-          </template>
-        </v-expansion-panel-title>
-        <v-expansion-panel-text>
-          <WorkExperienceTable
-            :works="userWorkExperience"
-            @edit="openEditWork"
-            @remove="onWorkDelete"
-          />
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-      <v-expansion-panel>
-        <v-expansion-panel-title color="#f8f8f8">
-          <template #default="{ expanded }">
-            <PanelHeaderOptions
               title="Formación académica"
               button-text="Agregar"
               :expanded="expanded"
@@ -113,6 +94,27 @@
           />
         </v-expansion-panel-text>
       </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-title color="#f8f8f8">
+          <template #default="{ expanded }">
+            <PanelHeaderOptions
+              title="Experiencia laboral"
+              button-text="Agregar"
+              :expanded="expanded"
+              @button-click="openWorkExperienceDialog"
+            />
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <WorkExperienceTable
+            :works="userWorkExperience"
+            @edit="openEditWork"
+            @remove="onWorkDelete"
+          />
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+
       <v-expansion-panel>
         <v-expansion-panel-title color="#f8f8f8">
           <template #default="{ expanded }">
