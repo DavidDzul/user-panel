@@ -127,43 +127,47 @@
               <v-sheet height="100%">
                 <v-row>
                   <v-col cols="12" md="12" lg="6">
-                    <v-card>
+                    <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
                           color="grey-darken-3"
-                          image="@/assets/img/logo-amarillo.jpg"
+                          image="@/assets/img/logo_yellow.jpg"
                         ></v-avatar>
                         <p style="font-size: 16px; font-weight: 500">
-                          David Fernando Dzul Tzab
+                          Shirley, Turismo.
                         </p>
-                        <p>Ingeniero En Sistemas Computacionales</p>
+                        <p>7 meses de colaboración</p>
 
                         <p class="pt-5">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Itaque excepturi harum laboriosam illo. Itaque,
-                          cumque ut. Id quas ab reprehenderit minus assumenda?
-                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                          La plataforma de Vinculación Laboral es una
+                          herramienta muy sencilla para la búsqueda de empleo,
+                          he tenido mucho aprendizaje de por medio. Gracias a
+                          Impulso Universitario la agencia confió en mis
+                          habilidades y pude llevar a cabo un grupo para una
+                          boda y ayudar en su logística.
                         </p>
                       </v-card-text>
                     </v-card>
                   </v-col>
                   <v-col cols="12" md="12" lg="6">
-                    <v-card>
+                    <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
                           color="grey-darken-3"
-                          image="@/assets/img/logo-amarillo.jpg"
+                          image="@/assets/img/logo_blue.jpg"
                         ></v-avatar>
                         <p style="font-size: 16px; font-weight: 500">
-                          David Fernando Dzul Tzab
+                          David, Arquitectura.
                         </p>
-                        <p>Ingeniero En Sistemas Computacionales</p>
+                        <p>6 meses de colaboración</p>
 
                         <p class="pt-5">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Itaque excepturi harum laboriosam illo. Itaque,
-                          cumque ut. Id quas ab reprehenderit minus assumenda?
-                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                          El Programa de Vinculación Laboral conecta con
+                          empresas que comparten el objetivo de un cambio
+                          positivo en la sociedad. Gracias al programa encontré
+                          mi primera experiencia laboral y ahora estoy
+                          completamente enfocado en lo que estudié durante 5
+                          años.
                         </p>
                       </v-card-text>
                     </v-card>
@@ -175,43 +179,46 @@
               <v-sheet height="100%">
                 <v-row>
                   <v-col cols="12" md="12" lg="6">
-                    <v-card>
+                    <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
                           color="grey-darken-3"
-                          image="@/assets/img/logo-amarillo.jpg"
+                          image="@/assets/img/logo_red.jpg"
                         ></v-avatar>
                         <p style="font-size: 16px; font-weight: 500">
-                          David Fernando Dzul Tzab
+                          Yoceline, Derecho.
                         </p>
-                        <p>Ingeniero En Sistemas Computacionales</p>
+                        <p>11 meses de colaboración.</p>
 
                         <p class="pt-5">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Itaque excepturi harum laboriosam illo. Itaque,
-                          cumque ut. Id quas ab reprehenderit minus assumenda?
-                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                          El Programa de Vinculación Laboral me acercó a un
+                          trabajo en mi área, fortaleciendo mi seguridad y
+                          habilidades. La empresa me asignó un plan de
+                          desarrollo, resolvió mis dudas, corrigió errores y
+                          reconoció logros, brindándome un entorno seguro para
+                          crecer.
                         </p>
                       </v-card-text>
                     </v-card>
                   </v-col>
                   <v-col cols="12" md="12" lg="6">
-                    <v-card>
+                    <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
                           color="grey-darken-3"
-                          image="@/assets/img/logo-amarillo.jpg"
+                          image="@/assets/img/logo_pink.jpg"
                         ></v-avatar>
                         <p style="font-size: 16px; font-weight: 500">
-                          David Fernando Dzul Tzab
+                          Jimena, Ingeniería en Gestión Empresarial.
                         </p>
-                        <p>Ingeniero En Sistemas Computacionales</p>
+                        <p>1 año y medio de colaboración.</p>
 
                         <p class="pt-5">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Itaque excepturi harum laboriosam illo. Itaque,
-                          cumque ut. Id quas ab reprehenderit minus assumenda?
-                          Unde, minima repellat. Deleniti ab maiores eum magni?
+                          Gracias al Programa de Vinculación Laboral encontré un
+                          empleo acorde a mi carrera y horarios escolares.
+                          Aprendí mucho y desarrollé un puesto que ahora es
+                          clave para la empresa, lo cual ha sido una experiencia
+                          enriquecedora.
                         </p>
                       </v-card-text>
                     </v-card>
@@ -329,17 +336,17 @@ const slides = ["First", "Second", "Third", "Fourth", "Fifth"];
 
 const images = [
   {
-    src: "https://iu.org.mx/wp-content/uploads/2024/11/IMG_9126.jpg",
+    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_2-scaled.jpg",
     alt: "Slide 1",
     title: "DA EL PRIMER PASO EN TU CARRERA",
   },
   {
-    src: "https://iu.org.mx/wp-content/uploads/2024/03/1.jpg",
+    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_3-scaled.jpg",
     alt: "Slide 2",
     title: "ENCUENTRA EL PERFIL IDEAL PARA TU EMPRESA",
   },
   {
-    src: "https://www.somoshermanos.mx/wp-content/uploads/2023/06/Captura-de-Pantalla-2023-06-14-a-las-9.10.31.png",
+    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_1-min-scaled.jpg",
     alt: "Slide 3",
     title: "PUBLICA TU VACANTE EN MINUTOS",
   },

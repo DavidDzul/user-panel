@@ -4,7 +4,7 @@
       <v-col cols="12">
         <p>
           En Impulso Universitario A.C., nos dedicamos a impulsar el futuro
-          profesional de becarios y egresados, creando puentes sólidos entre el
+          profesional de jóvenes en formación, creando puentes sólidos entre el
           mundo académico y el empresarial.
         </p>
       </v-col>
