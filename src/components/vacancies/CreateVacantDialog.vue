@@ -26,7 +26,7 @@
               <v-divider></v-divider>
               <v-stepper-item
                 :complete="step > 2"
-                title="Prestaciones de Ley"
+                title="Prestaciones"
                 :value="2"
               ></v-stepper-item>
               <v-divider></v-divider>

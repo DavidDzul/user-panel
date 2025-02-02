@@ -16,6 +16,9 @@
         <v-btn flat @click="emit('business')">
           <v-icon class="mx-2"> mdi-city </v-icon> Empresas</v-btn
         >
+        <v-btn flat @click="scrollToContact()">
+          <v-icon class="mx-2"> mdi-phone-classic</v-icon> Contacto
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -106,8 +109,8 @@
         </v-container>
       </div>
 
-      <div class="contact-section text-center">
-        <v-container class="contact-section pt-10" max-width="lg" fluid>
+      <div class="text-center">
+        <v-container class="pt-10" max-width="lg" fluid>
           <v-row justify="center" align="center">
             <v-col cols="12">
               <h2 class="text-center" style="color: #ff7900">
@@ -117,16 +120,16 @@
           </v-row>
           <v-carousel
             cycle
-            :show-arrows="false"
-            height="350"
+            :interval="15000"
+            show-arrows="hover"
+            height="auto"
+            class="py-10"
             hide-delimiter-background
-            hide-delimiters
-            class="pa-10"
           >
-            <v-carousel-item class="pa-5">
+            <v-carousel-item class="px-10">
               <v-sheet height="100%">
-                <v-row>
-                  <v-col cols="12" md="12" lg="6">
+                <v-row class="px-10">
+                  <v-col cols="12">
                     <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
@@ -149,7 +152,13 @@
                       </v-card-text>
                     </v-card>
                   </v-col>
-                  <v-col cols="12" md="12" lg="6">
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+            <v-carousel-item class="px-10">
+              <v-sheet height="100%">
+                <v-row class="px-10">
+                  <v-col cols="12">
                     <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
@@ -175,10 +184,10 @@
                 </v-row>
               </v-sheet>
             </v-carousel-item>
-            <v-carousel-item class="pa-5">
+            <v-carousel-item class="px-10">
               <v-sheet height="100%">
-                <v-row>
-                  <v-col cols="12" md="12" lg="6">
+                <v-row class="px-10">
+                  <v-col cols="12">
                     <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
@@ -201,7 +210,13 @@
                       </v-card-text>
                     </v-card>
                   </v-col>
-                  <v-col cols="12" md="12" lg="6">
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+            <v-carousel-item class="px-10">
+              <v-sheet height="100%">
+                <v-row class="px-10">
+                  <v-col cols="12">
                     <v-card class="elevation-0">
                       <v-card-text style="text-align: center">
                         <v-avatar
@@ -230,8 +245,49 @@
         </v-container>
       </div>
 
-      <div class="contact-section text-center">
-        <v-container class="contact-section" max-width="lg" fluid>
+      <div class="text-center bg-associated-companies">
+        <v-container class="pt-10 pb-6" max-width="lg" fluid>
+          <v-row justify="center" align="center">
+            <v-col cols="12">
+              <h2 class="text-center">ALIADOS</h2>
+              <h3>¿Quieres ser parte de esta red de impacto? <br /></h3>
+              <p>
+                Conviértete en aliado y contribuye al desarrollo de nuevas
+                generaciones.
+              </p>
+            </v-col>
+          </v-row>
+          <v-row justify="center" align="center">
+            <v-col cols="12" md="4">
+              <v-img
+                src="@/assets/img/logo.png"
+                alt="Aliado 1"
+                contain
+                height="60"
+              ></v-img>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-img
+                src="@/assets/img/logo.png"
+                alt="Aliado 2"
+                contain
+                height="60"
+              ></v-img>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-img
+                src="@/assets/img/logo.png"
+                alt="Aliado 3"
+                contain
+                height="60"
+              ></v-img>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
+
+      <div ref="contactSection" class="text-center pt-10">
+        <v-container class="" max-width="lg" fluid>
           <v-row justify="center" align="center">
             <v-col cols="12">
               <h2 class="text-center" style="color: #ff7900">CONTÁCTANOS</h2>
@@ -333,6 +389,7 @@ const emit = defineEmits(["user", "business"]);
 // Images for the carousel
 
 const slides = ["First", "Second", "Third", "Fourth", "Fifth"];
+const contactSection = ref<HTMLElement | null>(null);
 
 const images = [
   {
@@ -383,6 +440,12 @@ const icons = ref([
     url: "https://www.instagram.com/impulsouniversitario/",
   },
 ]);
+
+const scrollToContact = () => {
+  if (contactSection.value) {
+    contactSection.value.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 const openUrl = (url: string) => {
   window.open(url, "_blank");
@@ -452,5 +515,10 @@ const openUrl = (url: string) => {
 
 .footer-link:hover {
   text-decoration: underline;
+}
+
+.bg-associated-companies {
+  background-color: #ff7900;
+  color: white;
 }
 </style>

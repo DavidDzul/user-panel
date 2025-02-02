@@ -212,6 +212,11 @@
     @submit="onUpdateTechnicalKnowledge"
     :loading="loadingTechnicalKnowledge"
   />
+  <AvailableDialog
+    v-model="availableCvDialog"
+    :loading="loadingAvailableCvge"
+    @submit="onUpdatePublicCV"
+  />
   <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
 </template>
 
@@ -237,6 +242,7 @@ import UpdateContinuingEducationDialog from "@/components/curriculum/UpdateConti
 import TechnicalKnowledgeTable from "@/components/curriculum/TechnicalKnowledgeTable.vue";
 import CreateTechnicalKnowledgeDialog from "@/components/curriculum/CreateTechnicalKnowledgeDialog.vue";
 import UpdateTechnicalKnowledgeDialog from "@/components/curriculum/UpdateTechnicalKnowledgeDialog.vue";
+import AvailableDialog from "@/components/curriculum/AvailableDialog.vue";
 
 const panel = ref([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
@@ -269,6 +275,8 @@ const {
   loadingContinuingEducation,
   loadingTechnicalKnowledge,
   loadingDowloandCV,
+  availableCvDialog,
+  loadingAvailableCvge,
 } = storeToRefs(useCurriculumPageStore());
 const {
   savePhoto,
@@ -297,6 +305,7 @@ const {
   onUpdateTechnicalKnowledge,
   onRemoveTechnicalKnowledge,
   onUpdatePublicCV,
+  openAvailableCvDialog,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);
@@ -347,13 +356,15 @@ const onKnowledgeDelete = async (id) => {
 };
 
 const onChangePlibicCV = async (status) => {
-  const response = await confirmationDialog.value?.open({
-    title: "Visualización de CV",
-    body: status
-      ? "Al aceptar, tu currículum vitae será visible para que las empresas puedan ponerse en contacto contigo. ¿Deseas continuar?"
-      : "Al aceptar, el curriculum vitae ya no será visible para que las empresas puedan ponerse en contacto contigo. ¿Desea continuar?",
-  });
-  if (!response) return;
-  await onUpdatePublicCV();
+  if (status) {
+    openAvailableCvDialog();
+  } else {
+    const response = await confirmationDialog.value?.open({
+      title: "Visualización de CV",
+      body: "Al aceptar, el curriculum vitae ya no será visible para que las empresas puedan ponerse en contacto contigo. ¿Desea continuar?",
+    });
+    if (!response) return;
+    await onUpdatePublicCV();
+  }
 };
 </script>

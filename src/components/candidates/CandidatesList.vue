@@ -37,7 +37,7 @@
         >
           <v-card-title class="pa-5">
             <h3 style="color: #ff7900">
-              {{ item.first_name }} {{ item.last_name }}
+              {{ item.first_name.split(" ")[0] }}
             </h3>
           </v-card-title>
 
@@ -59,9 +59,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12">
-                {{ item.professional_summary.substr(0, 150) }}...
-              </v-col>
+              <v-col cols="12"> {{ item.professional_summary }} </v-col>
             </v-row>
           </v-card-text>
           <!-- <v-card-actions>

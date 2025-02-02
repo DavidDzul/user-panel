@@ -172,7 +172,7 @@
               </li>
             </ul>
             <ul v-if="props.vacant.category === 'JOB_POSITION'">
-              <li><b>Prestaciones de ley</b></li>
+              <li><b>Prestaciones</b></li>
               <ul class="mx-5 my-2">
                 <li v-if="props.vacant.employment_contract">
                   Contrato laboral

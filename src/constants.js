@@ -10,7 +10,7 @@ export const sedeArray = [
 
 export const typeKnowledge = [
     { value: "SOFTWARE", text: "Software" },
-    { value: "LANGUAGE", text: "Lenguaje" },
+    { value: "LANGUAGE", text: "Idioma" },
     { value: "OTHER", text: "Otro" },
 ]
 
@@ -46,7 +46,7 @@ export const typeKnowledgeMap = new Map([
         'LANGUAGE',
         {
             value: 'LANGUAGE',
-            text: "Lenguaje",
+            text: "Idioma",
         },
     ],
     [

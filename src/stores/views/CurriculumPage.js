@@ -54,6 +54,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const editKnowledge = ref(undefined)
     const file = ref()
     const previewUrl = ref("")
+    const availableCvDialog = ref(false)
 
     //loading
     const loadingDowloandCV = ref(false)
@@ -63,6 +64,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const loadingAcademicInformation = ref(false)
     const loadingContinuingEducation = ref(false)
     const loadingTechnicalKnowledge = ref(false)
+    const loadingAvailableCvge = ref(false)
 
     onBeforeMount(async () => {
         await fetchCurriculum()
@@ -89,6 +91,10 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
 
     const openContinuingEducationDialog = () => {
         continuingEducationDialog.value = true
+    }
+
+    const openAvailableCvDialog = () => {
+        availableCvDialog.value = true
     }
 
     const openTechnicalKnowledgeDialog = () => {
@@ -162,8 +168,11 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         loadingPersonalData.value = true
         if (form) {
             try {
-                const res = await createPersonalData(form);
-                if (res) {
+                const result = await createPersonalData(form);
+                if (result.res) {
+                    if (result.created) {
+                        availableCvDialog.value = true
+                    }
                     personalDialog.value = false
                 }
             } catch (error) {
@@ -328,13 +337,16 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         }
     }
 
-    const onUpdatePublicCV = async () => {
+    const onUpdatePublicCV = async (available = null) => {
+        loadingAvailableCvge.value = true
         try {
-            await changeStatusCV()
+            await changeStatusCV(available);
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
-    }
+        availableCvDialog.value = false
+        loadingAvailableCvge.value = false
+    };
 
     return {
         userInfo,
@@ -358,6 +370,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         technicalKnowledgeDialog,
         editKnowledge,
         editKnowledgeDialog,
+        availableCvDialog,
         //loadings
         loadingDowloandCV,
         loadingPhoto,
@@ -366,6 +379,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         loadingAcademicInformation,
         loadingContinuingEducation,
         loadingTechnicalKnowledge,
+        loadingAvailableCvge,
         savePhoto,
         openEditAcademic,
         changePhoto,
@@ -392,5 +406,6 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         onUpdateTechnicalKnowledge,
         onRemoveTechnicalKnowledge,
         onUpdatePublicCV,
+        openAvailableCvDialog,
     };
 });

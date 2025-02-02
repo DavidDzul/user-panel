@@ -47,7 +47,7 @@
                 v-bind="postgraduate_end_dateProps"
                 label="Fecha de término"
                 placeholder="Mes y año"
-                hint="Ej: Diciembre 2024"
+                hint="Ej: Diciembre 2024 o Actualidad"
                 persistent-hint
               ></v-text-field>
             </v-col>

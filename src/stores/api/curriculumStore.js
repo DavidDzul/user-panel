@@ -69,7 +69,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
                     status: "success",
                 });
                 resCurriculumInfo.value = param.data.curriculum
-                return param.data.res
+                return param.data
             }
         } catch (error) {
             console.error(error);
@@ -365,18 +365,21 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         }
     }
 
-    const changeStatusCV = async () => {
+    const changeStatusCV = async (available = null) => {
         try {
-            const param = await axios.post(`api/updateStatusCV`, {
-                headers: { 'accept': 'application/json' }
+            const payload = available ? { available } : {};
+
+            const param = await axios.post(`api/updateStatusCV`, payload, {
+                headers: { 'Accept': 'application/json' }
             });
+
             if (param) {
                 showAlert({
                     title: "Estatus actualizado exitosamente.",
                     status: "success",
                 });
-                resCurriculumInfo.value = param.data.curriculum
-                return param.data.res
+                resCurriculumInfo.value = param.data.curriculum;
+                return param.data.res;
             }
         } catch (error) {
             console.error(error);
@@ -386,7 +389,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
             });
             throw error;
         }
-    }
+    };
 
     const dowloandCurriculum = async (userId) => {
         await axios
