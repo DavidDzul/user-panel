@@ -19,6 +19,10 @@
           </div>
         </v-list-item>
         <v-divider class="my-3"></v-divider>
+        <div class="text-center">
+          <p>{{ roleNameMap.get(user.role.name).text }}</p>
+        </div>
+        <v-divider class="my-3"></v-divider>
         <v-list-item
           prepend-icon="mdi-cog"
           title="Configurar"
@@ -35,6 +39,8 @@
 </template>
 
 <script setup>
+import { roleNameMap } from "../constants";
+
 defineProps({
   initials: { type: String, required: true },
   fullName: { type: String, required: true },

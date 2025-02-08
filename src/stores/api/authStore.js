@@ -131,6 +131,7 @@ export const useAuthStore = defineStore("authStore", () => {
     const userInitials = computed(() => `${userProfile?.value?.first_name.charAt(0) || ""}${userProfile?.value?.last_name.charAt(0) || ""}`)
     const fullName = computed(() => `${userProfile?.value?.first_name || ""} ${userProfile?.value?.last_name || ""}`)
     const userType = computed(() => userProfile.value?.user_type)
+    const userRole = computed(() => userProfile.value?.role)
 
     return {
         login,
@@ -141,6 +142,7 @@ export const useAuthStore = defineStore("authStore", () => {
         updateUserProfile,
         getUserPermissions,
         token,
+        userRole,
         userType,
         fullName,
         loggedUser,

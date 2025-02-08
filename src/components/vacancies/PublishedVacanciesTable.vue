@@ -139,6 +139,7 @@ import dayjs from "dayjs";
 const props = defineProps({
   vacant: { type: Array, default: () => [] },
   loading: { type: Boolean, default: () => false },
+  user: { type: Object, required: true },
 });
 
 const search = ref("");

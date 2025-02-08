@@ -63,6 +63,16 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
+                    <v-select
+                      v-model="mode"
+                      :items="modeArray"
+                      v-bind="modeProps"
+                      item-title="text"
+                      item-value="value"
+                      label="Modalidad de trabajo"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="12">
                     <v-checkbox
                       v-model="financial_support"
                       v-bind="financial_supportProps"
@@ -320,6 +330,7 @@ import { computed, ref, watch } from "vue";
 import * as yup from "yup";
 
 import * as validations from "@/validations";
+import { modeArray } from "@/constants";
 
 import { daysValue } from "@/constants";
 
@@ -338,6 +349,7 @@ const props = defineProps({
 const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
+      mode: validations.mode(),
       category: validations.category(),
       vacant_name: validations.vacant_name(),
       activities: validations.activities(),
@@ -366,6 +378,7 @@ const [vacant_name, vacant_nameProps] = defineField(
   vuetifyConfig
 );
 const [category, categoryProps] = defineField("category", vuetifyConfig);
+const [mode, modeProps] = defineField("mode", vuetifyConfig);
 const [activities, activitiesProps] = defineField("activities", vuetifyConfig);
 const [study_profile, study_profileProps] = defineField(
   "study_profile",

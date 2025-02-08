@@ -64,6 +64,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     })
 
     const vacancies = computed(() => [...resVacancies.value.values()])
+    const vacanciesCount = computed(() => vacancies.value.length);
     const businessData = computed(() => resBusinessData.value)
 
     const onSaveVacant = async (form) => {
@@ -179,6 +180,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         disabledvacantDialog,
         loadingVacant,
         loadingPractice,
+        vacanciesCount,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,

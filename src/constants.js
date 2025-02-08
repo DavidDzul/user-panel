@@ -222,3 +222,78 @@ export const statusApplicationMap = new Map([
         },
     ],
 ])
+
+export const roleNameMap = new Map([
+    [
+        'BASIC',
+        {
+            value: 'BASIC',
+            text: "BÁSICO",
+        },
+    ],
+    [
+        'BRONZE',
+        {
+            value: 'BRONZE',
+            text: "BRONCE",
+        },
+    ],
+    [
+        'SILVER',
+        {
+            value: 'SILVER',
+            text: "PLATA",
+        },
+    ],
+    [
+        'GOLD',
+        {
+            value: 'GOLD',
+            text: "ORO",
+        },
+    ],
+    [
+        'PLATINUM',
+        {
+            value: 'PLATINUM',
+            text: "PLATINO",
+        },
+    ],
+    [
+        'DIAMOND',
+        {
+            value: 'DIAMOND',
+            text: "DIAMANTE",
+        },
+    ],
+])
+
+export const modeArray = [
+    { value: "IN_PERSON", text: "Presencial" },
+    { value: "REMOTE", text: "Remoto" },
+    { value: "HYBRID", text: "Híbrido" },
+]
+
+export const modeVacantMap = new Map([
+    [
+        'IN_PERSON',
+        {
+            value: 'IN_PERSON',
+            text: "Presencial",
+        },
+    ],
+    [
+        'REMOTE',
+        {
+            value: 'REMOTE',
+            text: "Remoto",
+        },
+    ],
+    [
+        'HYBRID',
+        {
+            value: 'HYBRID',
+            text: "Híbrido",
+        },
+    ],
+])

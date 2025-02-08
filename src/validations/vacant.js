@@ -2,10 +2,11 @@ import * as yup from "yup"
 
 export const vacant_name = () => yup.string().required("Campo requerido").label("Nombre")
 export const category = () => yup.string().required("Campo requerido").label("Categoría")
+export const mode = () => yup.string().required("Campo requerido").label("Modo")
 export const activities = () => yup.string().required("Campo requerido").label("Actividades o funciones")
 export const study_profile = () => yup.string().required("Campo requerido").label("Perfil de estudios")
 export const net_salary = () => yup.string().required("Campo requerido").label("Sueldo neto mensual")
-export const start_day = () => yup.string().required("Campo requerido").label("Categoría")
+export const start_day = () => yup.string().required("Campo requerido").label("Día de inicio")
 
 export const end_day = () => yup.string().required("Campo requerido").label()
 export const start_hour = () => yup.string().required("Campo requerido").label("Hora de inicio")

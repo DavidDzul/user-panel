@@ -1,6 +1,14 @@
 <template>
   <v-container fluid>
     <v-row>
+      <v-col cols="12" lg="12">
+        <div>
+          <strong>Total de visualizaciones: </strong
+          ><label
+            >{{ user.role.num_visualizations }} / {{ visualizations }}
+          </label>
+        </div>
+      </v-col>
       <v-col cols="12" lg="9" md="12">
         <v-text-field
           class="mx-5"
@@ -87,6 +95,8 @@ import "dayjs/locale/es";
 const props = defineProps({
   list: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
+  visualizations: { type: Number, default: 0 },
+  user: { type: Object, required: true, default: {} },
 });
 
 const page = ref(1);

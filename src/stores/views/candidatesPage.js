@@ -3,13 +3,16 @@ import { useCandidatesStore } from "@/stores/api/candidatesStore";
 import { useAppStore } from "@/stores/app";
 import { computed, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router"
+import { useAuthStore } from "@/stores/api/authStore";
 
 export const useCandidatesPageStore = defineStore("candidatesPage", () => {
     const { setLoading } = useAppStore();
-    const { resCandidates } = storeToRefs(useCandidatesStore());
+    const { resCandidates, resVisualization } = storeToRefs(useCandidatesStore());
 
     const { fetchCandidates, validateVisualizations
     } = useCandidatesStore();
+
+    const { userProfile } = storeToRefs(useAuthStore())
 
     const router = useRouter()
     const loadingCard = ref(false)
@@ -24,6 +27,7 @@ export const useCandidatesPageStore = defineStore("candidatesPage", () => {
         loadingCard.value = true
         try {
             await validateVisualizations($id)
+            resVisualization.value = resVisualization.value + 1
         } catch (e) {
             console.error(e)
         }
@@ -33,6 +37,8 @@ export const useCandidatesPageStore = defineStore("candidatesPage", () => {
     return {
         candidates,
         loadingCard,
+        userProfile,
+        resVisualization,
         openUserCV,
     };
 });

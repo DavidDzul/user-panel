@@ -5,6 +5,8 @@
         <CandidatesList
           :list="candidates"
           :loading="loadingCard"
+          :user="userProfile"
+          :visualizations="resVisualization"
           @open="openUserCV"
         />
       </v-col>
@@ -18,7 +20,9 @@ import { storeToRefs } from "pinia";
 import { useCandidatesPageStore } from "@/stores/views/candidatesPage";
 
 import CandidatesList from "@/components/candidates/CandidatesList.vue";
-const { candidates, loadingCard } = storeToRefs(useCandidatesPageStore());
+const { candidates, loadingCard, userProfile, resVisualization } = storeToRefs(
+  useCandidatesPageStore()
+);
 const { openUserCV } = useCandidatesPageStore();
 
 const search = ref("");

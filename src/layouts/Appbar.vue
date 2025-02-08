@@ -100,6 +100,7 @@
   </v-navigation-drawer>
 
   <UserProfileDialog
+    v-if="userProfile"
     v-model="openUserProfileDialog"
     :edit-item="userProfile"
     @submit="updateUserProfile"

@@ -70,7 +70,18 @@
                       v-model="study_profile"
                       v-bind="study_profileProps"
                       label="Perfil de estudios"
+                      placeholder="Ej: Licenciado/a en Psicología"
                     ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12">
+                    <v-select
+                      v-model="mode"
+                      :items="modeArray"
+                      v-bind="modeProps"
+                      item-title="text"
+                      item-value="value"
+                      label="Modalidad de trabajo"
+                    ></v-select>
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-text-field
@@ -579,6 +590,7 @@ import { computed, ref, watch } from "vue";
 import * as yup from "yup";
 
 import * as validations from "@/validations";
+import { modeArray } from "@/constants";
 
 import { daysValue } from "@/constants";
 
@@ -599,6 +611,7 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
       id: validations.id(),
+      mode: validations.mode(),
       vacant_name: validations.vacant_name(),
       activities: validations.activities(),
       study_profile: validations.study_profile(),
@@ -649,6 +662,7 @@ const [vacant_name, vacant_nameProps] = defineField(
   "vacant_name",
   vuetifyConfig
 );
+const [mode, modeProps] = defineField("mode", vuetifyConfig);
 const [activities, activitiesProps] = defineField("activities", vuetifyConfig);
 const [study_profile, study_profileProps] = defineField(
   "study_profile",
@@ -798,6 +812,7 @@ watch(
       if (props.editItem) {
         setValues({
           id: props.editItem.id,
+          mode: props.editItem.mode,
           vacant_name: props.editItem.vacant_name,
           activities: props.editItem.activities,
           study_profile: props.editItem.study_profile,

@@ -8,6 +8,7 @@ export const useCandidatesStore = defineStore("candidatesStore", () => {
     const router = useRouter();
     const { showAlert } = useAlertStore()
     const resCandidates = ref(new Map())
+    const resVisualization = ref(0)
 
     const fetchCandidates = async () => {
         try {
@@ -15,6 +16,7 @@ export const useCandidatesStore = defineStore("candidatesStore", () => {
                 headers: { 'accept': 'application/json' }
             });
             resCandidates.value = new Map(res.data.candidates.map((m) => [m.id, m]))
+            resVisualization.value = res.data.visualizations
             return res.data
         } catch (error) {
             console.error("Error en vacantes:", error);
@@ -67,6 +69,7 @@ export const useCandidatesStore = defineStore("candidatesStore", () => {
 
     return {
         resCandidates,
+        resVisualization,
         fetchCandidates,
         validateVisualizations,
     };

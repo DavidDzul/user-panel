@@ -1,7 +1,15 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-if="businessData">
+      <v-col v-if="businessData" cols="12" lg="6">
+        <div>
+          <strong>Total de vacantes: </strong
+          ><label
+            >{{ userProfile.role.num_vacancies }} / {{ vacanciesCount }}
+          </label>
+        </div>
+      </v-col>
+      <v-col cols="12" lg="6" v-if="businessData" class="text-right">
         <v-btn color="primary" class="mb-4">
           NUEVA VACANTE <v-icon>mdi-chevron-down</v-icon>
           <v-menu activator="parent">
@@ -22,7 +30,7 @@
           </v-menu>
         </v-btn>
       </v-col>
-      <v-col v-else>
+      <v-col cols="12" lg="12" md="12" v-else>
         <div class="pb-5">
           <b style="color: red">
             Para publicar vacantes, por favor solicita a los administradores de
@@ -33,7 +41,9 @@
     </v-row>
 
     <PublishedVacanciesTable
+      v-if="userProfile"
       :vacant="vacancies"
+      :user="userProfile"
       @open="openVacantDetail"
       @edit="openEditVacant"
       @practice="openEditPractice"
@@ -42,12 +52,14 @@
     />
   </v-container>
   <CreateVacantDialog
+    v-if="userProfile"
     v-model="vacantDialog"
     :user="userProfile"
     :loading="loadingVacant"
     @submit="onSaveVacant"
   />
   <UpdateVacantDialog
+    v-if="userProfile"
     v-model="updateVacantDialog"
     :edit-item="editVacant"
     :user="userProfile"
@@ -55,12 +67,14 @@
     @submit="onUpdateVacant"
   />
   <CreatePracticeVacantDialog
+    v-if="userProfile"
     v-model="practiceDialog"
     :user="userProfile"
     :loading="loadingPractice"
     @submit="onSavePractive"
   />
   <UpdatePracticeVacantDialog
+    v-if="userProfile"
     v-model="updatePracticeDialog"
     :edit-item="editPractice"
     :user="userProfile"
@@ -101,6 +115,7 @@ const {
   disabledvacantDialog,
   loadingVacant,
   loadingPractice,
+  vacanciesCount,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {
