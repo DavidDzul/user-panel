@@ -133,6 +133,10 @@ export const useAuthStore = defineStore("authStore", () => {
     const userType = computed(() => userProfile.value?.user_type)
     const userRole = computed(() => userProfile.value?.role)
 
+    //permissions
+
+    const candidates_view = computed(() => !!permissions.value.find((map) => map === "CANDIDATES_VIEW"))
+
     return {
         login,
         logout,
@@ -149,6 +153,7 @@ export const useAuthStore = defineStore("authStore", () => {
         permissions,
         userProfile,
         userInitials,
+        candidates_view,
         openUserProfileDialog,
     };
 });

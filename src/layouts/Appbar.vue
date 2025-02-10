@@ -54,7 +54,7 @@
           <v-btn :to="'/publicaciones'">
             <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-btn
           >
-          <v-btn :to="'/candidatos'">
+          <v-btn v-if="candidates_view" :to="'/candidatos'">
             <v-icon>mdi-account-multiple</v-icon> Candidatos</v-btn
           >
           <v-btn :to="'/postulaciones-recibidas'">
@@ -89,7 +89,7 @@
         <v-list-item :to="'/publicaciones'">
           <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-list-item
         >
-        <v-list-item :to="'/candidatos'">
+        <v-list-item v-if="candidates_view" :to="'/candidatos'">
           <v-icon>mdi-account-multiple</v-icon> Candidatos</v-list-item
         >
         <v-list-item :to="'/postulaciones-recibidas'">
@@ -120,8 +120,14 @@ const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);
 
 const { logout, updateUserProfile, openUserDialog } = useAuthStore();
-const { userProfile, userInitials, fullName, userType, openUserProfileDialog } =
-  storeToRefs(useAuthStore());
+const {
+  userProfile,
+  userInitials,
+  fullName,
+  userType,
+  openUserProfileDialog,
+  candidates_view,
+} = storeToRefs(useAuthStore());
 
 const onClick = () => {
   drawer.value = !drawer.value;

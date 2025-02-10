@@ -72,6 +72,14 @@ const routes = [
       {
         path: "/candidatos",
         name: "CandidatesView",
+        beforeEnter: async (to, from, next) => {
+          const { candidates_view } = storeToRefs(useAuthStore())
+          if (candidates_view.value) {
+            return next()
+          } else {
+            return next("/")
+          }
+        },
         component: () => import("@/views/candidates/CandidatesView.vue"),
         meta: {
           title: 'Candidatos visibles'
