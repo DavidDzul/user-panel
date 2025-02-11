@@ -60,6 +60,10 @@
                 <li>
                   <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
                 </li>
+                <li>
+                  <b>Modalidad de trabajo:</b>
+                  {{ modeVacantMap.get(props.vacant.mode).text }}
+                </li>
                 <li><b>Actividades:</b> {{ props.vacant.activities }}</li>
                 <li>
                   <b>Habilidades y/o competencias:</b> {{ props.vacant.skills }}
@@ -83,6 +87,10 @@
                 <li><b>Tipo:</b> Vacante para prácticas profesionales</li>
                 <li>
                   <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
+                </li>
+                <li>
+                  <b>Modalidad de trabajo:</b>
+                  {{ modeVacantMap.get(props.vacant.mode).text }}
                 </li>
                 <li>
                   <b>Semestre y/o cuatrimestre admitido:</b>
@@ -284,7 +292,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-import { API_URL } from "../../constants";
+import { API_URL, modeVacantMap } from "../../constants";
 
 const props = defineProps({
   vacant: { type: Object, required: true },

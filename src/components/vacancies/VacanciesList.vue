@@ -67,6 +67,7 @@ const props = defineProps({
   loading: { type: Boolean, default: false },
   search: { type: String, default: "" },
   type: { type: String, default: "" },
+  mode: { type: String, default: "" },
 });
 
 const page = ref(1);
@@ -81,13 +82,15 @@ const emit = defineEmits(["open", "remove"]);
 const filteredList = computed(() => {
   const searchTerm = props.search.toLowerCase();
   return props.list.filter((item) => {
-    const matchesCategory = !props.type || item.category === props.type; // Filtro condicional
+    const matchesCategory = !props.type || item.category === props.type;
+    const matchesMode = !props.mode || item.mode === props.mode; // Asegurar que solo se filtre si hay un valor en props.mode
+
     const matchesSearch =
       item.vacant_name.toLowerCase().includes(searchTerm) ||
       item.business.bs_name.toLowerCase().includes(searchTerm) ||
       item.business.bs_locality.toLowerCase().includes(searchTerm);
 
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesMode && matchesSearch;
   });
 });
 

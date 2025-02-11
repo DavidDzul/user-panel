@@ -14,6 +14,15 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
     const resContinuingEducation = ref(new Map())
     const resTechnicalKnowledge = ref(new Map())
 
+    const $reset = () => {
+        resCurriculumInfo.value = null
+        resPhoto.value = null
+        resWorkExperience.value = new Map()
+        resAcademicInformation.value = new Map()
+        resContinuingEducation.value = new Map()
+        resTechnicalKnowledge.value = new Map()
+    }
+
     const fetchCurriculum = async () => {
         try {
             const res = await axios.get("api/fetchCurriculum", {
@@ -427,5 +436,6 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         updateTechnicalKnowledge,
         removeTechnicalKnowledge,
         changeStatusCV,
+        $reset
     };
 });

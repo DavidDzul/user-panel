@@ -27,6 +27,15 @@
                   clearable
                 ></v-select>
                 <v-select
+                  v-model="mode"
+                  :items="modeArray"
+                  item-title="text"
+                  item-value="value"
+                  label="Modalidad"
+                  density="compact"
+                  clearable
+                ></v-select>
+                <v-select
                   v-model="sede"
                   :items="sedeArray"
                   item-title="text"
@@ -45,6 +54,7 @@
           :list="vacancies"
           :search="search"
           :type="type"
+          :mode="mode"
           @open="openVacantDetail"
         />
       </v-col>
@@ -76,12 +86,13 @@ import { storeToRefs } from "pinia";
 import { useVacanciesPageStore } from "@/stores/views/vacanciesPage";
 
 import VacanciesList from "@/components/vacancies/VacanciesList.vue";
-import { vacantType, sedeArray } from "@/constants";
+import { vacantType, sedeArray, modeArray } from "@/constants";
 
 const { vacancies, vacantDetailDialog } = storeToRefs(useVacanciesPageStore());
 const { openVacantDetail } = useVacanciesPageStore();
 
 const search = ref("");
+const mode = ref("");
 const type = ref("");
 const sede = ref("");
 </script>

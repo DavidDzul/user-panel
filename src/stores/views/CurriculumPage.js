@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from "pinia";
 import { useCurriculumStore } from "@/stores/api/curriculumStore";
 import { useAuthStore } from "@/stores/api/authStore";
 import { useAppStore } from "@/stores/app";
-import { computed, onBeforeMount, ref, reactive } from "vue";
+import { computed, onBeforeMount, onMounted, ref, reactive, watch } from "vue";
 import { stringifyQuery } from "vue-router";
 
 export const useCurriculumPageStore = defineStore("curriculumPage", () => {
@@ -66,7 +66,13 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
     const loadingTechnicalKnowledge = ref(false)
     const loadingAvailableCvge = ref(false)
 
-    onBeforeMount(async () => {
+    // watch(userProfile, async (newProfile) => {
+    //     if (newProfile) {
+    //         await fetchCurriculum();
+    //     }
+    // });
+
+    onMounted(async () => {
         await fetchCurriculum()
     })
 

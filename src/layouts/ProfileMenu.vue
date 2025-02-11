@@ -18,10 +18,13 @@
             <p class="mt-1">{{ user.email }}</p>
           </div>
         </v-list-item>
-        <v-divider class="my-3"></v-divider>
-        <div class="text-center">
-          <p>{{ roleNameMap.get(user.role.name).text }}</p>
-        </div>
+        <template v-if="user.user_type === 'BUSINESS'">
+          <v-divider class="my-3"></v-divider>
+          <div class="text-center">
+            <p>{{ roleNameMap.get(user.role.name).text }}</p>
+          </div>
+        </template>
+
         <v-divider class="my-3"></v-divider>
         <v-list-item
           prepend-icon="mdi-cog"
