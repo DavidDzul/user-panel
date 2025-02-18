@@ -54,8 +54,14 @@
               : '',
         }"
       >
-        {{ statusApplicationMap.get(item.status).text }}
+        {{ statusApplicationMap?.get(item.status)?.text }}
       </p>
+    </template>
+    <template #[`item.rejected_reason`]="{ item }">
+      <span v-if="item.rejected_reason !== 'OTHER'">
+        {{ rejectedReasonMap.get(item.rejected_reason).text }}
+      </span>
+      <span v-else> {{ item.rejected_other }} </span>
     </template>
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
@@ -88,7 +94,7 @@
 import { computed, ref } from "vue";
 import dayjs from "dayjs";
 
-import { statusApplicationMap } from "../../constants";
+import { statusApplicationMap, rejectedReasonMap } from "../../constants";
 
 const props = defineProps({
   applications: { type: Array, default: () => [] },
@@ -100,32 +106,43 @@ const groupBy = ref(undefined);
 
 const emit = defineEmits(["submit", "rejected"]);
 
-const headers = computed(() => [
-  {
-    title: "ID",
-    key: "id",
-  },
-  {
-    title: "Empresa",
-    key: "business_id",
-  },
-  {
-    title: "Vacante",
-    key: "vacant_id",
-  },
-  {
-    title: "Estatus",
-    key: "status",
-  },
-  {
-    title: "Fecha",
-    key: "created_at",
-  },
-  {
-    title: "",
-    key: "actions",
-  },
-]);
+const headers = computed(() => {
+  const baseHeaders = [
+    {
+      title: "ID",
+      key: "id",
+    },
+    {
+      title: "Empresa",
+      key: "business_id",
+    },
+    {
+      title: "Vacante",
+      key: "vacant_id",
+    },
+    {
+      title: "Estatus",
+      key: "status",
+    },
+    {
+      title: "Fecha",
+      key: "created_at",
+    },
+    {
+      title: "",
+      key: "actions",
+    },
+  ];
+
+  if (props.applications.some((item) => item.status === "REJECTED")) {
+    baseHeaders.splice(4, 0, {
+      title: "Motivo de Rechazo",
+      key: "rejected_reason",
+    });
+  }
+
+  return baseHeaders;
+});
 
 const rejectedItem = (item) => {
   emit("rejected", item.id);

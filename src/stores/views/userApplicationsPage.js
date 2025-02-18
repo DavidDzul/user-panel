@@ -12,6 +12,9 @@ export const useUserApplicationsPageStore = defineStore("userApplicationsPage", 
     } = useApplicationsStore();
 
     const router = useRouter()
+    const userRejectedDiaog = ref(false)
+    const selectedApplication = ref(null)
+    const loadingRejected = ref(false)
 
     onBeforeMount(async () => {
         await fetchUserApplications()
@@ -27,17 +30,35 @@ export const useUserApplicationsPageStore = defineStore("userApplicationsPage", 
         }
     }
 
-    const onRejectedUserApplication = async (id) => {
+    const openUserRejectedDiaog = (id) => {
+        const data = resUserApplications.value.get(id)
+        if (data) {
+            selectedApplication.value = data.id
+            userRejectedDiaog.value = true
+        }
+    }
+
+    const onRejectedUserApplication = async (form) => {
+        if (!selectedApplication.value) return
+        loadingRejected.value = true
         try {
-            await updateUserStatusApplications(id, 'REJECTED')
+            const res = await updateUserStatusApplications(selectedApplication.value, form)
+            if (res) {
+                selectedApplication.value = null
+                userRejectedDiaog.value = false
+            }
         } catch (e) {
             console.error(e)
         }
+        loadingRejected.value = false
     }
 
     return {
         applications,
+        loadingRejected,
+        userRejectedDiaog,
         openVacantDetail,
+        openUserRejectedDiaog,
         onRejectedUserApplication,
     };
 });

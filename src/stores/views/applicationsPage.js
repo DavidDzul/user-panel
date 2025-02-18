@@ -15,6 +15,9 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
     const { dowloandCurriculum } = useCurriculumStore()
     const router = useRouter()
     const loadingCV = ref(false)
+    const businessRejectedDialog = ref(false)
+    const selectedApplication = ref(null)
+    const loadingRejected = ref(false)
 
     onBeforeMount(async () => {
         await fetchBusinessApplications()
@@ -32,27 +35,47 @@ export const useApplicationsPageStore = defineStore("applicationsPage", () => {
         loadingCV.value = false
     }
 
-    const onRejectedApplication = async (id) => {
+    const openBusinessRejectedDialog = (id) => {
+        const data = resBusinessApplications.value.get(id)
+        if (data) {
+            selectedApplication.value = data.id
+            businessRejectedDialog.value = true
+        }
+    }
+
+    const onRejectedApplication = async (form) => {
+        if (!selectedApplication.value) return
+        loadingRejected.value = true
         try {
-            await updateStatusApplications(id, 'REJECTED')
+            const res = await updateStatusApplications(selectedApplication.value, form)
+            if (res) {
+                selectedApplication.value = null
+                businessRejectedDialog.value = false
+            }
         } catch (e) {
             console.error(e)
         }
+        loadingRejected.value = false
     }
 
     const onAcceptedApplication = async (id) => {
         try {
-            await updateStatusApplications(id, 'ACCEPTED')
+            await updateStatusApplications(id, {
+                status: "ACCEPTED",
+            })
         } catch (e) {
             console.error(e)
         }
     }
 
     return {
-        applications,
         loadingCV,
+        applications,
+        loadingRejected,
+        businessRejectedDialog,
         openUserCV,
         onRejectedApplication,
         onAcceptedApplication,
+        openBusinessRejectedDialog,
     };
 });

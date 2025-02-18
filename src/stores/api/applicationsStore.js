@@ -34,10 +34,10 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
         }
     };
 
-    const updateStatusApplications = async (id, status) => {
+    const updateStatusApplications = async (id, form) => {
         try {
-            const param = await axios.post(`api/updateStatusApplications/${id}/status`, {
-                status: status,
+            const param = await axios.patch(`api/updateStatusApplications/${id}`, form, {
+                headers: { "Accept": "application/json" }
             });
 
             if (param) {
@@ -50,24 +50,22 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
                 return param.data
             }
         } catch (error) {
-            if (error.response) {
-                showAlert({
-                    title: error.response.data.msg,
-                    status: "error",
-                });
-            } else {
-                showAlert({
-                    title: "Error de red, intenta más tarde.",
-                    status: "error",
-                });
-            }
+            console.error("Error al actualizar el estado de la postulación:", error);
+
+            showAlert({
+                title: error.response?.data?.msg || "Error al actualizar la postulación.",
+                status: "error",
+            });
+
+            throw error;
         }
+
     };
 
-    const updateUserStatusApplications = async (id, status) => {
+    const updateUserStatusApplications = async (id, form) => {
         try {
-            const param = await axios.post(`api/updateStatusApplications/${id}/status`, {
-                status: status,
+            const param = await axios.patch(`api/updateStatusApplications/${id}`, form, {
+                headers: { "Accept": "application/json" }
             });
 
             if (param) {
@@ -76,21 +74,18 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
                     status: "success",
                 });
 
-                resUserApplications.value.set(param.data.application.id, param.data.application)
-                return param.data
+                resUserApplications.value.set(param.data.application.id, param.data.application);
+                return param.data;
             }
         } catch (error) {
-            if (error.response) {
-                showAlert({
-                    title: error.response.data.msg,
-                    status: "error",
-                });
-            } else {
-                showAlert({
-                    title: "Error de red, intenta más tarde.",
-                    status: "error",
-                });
-            }
+            console.error("Error al actualizar el estado de la postulación:", error);
+
+            showAlert({
+                title: error.response?.data?.msg || "Error al actualizar la postulación.",
+                status: "error",
+            });
+
+            throw error;
         }
     };
 

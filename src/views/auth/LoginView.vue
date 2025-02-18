@@ -1,7 +1,7 @@
 <template>
   <v-form class="login__screen-form mx-auto text-center">
     <!-- <LoadingOverlay v-model="loading" /> -->
-    <v-text-field
+    <!-- <v-text-field
       v-model="email"
       label="Correo electrónico"
       prepend-inner-icon="mdi-account"
@@ -14,7 +14,7 @@
       :type="show ? 'text' : 'password'"
       @click:append-inner="show = !show"
       prepend-inner-icon="mdi-lock"
-    ></v-text-field>
+    ></v-text-field> -->
     <v-btn
       size="small"
       variant="text"
@@ -35,7 +35,7 @@ import { ref } from "vue";
 import { useLoginPageStore } from "@/stores/views/loginPage";
 
 const { onLogin } = useLoginPageStore();
-const { email, password, loading } = storeToRefs(useLoginPageStore());
+const { loading } = storeToRefs(useLoginPageStore());
 
 const show = ref(false);
 </script>
