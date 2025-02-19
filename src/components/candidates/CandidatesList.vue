@@ -52,6 +52,16 @@
           <v-card-text>
             <v-row class="pt-0">
               <v-col cols="12">
+                <b>Disponibilidad: </b>
+                <label>
+                  {{
+                    item.available === "FULL_TIME"
+                      ? "TIEMPO COMPLETO"
+                      : "MEDIO TIEMPO"
+                  }}
+                </label>
+              </v-col>
+              <v-col cols="12">
                 <h3>
                   {{
                     item.academic_information
