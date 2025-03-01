@@ -46,11 +46,11 @@
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
     </template>
-    <template #[`item.status`]="{ item }">
-      <v-icon v-if="item.status" color="success">mdi-check</v-icon>
+    <!-- <template #[`item.published`]="{ item }">
+      <v-icon v-if="item.published" color="success">mdi-check</v-icon>
       <v-icon v-else color="error">mdi-close</v-icon>
-    </template>
-    <template #[`item.candidate_type`]="{ item }">
+    </template> -->
+    <!-- <template #[`item.candidate_type`]="{ item }">
       {{
         item.candidate_type === "INTERNAL"
           ? "CANDIDATO INTERNO IU"
@@ -60,7 +60,7 @@
           ? "NO CUBIERTA"
           : ""
       }}
-    </template>
+    </template> -->
 
     <template #[`item.actions`]="{ item }">
       <div style="width: 100%; text-align: right">
@@ -85,17 +85,17 @@
             <v-btn
               v-bind="props"
               variant="text"
-              color="gray"
+              color="error"
               size="small"
               density="comfortable"
-              icon="mdi-account-off"
+              icon="mdi-delete"
               class="mr-2"
               @click="statusItem(item)"
             >
             </v-btn>
           </template>
         </v-tooltip>
-        <v-tooltip text="Activar" location="bottom" v-else>
+        <!-- <v-tooltip text="Activar" location="bottom" v-else>
           <template v-slot:activator="{ props }">
             <v-btn
               v-bind="props"
@@ -109,9 +109,9 @@
             >
             </v-btn>
           </template>
-        </v-tooltip>
+        </v-tooltip> -->
 
-        <v-tooltip text="Eliminar" location="bottom">
+        <!-- <v-tooltip text="Eliminar" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn
               v-bind="props"
@@ -125,7 +125,7 @@
             >
             </v-btn>
           </template>
-        </v-tooltip>
+        </v-tooltip> -->
       </div>
     </template>
     <template #no-data> No existen datos registrados </template>
@@ -155,6 +155,10 @@ const emit = defineEmits([
 
 const headers = computed(() => [
   {
+    title: "ID",
+    key: "id",
+  },
+  {
     title: "Nombre",
     key: "vacant_name",
   },
@@ -166,14 +170,14 @@ const headers = computed(() => [
     title: "Fecha de publicación",
     key: "created_at",
   },
-  {
-    title: "Activo",
-    key: "status",
-  },
-  {
-    title: "Estatus",
-    key: "candidate_type",
-  },
+  // {
+  //   title: "Publicado",
+  //   key: "published",
+  // },
+  // {
+  //   title: "Estatus",
+  //   key: "candidate_type",
+  // },
   {
     title: "",
     key: "actions",
@@ -192,10 +196,6 @@ const editItem = (item) => {
   } else {
     emit("edit", item.id);
   }
-};
-
-const deleteItem = (item) => {
-  emit("remove", item.id);
 };
 
 const statusItem = (item) => {

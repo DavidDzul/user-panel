@@ -106,7 +106,7 @@
               <v-stepper-window-item :value="2">
                 <v-row>
                   <v-col cols="12" md="12">
-                    <b>Establecer días y horarios de prácticas:</b>
+                    <b>Establecer días y horarios de prácticas (24 hrs):</b>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-select
@@ -522,6 +522,15 @@ const onlyNumbers = (event) => {
     event.preventDefault();
   }
 };
+
+watch(
+  () => financial_support.value,
+  (value) => {
+    if (!value) {
+      support_amount.value = null;
+    }
+  }
+);
 
 const save = () => {
   if (meta.value.valid) {

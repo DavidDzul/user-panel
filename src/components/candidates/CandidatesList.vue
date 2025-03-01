@@ -4,8 +4,13 @@
       <v-col cols="12" lg="12">
         <div>
           <strong>Total de visualizaciones: </strong
-          ><label
-            >{{ user.role.num_visualizations }} / {{ visualizations }}
+          ><label v-if="user.role.unlimited">
+            <v-icon size="small">mdi-infinity</v-icon> /
+            {{ visualizations }}
+          </label>
+          <label v-else
+            >{{ user.role.num_visualizations }} /
+            {{ visualizations }}
           </label>
         </div>
       </v-col>

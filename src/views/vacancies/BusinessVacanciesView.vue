@@ -3,8 +3,12 @@
     <v-row>
       <v-col v-if="businessData" cols="12" lg="6">
         <div>
-          <strong>Total de vacantes: </strong
-          ><label
+          <strong>Total de vacantes: </strong>
+          <label v-if="userProfile.role.unlimited">
+            <v-icon size="small">mdi-infinity</v-icon> /
+            {{ vacanciesCount }}
+          </label>
+          <label v-else
             >{{ userProfile.role.num_vacancies }} / {{ vacanciesCount }}
           </label>
         </div>
@@ -47,7 +51,6 @@
       @open="openVacantDetail"
       @edit="openEditVacant"
       @practice="openEditPractice"
-      @remove="onVacantDelete"
       @status="onVacantStatus"
     />
   </v-container>
@@ -123,7 +126,6 @@ const {
   onSaveVacant,
   openEditVacant,
   onUpdateVacant,
-  onRemoveVacant,
   onStatusVacant,
   onSavePractive,
   openPracticeDialog,
@@ -133,16 +135,6 @@ const {
   openDisabledVacantDialog,
   openVacantDetail,
 } = useBusinessVacanciesPageStore();
-
-const onVacantDelete = async (id) => {
-  if (!id) return;
-  const response = await confirmationDialog.value?.open({
-    title: "Eliminar Vacante",
-    body: "Al aceptar, la vacante se removerá de su listado y ya no estará disponible para los usuarios. ¿Desea continuar?",
-  });
-  if (!response) return;
-  await onRemoveVacant(id);
-};
 
 const onVacantStatus = async (item) => {
   if (!item) return;

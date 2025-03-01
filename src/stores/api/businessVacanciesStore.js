@@ -46,9 +46,9 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     };
 
-    const updateVacant = async (form) => {
+    const updateVacant = async (id, form) => {
         try {
-            const param = await axios.post("api/updateVacant", form, {
+            const param = await axios.put(`api/updateVacant/${id}`, form, {
                 headers: { 'accept': 'application/json' }
             });
             if (param) {
@@ -58,53 +58,7 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
                 });
 
                 resVacancies.value.set(param.data.updateVacant.id, param.data.updateVacant)
-                return param.data.res
-            }
-        } catch (error) {
-            console.error(error);
-            showAlert({
-                title: "Error al actualizar la información, intente nuevamente.",
-                status: "error",
-            });
-            throw error;
-        }
-    }
-
-    const removeVacant = async (id) => {
-        try {
-            const param = await axios.delete(`api/deleteVacant/${id}`, {
-                headers: { 'accept': 'application/json' }
-            });
-            if (param) {
-                showAlert({
-                    title: "Información eliminada exitosamente.",
-                    status: "success",
-                });
-                resVacancies.value.delete(id)
-                return param.data.res
-            }
-        } catch (error) {
-            console.error(error);
-            showAlert({
-                title: "Error al eliminar la información, intente nuevamente.",
-                status: "error",
-            });
-            throw error;
-        }
-    }
-
-    const statusVacant = async (id, candidateType) => {
-        try {
-            const response = await axios.post(`api/updateStatusVacant/${id}`, { candidate_type: candidateType }, {
-                headers: { 'accept': 'application/json' },
-            });
-            if (response.data.res) {
-                showAlert({
-                    title: "Estatus actualizado exitosamente.",
-                    status: "success",
-                });
-                resVacancies.value.set(response.data.vacant.id, response.data.vacant);
-                return response.data.res;
+                return param.data.res;
             }
         } catch (error) {
             console.error(error);
@@ -140,9 +94,9 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     }
 
-    const updatePractice = async (form) => {
+    const updatePractice = async (id, form) => {
         try {
-            const param = await axios.post("api/updatePractice", form, {
+            const param = await axios.put(`api/updatePractice/${id}`, form, {
                 headers: { 'accept': 'application/json' }
             });
             if (param) {
@@ -152,7 +106,7 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
                 });
 
                 resVacancies.value.set(param.data.updatePractice.id, param.data.updatePractice)
-                return param.data.res
+                return param.data.res;
             }
         } catch (error) {
             console.error(error);
@@ -162,13 +116,36 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
             });
             throw error;
         }
-    }
+    };
+
+    const statusVacant = async (id, candidateType) => {
+        try {
+            const response = await axios.put(`api/updateVacantStatus/${id}`, { candidate_type: candidateType }, {
+                headers: { 'accept': 'application/json' },
+            });
+            if (response.data.res) {
+                showAlert({
+                    title: "Estatus actualizado exitosamente.",
+                    status: "success",
+                });
+                // resVacancies.value.set(response.data.vacant.id, response.data.vacant);
+                resVacancies.value.delete(id)
+                return response.data.res;
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    };
 
     return {
         resVacancies,
         createVacant,
         updateVacant,
-        removeVacant,
         statusVacant,
         createPractice,
         updatePractice,

@@ -28,7 +28,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const loadingVacant = ref(false)
     const loadingPractice = ref(false)
 
-    const { fetchVacancies, createVacant, updateVacant, removeVacant, statusVacant, createPractice, updatePractice } = useBusinessVacanciesStore();
+    const { fetchVacancies, createVacant, updateVacant, statusVacant, createPractice, updatePractice } = useBusinessVacanciesStore();
 
     const openVacantDialog = () => {
         vacantDialog.value = true
@@ -67,6 +67,14 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const vacanciesCount = computed(() => vacancies.value.length);
     const businessData = computed(() => resBusinessData.value)
 
+    const openVacantDetail = async (id) => {
+        try {
+            await router.push("vacantes/" + id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const onSaveVacant = async (form) => {
         loadingVacant.value = true
         if (!form) return
@@ -85,43 +93,24 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
 
     const onUpdateVacant = async (form) => {
         loadingVacant.value = true
-        if (!form) return
-        if (form) {
-            try {
-                const res = await updateVacant(form);
-                if (res) {
-                    updateVacantDialog.value = false
-                }
-            } catch (error) {
-                console.error(error);
+
+        if (!editVacant.value && !form) return
+        try {
+            const res = await updateVacant(editVacant.value.id, form);
+            if (res) {
+                updateVacantDialog.value = false
             }
+        } catch (error) {
+            console.error(error);
         }
         loadingVacant.value = false
     };
-
-    const onRemoveVacant = async (id) => {
-        if (!id) return
-        try {
-            await removeVacant(id)
-        } catch (e) {
-            console.error(e)
-        }
-    }
 
     const onDisabledSVacant = async (candidate) => {
         if (!vacantId.value) return
         try {
             await statusVacant(vacantId.value, candidate)
             disabledvacantDialog.value = false
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    const onStatusVacant = async (id) => {
-        if (!id) return
-        try {
-            await statusVacant(id, null)
         } catch (e) {
             console.error(e)
         }
@@ -145,10 +134,10 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
 
     const onUpdatePractice = async (form) => {
         loadingPractice.value = true
-        if (!form) return
+        if (!editPractice.value && !form) return
         if (form) {
             try {
-                const res = await updatePractice(form);
+                const res = await updatePractice(editPractice.value.id, form);
                 if (res) {
                     updatePracticeDialog.value = false
                 }
@@ -159,11 +148,12 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         loadingPractice.value = false
     };
 
-    const openVacantDetail = async (id) => {
+    const onStatusVacant = async (id) => {
+        if (!id) return
         try {
-            await router.push("vacantes/" + id)
-        } catch (error) {
-            console.log(error)
+            await statusVacant(id, null)
+        } catch (e) {
+            console.error(e)
         }
     }
 
@@ -184,7 +174,6 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,
-        onRemoveVacant,
         onStatusVacant,
         onSavePractive,
         openVacantDialog,

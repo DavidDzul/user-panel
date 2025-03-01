@@ -12,6 +12,7 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
     const { getVacantDetail, createApplication } = useVacantDetailStore();
 
     const route = useRoute();
+    const router = useRouter();
     const loadVacant = ref(false);
     const loadingApplication = ref(false);
 
@@ -36,7 +37,10 @@ export const useVacantDetailsPageStore = defineStore("vacantDetailsPage", () => 
         }
 
         try {
-            await getVacantDetail(id);
+            const res = await getVacantDetail(id);
+            if (!res) {
+                await router.push({ path: "/vacantes" });
+            }
             loadVacant.value = true;
         } catch (error) {
             console.error("Error fetching vacant detail:", error);

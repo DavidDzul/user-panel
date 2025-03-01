@@ -182,35 +182,43 @@
             <ul v-if="props.vacant.category === 'JOB_POSITION'">
               <li><b>Prestaciones</b></li>
               <ul class="mx-5 my-2">
-                <li v-if="props.vacant.employment_contract">
-                  Contrato laboral
+                <li>Seguro social</li>
+                <li>Salario mínimo</li>
+                <li>Vacaciones</li>
+                <li>Prima vacacional</li>
+                <li>Prima Dominical</li>
+                <li>Días de descanso</li>
+                <li>Pago horas extras</li>
+                <li>Aguinaldo</li>
+                <li>
+                  Licencia por maternidad/paternidad, de lactancia y/o adopción
                 </li>
-                <li v-if="props.vacant.vacation">Vacaciones</li>
-                <li v-if="props.vacant.christmas_bonus">Aguinaldo</li>
-                <li v-if="props.vacant.social_security">Seguro social</li>
-                <li v-if="props.vacant.vacation_bonus">Prima vacacional</li>
-                <li v-if="props.vacant.grocery_vouchers">Vales de despensa</li>
+                <li v-if="props.vacant.utilities">
+                  Participación de utilidades (en caso de aplicar)
+                </li>
+                <li v-if="props.vacant.bonuses">Bonos</li>
+                <li v-if="props.vacant.dining_room">Servicio de comedor</li>
                 <li v-if="props.vacant.savings_fund">Fondo de ahorro</li>
-                <li v-if="props.vacant.life_insurance">Seguro de vida</li>
-                <li v-if="props.vacant.medical_expenses">
-                  Seguro de gastos médicos
+                <li v-if="props.vacant.grocery_vouchers">Vales de despensa</li>
+                <li v-if="props.vacant.extensive_vacation_bonus">
+                  Prima vacacional ampliada
                 </li>
-                <li v-if="props.vacant.day_off">Día de descanso obligatorio</li>
-                <li v-if="props.vacant.sunday_bonus">Prima dominical</li>
-                <li v-if="props.vacant.paternity_leave">
-                  Licencia de maternidad/paternidad, de lactancia y/o adpoción
+                <li v-if="props.vacant.top_christmas_bonus">
+                  Aguinaldo superior a la ley
                 </li>
-
+                <li v-if="props.vacant.flexible_hours">
+                  Flexibilidad en los horarios
+                </li>
+                <li v-if="props.vacant.major_medical_expenses">
+                  Gastos médicos mayores
+                </li>
                 <li v-if="props.vacant.transportation_help">
                   Ayuda o servicios de transporte (vales de gasolina,
                   transporte)
                 </li>
-                <li v-if="props.vacant.productivity_bonus">
-                  Bonos de productividad
-                </li>
                 <li v-if="props.vacant.automobile">Automóvil</li>
-                <li v-if="props.vacant.dining_room">Servicio de comedor</li>
                 <li v-if="props.vacant.loans">Préstamos y/o créditos</li>
+                <li v-if="props.vacant.life_insurance">Seguro de vida</li>
                 <li v-if="props.vacant.other">
                   {{ props.vacant.benefit_description }}
                 </li>

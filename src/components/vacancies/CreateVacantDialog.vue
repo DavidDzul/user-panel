@@ -101,128 +101,103 @@
               <v-stepper-window-item :value="2">
                 <v-row>
                   <v-col cols="12" md="12">
-                    <b
-                      >Seleccione las prestaciones que ofrece la vacante
-                      laboral:</b
-                    >
+                    <h3>
+                      Seleccione las prestaciones que ofrece la vacante laboral.
+                    </h3>
+                  </v-col>
+                  <v-col cols="12" md="12">
+                    <b>Prestaciones de ley:</b>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-checkbox
-                      v-model="employment_contract"
-                      v-bind="employment_contractProps"
-                      label="Contrato laboral"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="vacation"
-                      v-bind="vacationProps"
-                      label="Vacaciones"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="christmas_bonus"
-                      v-bind="christmas_bonusProps"
-                      label="Aguinaldo"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="vacation_bonus"
-                      v-bind="vacation_bonusProps"
-                      label="Prima vacacional"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="social_security"
-                      v-bind="social_securityProps"
                       label="Seguro social"
                       density="comfortable"
+                      :model-value="true"
+                      disabled
                     ></v-checkbox>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-checkbox
-                      v-model="grocery_vouchers"
-                      v-bind="grocery_vouchersProps"
-                      label="Vales de despensa"
+                      label="Salario mínimo"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Vacaciones"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Prima vacacional"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Prima Dominical"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Días de descanso"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Pago horas extras"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Aguinaldo"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      label="Licencia por maternidad/paternidad, de lactancia y/o adopción"
+                      density="comfortable"
+                      :model-value="true"
+                      disabled
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="utilities"
+                      v-bind="utilitiesProps"
+                      label="Participación de utilidades (en caso de aplicar)"
                       density="comfortable"
                     ></v-checkbox>
                   </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="savings_fund"
-                      v-bind="savings_fundProps"
-                      label="Fondo de ahorro"
-                      density="comfortable"
-                    ></v-checkbox>
+
+                  <v-col cols="12" md="12">
+                    <b>Prestaciones superiores a la ley:</b>
                   </v-col>
+
                   <v-col cols="12" md="6">
                     <v-checkbox
-                      v-model="life_insurance"
-                      v-bind="life_insuranceProps"
-                      label="Seguro de vida"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="medical_expenses"
-                      v-bind="medical_expensesProps"
-                      label="Seguro de gastos médicos"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="day_off"
-                      v-bind="day_offProps"
-                      label="Día de descanso obligatorio"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="sunday_bonus"
-                      v-bind="sunday_bonusProps"
-                      label="Prima dominical"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="paternity_leave"
-                      v-bind="paternity_leaveProps"
-                      label="Licencia de maternidad/paternidad, de lactancia y/o adpoción"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="transportation_help"
-                      v-bind="transportation_helpProps"
-                      label="Ayuda o servicios de transporte (vales de gasolina, transporte)"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="productivity_bonus"
-                      v-bind="productivity_bonusProps"
-                      label="Bonos de productividad"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      v-model="automobile"
-                      v-bind="automobileProps"
-                      label="Automóvil"
+                      v-model="bonuses"
+                      v-bind="bonusesProps"
+                      label="Bonos"
                       density="comfortable"
                     ></v-checkbox>
                   </v-col>
@@ -236,9 +211,81 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-checkbox
+                      v-model="savings_fund"
+                      v-bind="savings_fundProps"
+                      label="Fondo de ahorro"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="grocery_vouchers"
+                      v-bind="grocery_vouchersProps"
+                      label="Vales de despensa"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="extensive_vacation_bonus"
+                      v-bind="extensive_vacation_bonusProps"
+                      label="Prima vacacional ampliada"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="top_christmas_bonus"
+                      v-bind="top_christmas_bonusProps"
+                      label="Aguinaldo superior a la ley"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="flexible_hours"
+                      v-bind="flexible_hoursProps"
+                      label="Flexibilidad en los horarios"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="major_medical_expenses"
+                      v-bind="major_medical_expensesProps"
+                      label="Gastos médicos mayores"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="transportation_help"
+                      v-bind="transportation_helpProps"
+                      label="Ayuda o servicios de transporte (vales de gasolina, transporte)"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="automobile"
+                      v-bind="automobileProps"
+                      label="Automóvil"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
                       v-model="loans"
                       v-bind="loansProps"
                       label="Préstamos y/o créditos"
+                      density="comfortable"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-checkbox
+                      v-model="life_insurance"
+                      v-bind="life_insuranceProps"
+                      label="Seguro de vida"
                       density="comfortable"
                     ></v-checkbox>
                   </v-col>
@@ -268,7 +315,7 @@
               <v-stepper-window-item :value="3">
                 <v-row>
                   <v-col cols="12" md="12">
-                    <b>Horario laboral:</b>
+                    <b>Horario laboral (24 hrs):</b>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-select
@@ -627,23 +674,19 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       skills: validations.skills(),
       observations: validations.observations(),
 
-      employment_contract: validations.employment_contract(),
-      vacation: validations.vacation(),
-      christmas_bonus: validations.christmas_bonus(),
-      vacation_bonus: validations.vacation_bonus(),
-      social_security: validations.social_security(),
-      grocery_vouchers: validations.grocery_vouchers(),
-      savings_fund: validations.savings_fund(),
-      life_insurance: validations.life_insurance(),
-      medical_expenses: validations.medical_expenses(),
-      day_off: validations.day_off(),
-      sunday_bonus: validations.sunday_bonus(),
-      paternity_leave: validations.paternity_leave(),
-      transportation_help: validations.transportation_help(),
-      productivity_bonus: validations.productivity_bonus(),
-      automobile: validations.automobile(),
+      utilities: validations.utilities(),
+      bonuses: validations.bonuses(),
       dining_room: validations.dining_room(),
+      savings_fund: validations.savings_fund(),
+      grocery_vouchers: validations.grocery_vouchers(),
+      extensive_vacation_bonus: validations.extensive_vacation_bonus(),
+      top_christmas_bonus: validations.top_christmas_bonus(),
+      flexible_hours: validations.flexible_hours(),
+      major_medical_expenses: validations.major_medical_expenses(),
+      transportation_help: validations.transportation_help(),
+      automobile: validations.automobile(),
       loans: validations.loans(),
+      life_insurance: validations.life_insurance(),
       other: validations.other(),
       benefit_description: validations.benefit_description(),
     })
@@ -706,63 +749,46 @@ const [observations, observationsProps] = defineField(
   vuetifyConfig
 );
 
-const [employment_contract, employment_contractProps] = defineField(
-  "employment_contract",
-  vuetifyConfig
-);
-
-const [vacation, vacationProps] = defineField("vacation", vuetifyConfig);
-const [christmas_bonus, christmas_bonusProps] = defineField(
-  "christmas_bonus",
-  vuetifyConfig
-);
-const [vacation_bonus, vacation_bonusProps] = defineField(
-  "vacation_bonus",
-  vuetifyConfig
-);
-const [social_security, social_securityProps] = defineField(
-  "social_security",
-  vuetifyConfig
-);
-const [grocery_vouchers, grocery_vouchersProps] = defineField(
-  "grocery_vouchers",
+const [utilities, utilitiesProps] = defineField("utilities", vuetifyConfig);
+const [bonuses, bonusesProps] = defineField("bonuses", vuetifyConfig);
+const [dining_room, dining_roomProps] = defineField(
+  "dining_room",
   vuetifyConfig
 );
 const [savings_fund, savings_fundProps] = defineField(
   "savings_fund",
   vuetifyConfig
 );
-const [life_insurance, life_insuranceProps] = defineField(
-  "life_insurance",
+const [grocery_vouchers, grocery_vouchersProps] = defineField(
+  "grocery_vouchers",
   vuetifyConfig
 );
-const [medical_expenses, medical_expensesProps] = defineField(
-  "medical_expenses",
+const [extensive_vacation_bonus, extensive_vacation_bonusProps] = defineField(
+  "extensive_vacation_bonus",
   vuetifyConfig
 );
-const [day_off, day_offProps] = defineField("day_off", vuetifyConfig);
-const [sunday_bonus, sunday_bonusProps] = defineField(
-  "sunday_bonus",
+const [top_christmas_bonus, top_christmas_bonusProps] = defineField(
+  "top_christmas_bonus",
   vuetifyConfig
 );
-const [paternity_leave, paternity_leaveProps] = defineField(
-  "paternity_leave",
+const [flexible_hours, flexible_hoursProps] = defineField(
+  "flexible_hours",
+  vuetifyConfig
+);
+const [major_medical_expenses, major_medical_expensesProps] = defineField(
+  "major_medical_expenses",
   vuetifyConfig
 );
 const [transportation_help, transportation_helpProps] = defineField(
   "transportation_help",
   vuetifyConfig
 );
-const [productivity_bonus, productivity_bonusProps] = defineField(
-  "productivity_bonus",
-  vuetifyConfig
-);
 const [automobile, automobileProps] = defineField("automobile", vuetifyConfig);
-const [dining_room, dining_roomProps] = defineField(
-  "dining_room",
+const [loans, loansProps] = defineField("loans", vuetifyConfig);
+const [life_insurance, life_insuranceProps] = defineField(
+  "life_insurance",
   vuetifyConfig
 );
-const [loans, loansProps] = defineField("loans", vuetifyConfig);
 const [other, otherProps] = defineField("other", vuetifyConfig);
 const [benefit_description, benefit_descriptionProps] = defineField(
   "benefit_description",

@@ -1,6 +1,6 @@
 <template>
   <VacantData
-    v-if="loadVacant"
+    v-if="loadVacant && vacantDetail"
     :vacant="vacantDetail"
     :loading="loadingApplication"
     :is-business="isBusiness"
