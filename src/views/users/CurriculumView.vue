@@ -31,7 +31,7 @@
         <v-expansion-panel-title color="#f8f8f8">
           <template #default="{ expanded }">
             <PanelHeaderOptions
-              title="Foto de perfil"
+              title="Foto de perfil (Opcional)"
               button-text="Nueva foto"
               :expanded="expanded"
               @button-click="onPhotoUpload"
@@ -49,7 +49,7 @@
               </p>
             </v-col>
           </v-row>
-          <UserPhoto :photos="userPhoto" />
+          <UserPhoto :photos="userPhoto" @remove="alertRemovePhoto" />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-file-input
@@ -127,6 +127,17 @@
           </template>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
+          <v-row class="pb-5">
+            <v-col cols="12">
+              <p>
+                <b>Nota:</b>
+                Incluya su participación en el Programa de Formación Integral de
+                Impulso Universitario con el año de inicio y término. Si aún
+                continúa, indique 'Actualidad' en el apartado fecha de término.
+              </p>
+            </v-col>
+          </v-row>
+
           <ContinuingEducationTable
             :educations="userContinuingEducation"
             @edit="openEditEducation"
@@ -306,6 +317,7 @@ const {
   onRemoveTechnicalKnowledge,
   onUpdatePublicCV,
   openAvailableCvDialog,
+  onRemovePhoto,
 } = useCurriculumPageStore();
 
 const fileInput = ref(null);
@@ -366,5 +378,15 @@ const onChangePlibicCV = async (status) => {
     if (!response) return;
     await onUpdatePublicCV();
   }
+};
+
+const alertRemovePhoto = async (value) => {
+  if (!value) return;
+  const response = await confirmationDialog.value?.open({
+    title: "Eliminar foto",
+    body: "Esta acción eliminará el archivo multimedia de su perfil y no se podrá recuperar. ¿Está seguro de continuar?",
+  });
+  if (!response) return;
+  await onRemovePhoto(value);
 };
 </script>

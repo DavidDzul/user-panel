@@ -36,7 +36,7 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
 
     const updateStatusApplications = async (id, form) => {
         try {
-            const param = await axios.patch(`api/updateStatusApplications/${id}`, form, {
+            const param = await axios.put(`api/updateStatusApplications/${id}`, form, {
                 headers: { "Accept": "application/json" }
             });
 
@@ -88,29 +88,6 @@ export const useApplicationsStore = defineStore("applicationsStore", () => {
             throw error;
         }
     };
-
-    const removeApplication = async (id) => {
-        try {
-            const param = await axios.delete(`api/deleteApplication/${id}`, {
-                headers: { 'accept': 'application/json' }
-            });
-            if (param) {
-                showAlert({
-                    title: "Información eliminada exitosamente.",
-                    status: "success",
-                });
-                resUserApplications.value.delete(id)
-                return param.data
-            }
-        } catch (error) {
-            console.error(error);
-            showAlert({
-                title: "Error al eliminar la información, intente nuevamente.",
-                status: "error",
-            });
-            throw error;
-        }
-    }
 
     return {
         resBusinessApplications,

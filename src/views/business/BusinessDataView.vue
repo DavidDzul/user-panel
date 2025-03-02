@@ -5,8 +5,8 @@
         <v-expansion-panel-title color="#f8f8f8">
           <template #default="{ expanded }">
             <PanelHeaderOptions
-              title="Foto de perfil"
-              button-text="Nueva foto"
+              title="Logo"
+              button-text="Subir foto"
               :expanded="expanded"
               @button-click="onPhotoUpload"
             />

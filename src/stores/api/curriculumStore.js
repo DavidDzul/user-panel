@@ -412,6 +412,29 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
             });
     }
 
+    const removePhoto = async (id) => {
+        try {
+            const param = await axios.delete(`api/removeImage/${id}`, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Archivo eliminado exitosamente.",
+                    status: "success",
+                });
+                resPhoto.value = null
+                return param.data
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al eliminar el archivo, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    }
+
     return {
         resPhoto,
         resCurriculumInfo,
@@ -436,6 +459,7 @@ export const useCurriculumStore = defineStore("curriculumStore", () => {
         updateTechnicalKnowledge,
         removeTechnicalKnowledge,
         changeStatusCV,
+        removePhoto,
         $reset
     };
 });

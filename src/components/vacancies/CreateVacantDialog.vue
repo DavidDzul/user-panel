@@ -51,6 +51,11 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
+                    <small>
+                      Redacta las actividades en párrafo, separando cada
+                      actividad por comas. <b>Ej:</b> Actualizar base de datos,
+                      elaborar reporte, dar seguimiento a las comprar
+                    </small>
                     <v-textarea
                       v-model="activities"
                       v-bind="activitiesProps"
@@ -540,6 +545,12 @@
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12" md="12">
+                    <small>
+                      <b>Ej:</b> Requisitos adicionales, tipo de contrato,
+                      documentos necesarios (INE, RFC, CURP, comprobante de
+                      domicilio), disponibilidad de horario o cualquier otra
+                      información relevante.</small
+                    >
                     <v-textarea
                       v-model="observations"
                       v-bind="observationsProps"

@@ -6,8 +6,20 @@
         lazy-src="https://miro.medium.com/max/1080/0*DqHGYPBA-ANwsma2.gif"
         height="300"
         style="position: relative"
-        @click="showPhoto(index)"
       >
+        <v-tooltip text="Eliminar" location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              style="position: absolute; bottom: 0; right: 0; margin: 10px"
+              icon
+              color="error"
+              v-bind="props"
+              @click="removePhoto(photo)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+        </v-tooltip>
       </v-img>
     </div>
   </template>
@@ -22,32 +34,23 @@
   </template>
 </template>
 
-<script setup lang="ts">
-import { toTypedSchema } from "@vee-validate/yup";
-import { PublicPathState, useForm } from "vee-validate";
-import { PropType, ref } from "vue";
-import * as yup from "yup";
-
+<script setup>
+import { defineProps, defineEmits } from "vue";
 import { API_URL } from "../../constants";
 
 const props = defineProps({
-  modelValue: { type: Boolean, default: () => false },
-  loading: { type: Boolean, default: () => false },
+  modelValue: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
   photos: { type: Array, default: () => [] },
 });
 
-const corousel = ref(null);
-const carouselDialog = ref(false);
-const corouselFull = ref<null | number>(null);
-const fab = ref<{ items: boolean[] }>({ items: [] });
+const emit = defineEmits(["remove"]);
 
 const photoUrl = (value) => {
-  const url = API_URL + "storage/" + value.url;
-  return url;
+  return API_URL + "storage/" + value.url;
 };
 
-const showPhoto = (index: number) => {
-  corouselFull.value = index;
-  carouselDialog.value = true;
+const removePhoto = (photo) => {
+  emit("remove", photo);
 };
 </script>

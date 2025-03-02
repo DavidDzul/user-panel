@@ -35,6 +35,7 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         updateTechnicalKnowledge,
         removeTechnicalKnowledge,
         changeStatusCV,
+        removePhoto,
     } = useCurriculumStore();
 
     const photoDialog = ref(false)
@@ -354,6 +355,15 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         loadingAvailableCvge.value = false
     };
 
+    const onRemovePhoto = async (photo) => {
+        if (!photo) return
+        try {
+            await removePhoto(photo.id);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return {
         userInfo,
         userPhoto,
@@ -413,5 +423,6 @@ export const useCurriculumPageStore = defineStore("curriculumPage", () => {
         onRemoveTechnicalKnowledge,
         onUpdatePublicCV,
         openAvailableCvDialog,
+        onRemovePhoto,
     };
 });

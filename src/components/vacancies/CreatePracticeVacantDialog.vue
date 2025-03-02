@@ -47,6 +47,11 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="12">
+                    <small>
+                      Redacta las actividades en párrafo, separando cada
+                      actividad por comas. <b>Ej:</b> Actualizar base de datos,
+                      elaborar reporte, dar seguimiento a las comprar
+                    </small>
                     <v-textarea
                       v-model="activities"
                       v-bind="activitiesProps"
@@ -253,6 +258,20 @@
                       :disabled="general_knowledge ? false : true"
                     ></v-textarea>
                   </v-col>
+                  <v-col cols="12" md="12">
+                    <small>
+                      <b>Ej:</b> Requisitos adicionales, tipo de contrato,
+                      documentos necesarios (INE, RFC, CURP, comprobante de
+                      domicilio), disponibilidad de horario o cualquier otra
+                      información relevante.</small
+                    >
+                    <v-textarea
+                      v-model="observations"
+                      v-bind="observationsProps"
+                      label="Observaciones"
+                      rows="3"
+                    ></v-textarea>
+                  </v-col>
                 </v-row>
                 <v-col class="my-5" cols="12" md="12">
                   <v-row justify="space-between">
@@ -369,6 +388,7 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       skills: validations.skills(),
       general_knowledge: validations.general_knowledge(),
       knowledge_description: validations.knowledge_description(),
+      observations: validations.observations(),
     })
   ),
 });
@@ -416,6 +436,10 @@ const [general_knowledge, general_knowledgeProps] = defineField(
 );
 const [knowledge_description, knowledge_descriptionProps] = defineField(
   "knowledge_description",
+  vuetifyConfig
+);
+const [observations, observationsProps] = defineField(
+  "observations",
   vuetifyConfig
 );
 

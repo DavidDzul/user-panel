@@ -128,6 +128,13 @@
                 restantes.
               </span>
             </v-col>
+            <v-col cols="12" md="12">
+              <small>
+                Pensando en el Programa de Formación Integral y el
+                acompañamiento que has llevado en Impulso, menciona las
+                habilidades que consideras que has desarrollado.
+              </small>
+            </v-col>
             <v-col cols="12" md="6">
               <v-text-field
                 v-model="form.skill_1"
