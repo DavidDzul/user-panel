@@ -9,9 +9,7 @@
     <v-card>
       <v-form>
         <v-toolbar dark>
-          <v-toolbar-title
-            >Nueva vacante de prácticas profesionales
-          </v-toolbar-title>
+          <v-toolbar-title>Nueva vacante Jr </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon @click="close"><v-icon>mdi-close</v-icon></v-btn>
@@ -27,11 +25,17 @@
               ></v-stepper-item>
               <v-divider></v-divider>
               <v-stepper-item
-                title="Información adicional"
+                :complete="step > 1"
+                title="Compensaciones"
                 :value="2"
               ></v-stepper-item>
               <v-divider></v-divider>
-              <v-stepper-item title="Contacto" :value="3"></v-stepper-item>
+              <v-stepper-item
+                title="Información adicional"
+                :value="3"
+              ></v-stepper-item>
+              <v-divider></v-divider>
+              <v-stepper-item title="Contacto" :value="4"></v-stepper-item>
             </v-stepper-header>
             <v-stepper-window>
               <v-stepper-window-item :value="1">
@@ -79,20 +83,11 @@
                     ></v-select>
                   </v-col>
                   <v-col cols="12" md="12">
-                    <v-checkbox
-                      v-model="financial_support"
-                      v-bind="financial_supportProps"
-                      label="Apoyo económico"
-                      density="comfortable"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" md="12" v-if="financial_support">
                     <v-text-field
-                      v-model="support_amount"
-                      v-bind="support_amountProps"
-                      label="Monto mensual asignado"
-                      :disabled="financial_support ? false : true"
-                      @keypress="onlyNumbers"
+                      v-model="net_salary"
+                      v-bind="net_salaryProps"
+                      label="Sueldo neto"
+                      prefix="$"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -109,6 +104,37 @@
                 </v-col>
               </v-stepper-window-item>
               <v-stepper-window-item :value="2">
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <b> Compensaciones: </b>
+                    <p>
+                      Si tu empresa le ofrece al joven algún tipo de
+                      compensación adicional al apoyo económico colócalo en el
+                      siguiente apartado.
+                    </p>
+                  </v-col>
+                  <v-col cols="12" md="12">
+                    <v-textarea
+                      v-model="compensations"
+                      v-bind="compensationsProps"
+                      label="Compensaciones"
+                      rows="3"
+                    ></v-textarea>
+                  </v-col>
+                </v-row>
+                <v-col class="my-5" cols="12" md="12">
+                  <v-row justify="space-between">
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      @click="next"
+                      :disabled="validateStep1"
+                      >Siguiente</v-btn
+                    >
+                  </v-row>
+                </v-col>
+              </v-stepper-window-item>
+              <v-stepper-window-item :value="3">
                 <v-row>
                   <v-col cols="12" md="12">
                     <b>Establecer días y horarios de prácticas (24 hrs):</b>
@@ -286,7 +312,7 @@
                   </v-row>
                 </v-col>
               </v-stepper-window-item>
-              <v-stepper-window-item :value="3">
+              <v-stepper-window-item :value="4">
                 <v-row>
                   <v-col cols="12" md="12">
                     <b>Información de contacto:</b>
@@ -370,12 +396,14 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
       mode: validations.mode(),
-      category: validations.category(),
       vacant_name: validations.vacant_name(),
       activities: validations.activities(),
       study_profile: validations.study_profile(),
-      financial_support: validations.financial_support(),
-      support_amount: validations.support_amount(),
+      net_salary: yup
+        .number()
+        .typeError("El sueldo debe ser un número válido")
+        .min(4200, "El sueldo no puede ser menor a $4200")
+        .required("El sueldo es obligatorio"),
 
       start_day: validations.start_day(),
       end_day: validations.end_day(),
@@ -390,6 +418,7 @@ const { defineField, meta, values, setValues, resetForm } = useForm({
       general_knowledge: validations.general_knowledge(),
       knowledge_description: validations.knowledge_description(),
       observations: validations.observations(),
+      compensations: validations.compensations(),
     })
   ),
 });
@@ -398,21 +427,14 @@ const [vacant_name, vacant_nameProps] = defineField(
   "vacant_name",
   vuetifyConfig
 );
-const [category, categoryProps] = defineField("category", vuetifyConfig);
 const [mode, modeProps] = defineField("mode", vuetifyConfig);
 const [activities, activitiesProps] = defineField("activities", vuetifyConfig);
 const [study_profile, study_profileProps] = defineField(
   "study_profile",
   vuetifyConfig
 );
-const [financial_support, financial_supportProps] = defineField(
-  "financial_support",
-  vuetifyConfig
-);
-const [support_amount, support_amountProps] = defineField(
-  "support_amount",
-  vuetifyConfig
-);
+const [net_salary, net_salaryProps] = defineField("net_salary", vuetifyConfig);
+
 const [start_day, start_dayProps] = defineField("start_day", vuetifyConfig);
 const [end_day, end_dayProps] = defineField("end_day", vuetifyConfig);
 
@@ -443,6 +465,10 @@ const [observations, observationsProps] = defineField(
   "observations",
   vuetifyConfig
 );
+const [compensations, compensationsProps] = defineField(
+  "compensations",
+  vuetifyConfig
+);
 
 const contact_name = ref("");
 const contact_email = ref("");
@@ -450,17 +476,13 @@ const contact_telphone = ref("");
 const contact_position = ref("");
 
 const validateStep1 = computed(() => {
-  if (financial_support.value) {
-    return vacant_name.value &&
-      activities.value &&
-      study_profile.value &&
-      support_amount.value
-      ? false
-      : true;
-  }
-  return vacant_name.value && activities.value && study_profile.value
-    ? false
-    : true;
+  return (
+    !vacant_name.value ||
+    !activities.value ||
+    !study_profile.value ||
+    !net_salary.value ||
+    Number(net_salary.value) < 4199
+  );
 });
 
 const validateStep2 = computed(() => {
@@ -486,20 +508,10 @@ watch(
       resetForm();
       step.value = 1;
     } else {
-      category.value = "PROFESSIONAL_PRACTICE";
       contact_name.value = props.user.first_name;
       contact_email.value = props.user.email;
       contact_telphone.value = props.user.phone;
       contact_position.value = props.user.workstation;
-    }
-  }
-);
-
-watch(
-  () => financial_support.value,
-  (value) => {
-    if (!value) {
-      support_amount.value = null;
     }
   }
 );
@@ -525,14 +537,6 @@ const hours = computed(() => {
 const minutes = computed(() => {
   return Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
 });
-
-const onlyNumbers = (event) => {
-  const charCode = event.which ? event.which : event.keyCode;
-  // Permite solo números (0-9)
-  if (charCode < 48 || charCode > 57) {
-    event.preventDefault();
-  }
-};
 
 const save = () => {
   if (meta.value.valid) {

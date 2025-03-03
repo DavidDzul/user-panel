@@ -48,8 +48,10 @@ export const loans = () => yup.boolean().default(false)
 export const life_insurance = () => yup.boolean().default(false)
 export const other = () => yup.boolean().default(false)
 export const benefit_description = () => yup.string().notRequired().label()
+export const compensations = () => yup.string().notRequired().label()
 
 export const contact_name = () => yup.string().required().label()
 export const contact_position = () => yup.string().required().label()
 export const contact_telphone = () => yup.string().required().label()
 export const contact_email = () => yup.string().required().label()
+

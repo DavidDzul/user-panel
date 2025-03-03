@@ -24,6 +24,12 @@
                   laboral</v-list-item-title
                 >
               </v-list-item>
+              <v-list-item @click="openVacantJrDialog">
+                <v-list-item-title>
+                  <v-icon>mdi-account-minus</v-icon> Vacante
+                  Jr</v-list-item-title
+                >
+              </v-list-item>
               <v-list-item @click="openPracticeDialog">
                 <v-list-item-title>
                   <v-icon>mdi-account-outline</v-icon> Prácticas
@@ -51,6 +57,7 @@
       @open="openVacantDetail"
       @edit="openEditVacant"
       @practice="openEditPractice"
+      @junior="openEditVacantJr"
       @status="onVacantStatus"
     />
   </v-container>
@@ -84,11 +91,26 @@
     :loading="loadingPractice"
     @submit="onUpdatePractice"
   />
-  <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
   <DisabledVacantDialog
     v-model="disabledvacantDialog"
     @submit="onDisabledSVacant"
   />
+  <CreateJrVacantDialog
+    v-if="userProfile"
+    v-model="vacantJrDialog"
+    :user="userProfile"
+    :loading="loadingVacantJr"
+    @submit="onSaveVacantJr"
+  />
+  <UpdateJrVacantDialog
+    v-if="userProfile"
+    v-model="updateVacantJrDialog"
+    :edit-item="editVacantJr"
+    :user="userProfile"
+    :loading="loadingVacantJr"
+    @submit="onUpdateVacantJr"
+  />
+  <ConfirmationDialog ref="confirmationDialog"></ConfirmationDialog>
 </template>
 <script setup>
 import { onBeforeMount, ref } from "vue";
@@ -102,6 +124,8 @@ import UpdateVacantDialog from "@/components/vacancies/UpdateVacantDialog.vue";
 import CreatePracticeVacantDialog from "@/components/vacancies/CreatePracticeVacantDialog.vue";
 import UpdatePracticeVacantDialog from "@/components/vacancies/UpdatePracticeVacantDialog.vue";
 import DisabledVacantDialog from "@/components/vacancies/DisabledVacantDialog.vue";
+import CreateJrVacantDialog from "@/components/vacancies/CreateJrVacantDialog.vue";
+import UpdateJrVacantDialog from "@/components/vacancies/UpdateJrVacantDialog.vue";
 
 const confirmationDialog = ref();
 
@@ -119,6 +143,10 @@ const {
   loadingVacant,
   loadingPractice,
   vacanciesCount,
+  vacantJrDialog,
+  loadingVacantJr,
+  editVacantJr,
+  updateVacantJrDialog,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {
@@ -134,6 +162,10 @@ const {
   onDisabledSVacant,
   openDisabledVacantDialog,
   openVacantDetail,
+  openVacantJrDialog,
+  onSaveVacantJr,
+  openEditVacantJr,
+  onUpdateVacantJr,
 } = useBusinessVacanciesPageStore();
 
 const onVacantStatus = async (item) => {

@@ -197,7 +197,33 @@ export const monthBirth = [
 export const vacantType = [
     { value: 'JOB_POSITION', text: "Laboral" },
     { value: 'PROFESSIONAL_PRACTICE', text: "Prácticas profesionales" },
+    { value: 'JR_POSITION', text: "Vacante Jr" }
 ]
+
+export const vacantTypeMap = new Map([
+    [
+        'JOB_POSITION',
+        {
+            value: 'JOB_POSITION',
+            text: "Laboral",
+        },
+    ],
+    [
+        'PROFESSIONAL_PRACTICE',
+        {
+            value: 'PROFESSIONAL_PRACTICE',
+            text: "Prácticas profesionales",
+        },
+    ],
+    [
+        'JR_POSITION',
+        {
+            value: 'JR_POSITION',
+            text: "Vacante Jr",
+        },
+    ],
+])
+
 
 export const statusApplicationMap = new Map([
     [

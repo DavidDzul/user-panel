@@ -48,9 +48,10 @@
                   </v-col>
                   <v-col cols="12" md="12">
                     <small>
-                      Redacta las actividades en párrafo, separando cada
-                      actividad por comas. <b>Ej:</b> Actualizar base de datos,
-                      elaborar reporte, dar seguimiento a las comprar
+                      <b>Nota:</b> Describe las actividades en un solo párrafo,
+                      separándolas con comas. Ejemplo: gestionar la base de
+                      datos, generar reportes, coordinar compras, atender
+                      solicitudes de clientes.
                     </small>
                     <v-textarea
                       v-model="activities"

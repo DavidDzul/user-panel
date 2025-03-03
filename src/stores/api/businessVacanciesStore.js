@@ -142,6 +142,55 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     };
 
+    const createVacantJr = async (form) => {
+        try {
+            const param = await axios.post("api/createVacanteJr", form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: param.data.msg || "Información guardada exitosamente.",
+                    status: "success",
+                });
+
+                resVacancies.value.set(param.data.createVacantJr.id, param.data.createVacantJr);
+                return param.data.res;
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.msg || "Error al guardar la información, intente nuevamente.";
+            showAlert({
+                title: errorMessage,
+                status: "error",
+            });
+
+            throw error;
+        }
+    };
+
+    const updateVacantJr = async (id, form) => {
+        try {
+            const param = await axios.put(`api/updateVacantJr/${id}`, form, {
+                headers: { 'accept': 'application/json' }
+            });
+            if (param) {
+                showAlert({
+                    title: "Información actualizada exitosamente.",
+                    status: "success",
+                });
+
+                resVacancies.value.set(param.data.updateVacantJr.id, param.data.updateVacantJr)
+                return param.data.res;
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert({
+                title: "Error al actualizar la información, intente nuevamente.",
+                status: "error",
+            });
+            throw error;
+        }
+    };
+
     return {
         resVacancies,
         createVacant,
@@ -149,6 +198,8 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         statusVacant,
         createPractice,
         updatePractice,
-        fetchVacancies
+        fetchVacancies,
+        createVacantJr,
+        updateVacantJr,
     };
 });

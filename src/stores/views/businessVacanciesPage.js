@@ -16,19 +16,23 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const router = useRouter()
 
     const vacantDialog = ref(false)
+    const vacantJrDialog = ref(false)
     const practiceDialog = ref(false)
     const updateVacantDialog = ref(false)
     const updatePracticeDialog = ref(false)
+    const updateVacantJrDialog = ref(false)
     const editVacant = ref(undefined)
     const editPractice = ref(undefined)
+    const editVacantJr = ref(undefined)
     const vacantId = ref(undefined)
     const disabledvacantDialog = ref(false)
 
     //loadings
     const loadingVacant = ref(false)
+    const loadingVacantJr = ref(false)
     const loadingPractice = ref(false)
 
-    const { fetchVacancies, createVacant, updateVacant, statusVacant, createPractice, updatePractice } = useBusinessVacanciesStore();
+    const { fetchVacancies, createVacant, updateVacant, statusVacant, createPractice, updatePractice, createVacantJr, updateVacantJr } = useBusinessVacanciesStore();
 
     const openVacantDialog = () => {
         vacantDialog.value = true
@@ -36,6 +40,9 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
 
     const openPracticeDialog = () => {
         practiceDialog.value = true
+    }
+    const openVacantJrDialog = () => {
+        vacantJrDialog.value = true
     }
 
     const openEditVacant = (id) => {
@@ -50,6 +57,13 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         if (!practice) return
         editPractice.value = { ...practice }
         updatePracticeDialog.value = true
+    }
+
+    const openEditVacantJr = (id) => {
+        const vacant = resVacancies.value.get(id)
+        if (!vacant) return
+        editVacantJr.value = { ...vacant }
+        updateVacantJrDialog.value = true
     }
 
     const openDisabledVacantDialog = (id) => {
@@ -157,9 +171,39 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         }
     }
 
+    const onSaveVacantJr = async (form) => {
+        loadingVacantJr.value = true
+        if (!form) return
+        try {
+            const res = await createVacantJr(form);
+            if (res) {
+                vacantJrDialog.value = false
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        loadingVacantJr.value = false
+    };
+
+    const onUpdateVacantJr = async (form) => {
+        loadingVacantJr.value = true
+
+        if (!editVacantJr.value && !form) return
+        try {
+            const res = await updateVacantJr(editVacantJr.value.id, form);
+            if (res) {
+                updateVacantJrDialog.value = false
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        loadingVacantJr.value = false
+    };
+
     return {
         vacancies,
         vacantDialog,
+        vacantJrDialog,
         editVacant,
         updateVacantDialog,
         practiceDialog,
@@ -171,6 +215,9 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         loadingVacant,
         loadingPractice,
         vacanciesCount,
+        loadingVacantJr,
+        editVacantJr,
+        updateVacantJrDialog,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,
@@ -183,5 +230,9 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         openPracticeDialog,
         openDisabledVacantDialog,
         openVacantDetail,
+        openVacantJrDialog,
+        onSaveVacantJr,
+        openEditVacantJr,
+        onUpdateVacantJr
     };
 });

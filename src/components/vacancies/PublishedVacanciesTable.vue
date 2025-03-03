@@ -41,7 +41,7 @@
       </v-tooltip>
     </template>
     <template #[`item.category`]="{ item }">
-      {{ logCategory(item.category) }}
+      {{ vacantTypeMap.get(item.category).text }}
     </template>
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
@@ -136,6 +136,8 @@
 import { computed, ref } from "vue";
 import dayjs from "dayjs";
 
+import { vacantTypeMap } from "@/constants";
+
 const props = defineProps({
   vacant: { type: Array, default: () => [] },
   loading: { type: Boolean, default: () => false },
@@ -151,6 +153,7 @@ const emit = defineEmits([
   "remove",
   "status",
   "practice",
+  "junior",
 ]);
 
 const headers = computed(() => [
@@ -193,8 +196,10 @@ const logCategory = (category) => {
 const editItem = (item) => {
   if (item.category === "PROFESSIONAL_PRACTICE") {
     emit("practice", item.id);
-  } else {
+  } else if (item.category === "JOB_POSITION") {
     emit("edit", item.id);
+  } else if (item.category === "JR_POSITION") {
+    emit("junior", item.id);
   }
 };
 
