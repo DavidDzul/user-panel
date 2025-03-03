@@ -150,6 +150,7 @@ export const useAuthStore = defineStore("authStore", () => {
     //permissions
 
     const candidates_view = computed(() => !!permissions.value.find((map) => map === "CANDIDATES_VIEW"))
+    const vacantJrPermission = computed(() => !!permissions.value.find((map) => map === "CREATE_VACANT_JR"))
 
     return {
         login,
@@ -168,6 +169,7 @@ export const useAuthStore = defineStore("authStore", () => {
         userProfile,
         userInitials,
         candidates_view,
+        vacantJrPermission,
         openUserProfileDialog,
         $reset
     };

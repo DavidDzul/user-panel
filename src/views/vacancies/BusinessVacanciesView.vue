@@ -24,7 +24,10 @@
                   laboral</v-list-item-title
                 >
               </v-list-item>
-              <v-list-item @click="openVacantJrDialog">
+              <v-list-item
+                v-if="vacantJrPermission"
+                @click="openVacantJrDialog"
+              >
                 <v-list-item-title>
                   <v-icon>mdi-account-minus</v-icon> Vacante
                   Jr</v-list-item-title
@@ -147,6 +150,7 @@ const {
   loadingVacantJr,
   editVacantJr,
   updateVacantJrDialog,
+  vacantJrPermission,
 } = storeToRefs(useBusinessVacanciesPageStore());
 
 const {

@@ -10,7 +10,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
     const { setLoading } = useAppStore();
     const { resVacancies,
     } = storeToRefs(useBusinessVacanciesStore());
-    const { userProfile } = storeToRefs(useAuthStore())
+    const { userProfile, vacantJrPermission } = storeToRefs(useAuthStore())
     const { resBusinessData } = storeToRefs(useBusinessStore())
     const { fetchBusiness } = useBusinessStore()
     const router = useRouter()
@@ -218,6 +218,7 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         loadingVacantJr,
         editVacantJr,
         updateVacantJrDialog,
+        vacantJrPermission,
         onSaveVacant,
         openEditVacant,
         onUpdateVacant,

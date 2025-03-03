@@ -82,9 +82,17 @@
                 </li>
               </ul>
             </template>
-            <template v-if="props.vacant.category === 'PROFESSIONAL_PRACTICE'">
+            <template
+              v-if="
+                props.vacant.category === 'PROFESSIONAL_PRACTICE' ||
+                props.vacant.category === 'JR_POSITION'
+              "
+            >
               <ul>
-                <li><b>Tipo:</b> Vacante para prácticas profesionales</li>
+                <li>
+                  <b>Tipo:</b>
+                  {{ vacantTypeMap.get(props.vacant.category).text }}
+                </li>
                 <li>
                   <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
                 </li>
@@ -112,6 +120,10 @@
                   <b>Descripción de conocimientos</b>
                   {{ props.vacant.knowledge_description }}
                 </li>
+                <li v-if="props.vacant.compensations">
+                  <b>Compensaciones:</b>
+                  {{ props.vacant.compensations }}
+                </li>
               </ul>
             </template>
             <!-- <p><b>Salario neto:</b> ${{ props.vacant.net_salary }}</p>
@@ -130,7 +142,12 @@
             <b>Te ofrecemos</b>
           </v-card-title>
           <v-card-text class="ma-4">
-            <template v-if="props.vacant.category === 'JOB_POSITION'">
+            <template
+              v-if="
+                props.vacant.category === 'JOB_POSITION' ||
+                props.vacant.category === 'JR_POSITION'
+              "
+            >
               <ul>
                 <li>
                   <b>Sueldo neto mensual:</b> ${{ props.vacant.net_salary }}
@@ -300,7 +317,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-import { API_URL, modeVacantMap } from "../../constants";
+import { API_URL, modeVacantMap, vacantTypeMap } from "../../constants";
 
 const props = defineProps({
   vacant: { type: Object, required: true },
