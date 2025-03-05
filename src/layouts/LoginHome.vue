@@ -258,26 +258,26 @@
             </v-col>
           </v-row>
           <v-row justify="center" align="center">
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="12" lg="4">
               <v-img
-                src="@/assets/img/logo.png"
-                alt="Aliado 1"
+                src="@/assets/img/logos/bepensa.png"
+                alt="Bepensa"
                 contain
                 height="60"
               ></v-img>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="12" lg="4">
               <v-img
-                src="@/assets/img/logo.png"
-                alt="Aliado 2"
+                src="@/assets/img/logos/lodemo.png"
+                alt="Lodemo"
                 contain
                 height="60"
               ></v-img>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="12" lg="4">
               <v-img
-                src="@/assets/img/logo.png"
-                alt="Aliado 3"
+                src="@/assets/img/logos/optivosa.png"
+                alt="optivosa"
                 contain
                 height="60"
               ></v-img>
