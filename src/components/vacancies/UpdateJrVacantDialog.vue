@@ -88,6 +88,7 @@
                       v-bind="net_salaryProps"
                       label="Sueldo neto"
                       prefix="$"
+                      @keypress="onlyNumbers"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -482,7 +483,6 @@ const validateStep1 = computed(() => {
     !vacant_name.value ||
     !activities.value ||
     !study_profile.value ||
-    !net_salary.value ||
     Number(net_salary.value) < 4199
   );
 });
@@ -492,6 +492,7 @@ const validateStep2 = computed(() => {
     end_day.value &&
     start_hour.value &&
     end_hour.value &&
+    end_minute.value &&
     skills.value &&
     semester.value
     ? false
@@ -556,6 +557,14 @@ const next = () => {
 
 const back = () => {
   step.value--;
+};
+
+const onlyNumbers = (event) => {
+  const charCode = event.which ? event.which : event.keyCode;
+  // Permite solo números (0-9)
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
 };
 
 const hours = computed(() => {

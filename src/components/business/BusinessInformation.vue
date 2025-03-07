@@ -25,7 +25,11 @@
           <v-list-item title="Teléfono:" :subtitle="business?.bs_telphone" />
           <v-list-item
             title="Giro:"
-            :subtitle="lineBusinessMap.get(business?.bs_line)?.text"
+            :subtitle="
+              business?.bs_line !== 'OTHER'
+                ? lineBusinessMap.get(business?.bs_line)?.text
+                : business?.bs_other_line
+            "
           />
           <v-list-item
             title="Enlace de información:"

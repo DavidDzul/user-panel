@@ -11,13 +11,16 @@
 
       <v-toolbar-items>
         <v-btn flat @click="emit('user')">
-          <v-icon class="mx-2"> mdi-account </v-icon> Talento</v-btn
-        >
+          <v-icon class="mx-2"> mdi-account </v-icon>
+          {{ !mobile ? "Talento" : "" }}
+        </v-btn>
         <v-btn flat @click="emit('business')">
-          <v-icon class="mx-2"> mdi-city </v-icon> Empresas</v-btn
-        >
+          <v-icon class="mx-2"> mdi-city </v-icon>
+          {{ !mobile ? "Empresas" : "" }}
+        </v-btn>
         <v-btn flat @click="scrollToContact()">
-          <v-icon class="mx-2"> mdi-phone-classic</v-icon> Contacto
+          <v-icon class="mx-2"> mdi-phone-classic</v-icon>
+          {{ !mobile ? "Contacto" : "" }}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -51,34 +54,56 @@
 
               <h2
                 class="animated-number"
-                :data-value="10000"
+                :data-value="328"
                 style="color: #23b4fe"
               ></h2>
-              <h3>USUARIOS REGISTRADOS</h3>
+              <h3>BECARIOS/AS REGISTRADOS</h3>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-icon style="font-size: 40px"> mdi-account </v-icon>
+
+              <h2
+                class="animated-number"
+                :data-value="194"
+                style="color: #23b4fe"
+              ></h2>
+              <h3>EGRESADOS/AS REGISTRADOS</h3>
             </v-col>
             <v-col cols="12" md="4">
               <v-icon style="font-size: 40px"> mdi-city </v-icon>
 
               <h2
                 class="animated-number"
-                :data-value="500"
+                :data-value="106"
                 style="color: #23b4fe"
               >
                 0
               </h2>
-              <h3>EMPRESAS VICULADAS</h3>
+              <h3>EMPRESAS REGISTRADAS</h3>
             </v-col>
-            <v-col cols="12" md="4">
-              <v-icon style="font-size: 40px"> mdi-briefcase-check </v-icon>
+            <v-col cols="12" lg="6" md="6" sm="6">
+              <v-icon style="font-size: 40px"> mdi-briefcase </v-icon>
 
               <h2
                 class="animated-number"
-                :data-value="1200"
+                :data-value="302"
                 style="color: #23b4fe"
               >
                 0
               </h2>
               <h3>VACANTES PUBLICADAS</h3>
+            </v-col>
+            <v-col cols="12" lg="6" md="6" sm="6">
+              <v-icon style="font-size: 40px"> mdi-briefcase-check </v-icon>
+
+              <h2
+                class="animated-number"
+                :data-value="121"
+                style="color: #23b4fe"
+              >
+                0
+              </h2>
+              <h3>POSTULACIONES REGISTRADAS</h3>
             </v-col>
           </v-row>
         </v-container>
@@ -88,12 +113,10 @@
         <v-container>
           <v-row justify="center" align="center" class="text-center my-5">
             <v-col cols="12" md="4">
-              <h2 style="color: white">
-                DESCUBRE EL PODER DE NUESTRA PLATAFORMA
-              </h2>
+              <h2>DESCUBRE EL PODER DE NUESTRA PLATAFORMA</h2>
             </v-col>
             <v-col cols="12" md="8">
-              <p style="color: white; margin: 20px">
+              <p style="margin: 20px">
                 <b>Impulso Universitario A.C.</b> conecta a jóvenes en formación
                 y egresados con empresas, creando oportunidades laborales que
                 potencian su desarrollo profesional y personal. Nuestra
@@ -101,7 +124,7 @@
                 equipos empresariales que buscan innovar y crear líderes del
                 futuro.
               </p>
-              <p style="font-weight: 600; color: white">
+              <p style="font-weight: 600">
                 ¡Juntos construimos el éxito de la próxima generación!
               </p>
             </v-col>
@@ -297,7 +320,7 @@
               <h3>
                 <v-icon size="small">mdi-timer</v-icon> Horarios de atención
               </h3>
-              <p>Lunes a Viernes: 9:00 AM - 5:00 PM</p>
+              <p>Lunes a Viernes: 9:30 AM - 4:30 PM</p>
             </v-col>
 
             <v-col cols="12" md="4" class="info-block">
@@ -376,34 +399,36 @@
   </v-app>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { storeToRefs } from "pinia";
 import { useAlertStore } from "@/stores/alert";
 import { onMounted, ref } from "vue";
+import bg4 from "@/assets/img/bg/bg4.jpg";
+import bg2 from "@/assets/img/bg/bg2.jpg";
+import bg3 from "@/assets/img/bg/bg3.jpg";
+import { useDisplay } from "vuetify";
 
-// Alert data
 const { show, config } = storeToRefs(useAlertStore());
+const { mobile } = useDisplay();
 
 const emit = defineEmits(["user", "business"]);
 
 // Images for the carousel
-
-const slides = ["First", "Second", "Third", "Fourth", "Fifth"];
-const contactSection = ref<HTMLElement | null>(null);
+const contactSection = ref(HTMLElement | null);
 
 const images = [
   {
-    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_2-scaled.jpg",
+    src: bg4,
     alt: "Slide 1",
     title: "DA EL PRIMER PASO EN TU CARRERA",
   },
   {
-    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_3-scaled.jpg",
+    src: bg2,
     alt: "Slide 2",
     title: "ENCUENTRA EL PERFIL IDEAL PARA TU EMPRESA",
   },
   {
-    src: "https://iu.org.mx/wp-content/uploads/2025/01/pvl_bg_1-min-scaled.jpg",
+    src: bg3,
     alt: "Slide 3",
     title: "PUBLICA TU VACANTE EN MINUTOS",
   },
@@ -447,7 +472,7 @@ const scrollToContact = () => {
   }
 };
 
-const openUrl = (url: string) => {
+const openUrl = (url) => {
   window.open(url, "_blank");
 };
 </script>
@@ -476,8 +501,7 @@ const openUrl = (url: string) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .bg-img-title {
@@ -505,7 +529,9 @@ const openUrl = (url: string) => {
 }
 
 .info-section {
-  background: linear-gradient(135deg, #ff5ab5, #301e47);
+  // background: linear-gradient(135deg, #ff5ab5, #301e47);
+  background: #ff5ab5;
+  color: black;
 }
 
 .footer-link {

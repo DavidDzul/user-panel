@@ -462,6 +462,7 @@ const validateStep2 = computed(() => {
     end_day.value &&
     start_hour.value &&
     end_hour.value &&
+    end_minute.value &&
     skills.value &&
     semester.value
     ? false

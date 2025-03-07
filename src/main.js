@@ -11,6 +11,13 @@ import { es } from 'vuetify/locale'
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 
+const myCustomLightTheme = {
+    dark: false,
+    colors: {
+        primary: '#275FFC',
+    },
+}
+
 const vuetify = createVuetify({
     locale: {
         locale: "es",
@@ -19,6 +26,12 @@ const vuetify = createVuetify({
     },
     components,
     directives,
+    theme: {
+        defaultTheme: 'myCustomLightTheme',
+        themes: {
+            myCustomLightTheme,
+        },
+    },
 });
 
 const app = createApp(App);

@@ -88,6 +88,7 @@
                       v-bind="net_salaryProps"
                       label="Sueldo neto"
                       prefix="$"
+                      @keypress="onlyNumbers"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -124,13 +125,8 @@
                 </v-row>
                 <v-col class="my-5" cols="12" md="12">
                   <v-row justify="space-between">
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="primary"
-                      @click="next"
-                      :disabled="validateStep1"
-                      >Siguiente</v-btn
-                    >
+                    <v-btn color="grey" @click="back">Atrás</v-btn>
+                    <v-btn color="primary" @click="next">Siguiente</v-btn>
                   </v-row>
                 </v-col>
               </v-stepper-window-item>
@@ -182,6 +178,8 @@
                           :items="hours"
                           label="Hora"
                           dense
+                          :error="!!startHourError"
+                          :error-messages="startHourError"
                         ></v-select>
                         <span class="px-4" style="font-size: x-large">:</span>
 
@@ -191,6 +189,8 @@
                           :items="minutes"
                           label="Minutos"
                           dense
+                          :error="!!startMinuteError"
+                          :error-messages="startMinuteError"
                         ></v-select>
                       </v-col>
                     </v-row>
@@ -218,6 +218,8 @@
                           :items="hours"
                           label="Hora"
                           dense
+                          :error="!!endHourError"
+                          :error-messages="endHourError"
                         ></v-select>
                         <span class="px-4" style="font-size: x-large">:</span>
 
@@ -227,6 +229,8 @@
                           :items="minutes"
                           label="Minutos"
                           dense
+                          :error="!!endMinuteError"
+                          :error-messages="endMinuteError"
                         ></v-select>
                       </v-col>
                     </v-row>
@@ -392,9 +396,10 @@ const props = defineProps({
   user: { type: Object, required: true },
 });
 
-const { defineField, meta, values, setValues, resetForm } = useForm({
+const { defineField, meta, values, errors, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
+      category: validations.category(),
       mode: validations.mode(),
       vacant_name: validations.vacant_name(),
       activities: validations.activities(),
@@ -480,7 +485,6 @@ const validateStep1 = computed(() => {
     !vacant_name.value ||
     !activities.value ||
     !study_profile.value ||
-    !net_salary.value ||
     Number(net_salary.value) < 4199
   );
 });
@@ -490,6 +494,7 @@ const validateStep2 = computed(() => {
     end_day.value &&
     start_hour.value &&
     end_hour.value &&
+    end_minute.value &&
     skills.value &&
     semester.value
     ? false
@@ -508,6 +513,9 @@ watch(
       resetForm();
       step.value = 1;
     } else {
+      setValues({
+        category: "JR_POSITION",
+      });
       contact_name.value = props.user.first_name;
       contact_email.value = props.user.email;
       contact_telphone.value = props.user.phone;
@@ -515,6 +523,14 @@ watch(
     }
   }
 );
+
+const onlyNumbers = (event) => {
+  const charCode = event.which ? event.which : event.keyCode;
+  // Permite solo números (0-9)
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
+};
 
 const step = ref(1);
 
@@ -537,6 +553,11 @@ const hours = computed(() => {
 const minutes = computed(() => {
   return Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
 });
+
+const startHourError = computed(() => errors.value.start_hour);
+const startMinuteError = computed(() => errors.value.start_minute);
+const endHourError = computed(() => errors.value.end_hour);
+const endMinuteError = computed(() => errors.value.end_minute);
 
 const save = () => {
   if (meta.value.valid) {

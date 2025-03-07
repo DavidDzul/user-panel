@@ -18,6 +18,7 @@
                   density="compact"
                 ></v-text-field>
                 <v-select
+                  v-if="userType !== 'BEC_INACTIVE'"
                   v-model="type"
                   :items="vacantType"
                   item-title="text"
@@ -81,20 +82,29 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useVacanciesPageStore } from "@/stores/views/vacanciesPage";
 
 import VacanciesList from "@/components/vacancies/VacanciesList.vue";
 import { vacantType, sedeArray, modeArray } from "@/constants";
 
-const { vacancies, vacantDetailDialog } = storeToRefs(useVacanciesPageStore());
+const { vacancies, vacantDetailDialog, userType } = storeToRefs(
+  useVacanciesPageStore()
+);
 const { openVacantDetail } = useVacanciesPageStore();
 
 const search = ref("");
 const mode = ref("");
 const type = ref("");
 const sede = ref("");
+
+const filterVacantType = computed(() => {
+  if (userType.value === "BEC_INACTIVE") {
+    return vacantType.filter((map) => map.value === "JOB_POSITION");
+  }
+  return vacantType;
+});
 </script>
 
 <style scoped></style>

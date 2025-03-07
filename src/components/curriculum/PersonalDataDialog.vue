@@ -130,9 +130,11 @@
             </v-col>
             <v-col cols="12" md="12">
               <small>
-                Pensando en el Programa de Formación Integral y el
-                acompañamiento que has llevado en Impulso, menciona las
-                habilidades que consideras que has desarrollado.
+                <b
+                  >Nota: Pensando en el Programa de Formación Integral y el
+                  acompañamiento que has llevado en Impulso, menciona las
+                  habilidades que consideras que has desarrollado.</b
+                >
               </small>
             </v-col>
             <v-col cols="12" md="6">

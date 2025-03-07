@@ -364,6 +364,8 @@
                           v-bind="start_hourProps"
                           :items="hours"
                           label="Hora"
+                          :error="!!startHourError"
+                          :error-messages="startHourError"
                         ></v-select>
                         <span class="px-4" style="font-size: x-large">:</span>
 
@@ -372,6 +374,8 @@
                           v-bind="start_minuteProps"
                           :items="minutes"
                           label="Minutos"
+                          :error="!!startMinuteError"
+                          :error-messages="startMinuteError"
                         ></v-select>
                       </v-col>
                     </v-row>
@@ -398,6 +402,8 @@
                           v-bind="end_hourProps"
                           :items="hours"
                           label="Hora"
+                          :error="!!endHourError"
+                          :error-messages="endHourError"
                         ></v-select>
                         <span class="px-4" style="font-size: x-large">:</span>
 
@@ -406,6 +412,8 @@
                           v-bind="end_minuteProps"
                           :items="minutes"
                           label="Minutos"
+                          :error="!!endMinuteError"
+                          :error-messages="endMinuteError"
                         ></v-select>
                       </v-col>
                     </v-row>
@@ -658,7 +666,7 @@ const props = defineProps({
   user: { type: Object, required: true },
 });
 
-const { defineField, meta, values, setValues, resetForm } = useForm({
+const { defineField, meta, values, errors, setValues, resetForm } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
       mode: validations.mode(),
@@ -709,7 +717,6 @@ const [vacant_name, vacant_nameProps] = defineField(
   "vacant_name",
   vuetifyConfig
 );
-const [category, categoryProps] = defineField("category", vuetifyConfig);
 const [mode, modeProps] = defineField("mode", vuetifyConfig);
 const [activities, activitiesProps] = defineField("activities", vuetifyConfig);
 const [study_profile, study_profileProps] = defineField(
@@ -826,6 +833,7 @@ const validateStep3 = computed(() => {
     end_day.value &&
     start_hour.value &&
     end_hour.value &&
+    end_minute.value &&
     skills.value
     ? false
     : true;
@@ -843,7 +851,9 @@ watch(
       resetForm();
       step.value = 1;
     } else {
-      category.value = "JOB_POSITION";
+      setValues({
+        category: "JOB_POSITION",
+      });
       contact_name.value = props.user.first_name;
       contact_email.value = props.user.email;
       contact_telphone.value = props.user.phone;
@@ -881,6 +891,11 @@ const onlyNumbers = (event) => {
     event.preventDefault();
   }
 };
+
+const startHourError = computed(() => errors.value.start_hour);
+const startMinuteError = computed(() => errors.value.start_minute);
+const endHourError = computed(() => errors.value.end_hour);
+const endMinuteError = computed(() => errors.value.end_minute);
 
 const save = () => {
   if (meta.value.valid) {

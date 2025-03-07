@@ -9,7 +9,7 @@ export const net_salary = () => yup.string().required("Campo requerido").label("
 export const start_day = () => yup.string().required("Campo requerido").label("Día de inicio")
 
 export const end_day = () => yup.string().required("Campo requerido").label()
-export const start_hour = () => yup.string().required("Campo requerido").label("Hora de inicio")
+export const start_hour = () => yup.string().required("Campo requerido")
 export const start_minute = () => yup.string().required("Campo requerido").label()
 export const end_hour = () => yup.string().required("Campo requerido").label()
 export const end_minute = () => yup.string().required("Campo requerido").label()
