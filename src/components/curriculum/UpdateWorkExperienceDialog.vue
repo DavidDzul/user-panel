@@ -52,6 +52,12 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
+              <small
+                ><b>Nota:</b> Escribe las responsabilidades en un solo párrafo,
+                separadas por comas y sin viñetas. Ej: Coordinar el equipo,
+                garantizar objetivos, optimizar procesos, gestionar clientes y
+                proveedores, elaborar reportes y proponer mejoras.
+              </small>
               <v-textarea
                 v-model="responsibility"
                 v-bind="responsibilityProps"
