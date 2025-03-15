@@ -299,10 +299,7 @@
                   <v-col cols="12" md="12">
                     <b>Información de contacto:</b>
                     <p>
-                      La información de contacto mostrada corresponde a los
-                      datos registrados en el perfil del usuario. Si los datos
-                      no son correctos, por favor actualiza la información
-                      directamente en el perfil del usuario.
+                      {{ contactText }}
                     </p>
                   </v-col>
                   <v-col cols="12" md="12">
@@ -360,7 +357,7 @@ import * as yup from "yup";
 import * as validations from "@/validations";
 import { modeArray } from "@/constants";
 
-import { daysValue } from "@/constants";
+import { daysValue, contactText } from "@/constants";
 
 const vuetifyConfig = (state: PublicPathState) => ({
   props: {

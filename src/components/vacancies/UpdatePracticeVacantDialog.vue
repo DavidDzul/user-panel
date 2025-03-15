@@ -288,10 +288,7 @@
                   <v-col cols="12" md="12">
                     <b>Información de contacto:</b>
                     <p>
-                      La información de contacto mostrada corresponde a los
-                      datos registrados en el perfil del usuario. Si los datos
-                      no son correctos, por favor actualiza la información
-                      directamente en el perfil del usuario.
+                      {{ modeArray }}
                     </p>
                   </v-col>
                   <v-col cols="12" md="12">

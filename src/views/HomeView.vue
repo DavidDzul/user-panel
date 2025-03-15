@@ -2,34 +2,40 @@
   <v-container>
     <v-row>
       <v-col cols="12" lg="12">
-        <p style="font-weight: 600">
-          Impulso Universitario A.C., pertenece al grupo coodinaron de la
-          alianza jóvenes con trabajo digno que tiene como misión promover el
-          ejercicio del derecho al trabajo digno de jóvenes oportunidad a través
-          de la incidencia pública en México.
-        </p>
+        <v-card>
+          <v-card-title>
+            <h4>DECÁLOGO PARA LA INCLUSIÓN LABORAL DE JÓVENES</h4>
+          </v-card-title>
+          <v-card-text>
+            <p>
+              Impulso Universitario A.C., pertenece al grupo coodinaron de la
+              alianza jóvenes con trabajo digno que tiene como misión promover
+              el ejercicio del derecho al trabajo digno de jóvenes oportunidad a
+              través de la incidencia pública en México.
+            </p>
+            <p class="mb-2">
+              Este decálogo tiene como propósito impulsar la contratación
+              equitativa de jóvenes, principalmente de quienes presentan más
+              desventajas. Es una herramienta de inclusión basada en el enfoque
+              de derechos, en especial a la no discriminación y el derecho a un
+              trabajo digno.
+            </p>
+            <p class="mb-2">
+              A pesar de las dificultades económicas que el país enfrenta,
+              cerrar las oportunidades a las y los jóvenes compromete no sólo el
+              futuro, sino el presente de nuestro país, su competitividad, su
+              cohesión social y su seguridad. Las y los jóvenes merecen una
+              oportunidad para desarrollar su potencial, sin discriminación.
+            </p>
+            <p>
+              Estamos convencidos de que México será mejor si cada vez hay más
+              jóvenes con trabajo digno, por lo que te invitamos a adoptar este
+              decálogo para asegurar su inclusión económica de forma equitativa.
+            </p>
+          </v-card-text>
+        </v-card>
       </v-col>
-      <v-col cols="12" lg="12">
-        <h4>DECÁLOGO PARA LA INCLUSIÓN LABORAL DE JÓVENES</h4>
-        <p class="mb-2">
-          Este decálogo tiene como propósito impulsar la contratación equitativa
-          de jóvenes, principalmente de quienes presentan más desventajas. Es
-          una herramienta de inclusión basada en el enfoque de derechos, en
-          especial a la no discriminación y el derecho a un trabajo digno.
-        </p>
-        <p class="mb-2">
-          A pesar de las dificultades económicas que el país enfrenta, cerrar
-          las oportunidades a las y los jóvenes compromete no sólo el futuro,
-          sino el presente de nuestro país, su competitividad, su cohesión
-          social y su seguridad. Las y los jóvenes merecen una oportunidad para
-          desarrollar su potencial, sin discriminación.
-        </p>
-        <p>
-          Estamos convencidos de que México será mejor si cada vez hay más
-          jóvenes con trabajo digno, por lo que te invitamos a adoptar este
-          decálogo para asegurar su inclusión económica de forma equitativa.
-        </p>
-      </v-col>
+
       <v-col cols="12">
         <v-expansion-panels multiple>
           <v-expansion-panel>

@@ -169,9 +169,6 @@ export const daysValue = [
     { value: "Miércoles", text: "Miércoles" },
     { value: "Jueves", text: "Jueves" },
     { value: "Viernes", text: "Viernes" },
-    { value: "Sábado", text: "Sábado" },
-    { value: "Domingo", text: "Domingo" },
-
 ]
 
 export const daysBirth = Array.from({ length: 31 }, (_, i) => ({
@@ -406,3 +403,5 @@ export const rejectedReasonMap = new Map([
     ],
 
 ])
+
+export const contactText = "La información de contacto mostrada corresponde a los datos registrados en el perfil del usuario (ubicado en el icono superior derecho de la página) Si los datos no son correctos, por favor actualiza la información directamente en el perfil del usuario."

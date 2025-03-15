@@ -100,7 +100,13 @@
   </v-navigation-drawer>
 
   <UserProfileDialog
-    v-if="userProfile"
+    v-if="userProfile && userProfile.user_type !== 'BUSINESS'"
+    v-model="openUserProfileDialog"
+    :edit-item="userProfile"
+    @submit="updateUserProfile"
+  />
+  <BusinessProfileDialog
+    v-else-if="userProfile && userProfile.user_type === 'BUSINESS'"
     v-model="openUserProfileDialog"
     :edit-item="userProfile"
     @submit="updateUserProfile"
@@ -115,6 +121,7 @@ import { useAuthStore } from "@/stores/api/authStore";
 
 import UserProfileDialog from "@/components/auth/UserProfileDialog";
 import ProfileMenu from "@/layouts/ProfileMenu.vue";
+import BusinessProfileDialog from "@/components/auth/BusinessProfileDialog";
 
 const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);

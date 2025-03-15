@@ -19,7 +19,7 @@
       <v-card-text>
         <v-form ref="formRef" v-model="formValid">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.first_name"
                 label="Nombre(s)"
@@ -27,7 +27,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.last_name"
                 label="Apellidos"
@@ -35,7 +35,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-select
                 v-model.number="form.day_birth"
                 :items="daysBirth"
@@ -45,7 +45,7 @@
                 label="Día de nacimiento"
               ></v-select>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-select
                 v-model.number="form.month_birth"
                 :items="monthBirth"
@@ -55,7 +55,7 @@
                 label="Mes de nacimiento"
               ></v-select>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model.number="form.year_birth"
                 label="Año de nacimiento"
@@ -65,7 +65,7 @@
                 @keypress="onlyNumbers"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.country"
                 label="País"
@@ -73,7 +73,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.state"
                 label="Estado"
@@ -81,7 +81,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.locality"
                 label="Localidad"
@@ -89,7 +89,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.phone_num"
                 label="Número de celular"
@@ -99,7 +99,7 @@
               ></v-text-field>
             </v-col>
 
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.email"
                 label="Correo electrónico"
@@ -107,7 +107,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" lg="6" md="12">
               <v-text-field
                 v-model="form.linkedin"
                 label="LinkedIn"
@@ -129,13 +129,11 @@
               </span>
             </v-col>
             <v-col cols="12" md="12">
-              <small>
-                <b
-                  >Nota: Pensando en el Programa de Formación Integral y el
-                  acompañamiento que has llevado en Impulso, menciona las
-                  habilidades que consideras que has desarrollado.</b
-                >
-              </small>
+              <span>
+                <b>Nota: </b>Pensando en el Programa de Formación Integral y el
+                acompañamiento que has llevado en Impulso, menciona las
+                habilidades que consideras que has desarrollado.
+              </span>
             </v-col>
             <v-col cols="12" md="6">
               <v-text-field

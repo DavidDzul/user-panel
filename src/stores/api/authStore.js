@@ -39,7 +39,7 @@ export const useAuthStore = defineStore("authStore", () => {
         } catch (error) {
             console.error("Error en login:", error);
             showAlert({
-                title: error.response.data.msg,
+                title: error.response.data.msg ? error.response.data.msg : "Verifique las credenciales del usuario e intente nuevamente",
                 status: "error",
             })
         }
@@ -112,7 +112,14 @@ export const useAuthStore = defineStore("authStore", () => {
                     title: "Información guardada exitosamente.",
                     status: "success",
                 });
-                userProfile.value = param.data.user
+                userProfile.value = {
+                    ...userProfile.value,
+                    first_name: param.data.user.first_name,
+                    last_name: param.data.user.last_name,
+                    email: param.data.user.email,
+                    phone: param.data.user.phone,
+                    workstation: param.data.user.workstation,
+                };
                 openUserProfileDialog.value = false
                 return param.data.res
             }
