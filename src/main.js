@@ -6,6 +6,7 @@ import pinia from "./stores"
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import * as labsComponents from 'vuetify/labs/components'
 import { es } from 'vuetify/locale'
 
 import "vuetify/styles";
@@ -24,8 +25,11 @@ const vuetify = createVuetify({
         fallback: "es",
         messages: { es },
     },
-    components,
     directives,
+    components: {
+        ...components,
+        ...labsComponents,
+    },
     theme: {
         defaultTheme: 'myCustomLightTheme',
         themes: {

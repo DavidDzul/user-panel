@@ -54,16 +54,25 @@
             <b>Sobre la vacante</b>
           </v-card-title>
           <v-card-text class="ma-4">
-            <template v-if="props.vacant.category === 'JOB_POSITION'">
-              <ul>
-                <li><b>Tipo:</b> Vacante laboral</li>
-                <li>
-                  <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
-                </li>
-                <li>
-                  <b>Modalidad de trabajo:</b>
-                  {{ modeVacantMap.get(props.vacant.mode).text }}
-                </li>
+            <ul>
+              <li>
+                <b>Tipo:</b>
+                {{
+                  props.vacant.category === "JOB_POSITION"
+                    ? "Vacante laboral"
+                    : vacantTypeMap.get(props.vacant.category).text
+                }}
+              </li>
+              <li>
+                <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
+              </li>
+              <li>
+                <b>Modalidad de trabajo:</b>
+                {{ modeVacantMap.get(props.vacant.mode).text }}
+              </li>
+
+              <!-- Campos específicos según la categoría -->
+              <template v-if="props.vacant.category === 'JOB_POSITION'">
                 <li><b>Actividades:</b> {{ props.vacant.activities }}</li>
                 <li>
                   <b>Habilidades y/o competencias:</b> {{ props.vacant.skills }}
@@ -76,30 +85,14 @@
                   <b>Descripción de experiencia:</b>
                   {{ props.vacant.experience_description }}
                 </li>
-                <li v-if="props.vacant.software_use">
-                  <b>Manejo de software:</b>
-                  {{ props.vacant.software_description }}
-                </li>
-              </ul>
-            </template>
-            <template
-              v-if="
-                props.vacant.category === 'PROFESSIONAL_PRACTICE' ||
-                props.vacant.category === 'JR_POSITION'
-              "
-            >
-              <ul>
-                <li>
-                  <b>Tipo:</b>
-                  {{ vacantTypeMap.get(props.vacant.category).text }}
-                </li>
-                <li>
-                  <b>Perfil de estudio:</b> {{ props.vacant.study_profile }}
-                </li>
-                <li>
-                  <b>Modalidad de trabajo:</b>
-                  {{ modeVacantMap.get(props.vacant.mode).text }}
-                </li>
+              </template>
+
+              <template
+                v-else-if="
+                  props.vacant.category === 'PROFESSIONAL_PRACTICE' ||
+                  props.vacant.category === 'JR_POSITION'
+                "
+              >
                 <li>
                   <b>Semestre y/o cuatrimestre admitido:</b>
                   {{ props.vacant.semester }}
@@ -107,28 +100,25 @@
                 <li>
                   <b>Habilidades y/o competencias:</b> {{ props.vacant.skills }}
                 </li>
-
-                <li v-if="props.vacant.software_use">
-                  <b>Manejo de software:</b>
-                  {{ props.vacant.software_description }}
-                </li>
                 <li>
                   <b>¿Conocimientos sobre algún tema en específico?</b>
                   {{ props.vacant.general_knowledge ? "Sí" : "No" }}
                 </li>
                 <li v-if="props.vacant.general_knowledge">
-                  <b>Descripción de conocimientos</b>
+                  <b>Descripción de conocimientos:</b>
                   {{ props.vacant.knowledge_description }}
                 </li>
-                <li v-if="props.vacant.compensations">
-                  <b>Compensaciones:</b>
-                  {{ props.vacant.compensations }}
-                </li>
-              </ul>
-            </template>
-            <!-- <p><b>Salario neto:</b> ${{ props.vacant.net_salary }}</p>
-            <p><b>Apoyo financiero:</b> {{ props.vacant.financial_support }}</p>
-            <p><b>Monto de apoyo:</b> ${{ props.vacant.support_amount }}</p> -->
+              </template>
+
+              <!-- Campos comunes opcionales -->
+              <li v-if="props.vacant.software_use">
+                <b>Manejo de software:</b>
+                {{ props.vacant.software_description }}
+              </li>
+              <li v-if="props.vacant.compensations">
+                <b>Compensaciones:</b> {{ props.vacant.compensations }}
+              </li>
+            </ul>
           </v-card-text>
         </v-card>
       </v-col>
@@ -179,15 +169,28 @@
                     {{ props.vacant.start_hour }}:{{
                       props.vacant.start_minute
                     }}
-                    - {{ props.vacant.end_hour }}:{{ props.vacant.end_minute }}
+                    hrs - {{ props.vacant.end_hour }}:{{
+                      props.vacant.end_minute
+                    }}
+                    hrs
                   </li>
                   <li v-if="props.vacant.saturday_hour">
                     <b>Sábados:</b> {{ props.vacant.saturday_start_hour }}:{{
                       props.vacant.saturday_start_minute
                     }}
-                    - {{ props.vacant.saturday_end_hour }}:{{
+                    hrs - {{ props.vacant.saturday_end_hour }}:{{
                       props.vacant.saturday_end_minute
                     }}
+                    hrs
+                  </li>
+                  <li v-if="props.vacant.sunday_hour">
+                    <b>Domingos:</b> {{ props.vacant.sunday_start_hour }}:{{
+                      props.vacant.sunday_start_minute
+                    }}
+                    hrs - {{ props.vacant.sunday_end_hour }}:{{
+                      props.vacant.sunday_end_minute
+                    }}
+                    hrs
                   </li>
                   <li v-if="props.vacant.additional_time_info">
                     <b>Información adicional respecto al horario:</b>

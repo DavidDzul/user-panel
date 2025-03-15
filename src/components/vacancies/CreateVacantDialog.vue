@@ -31,6 +31,7 @@
               ></v-stepper-item>
               <v-divider></v-divider>
               <v-stepper-item
+                :complete="step > 3"
                 title="Información adicional"
                 :value="3"
               ></v-stepper-item>

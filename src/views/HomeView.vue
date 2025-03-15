@@ -7,25 +7,29 @@
             <h4>DECÁLOGO PARA LA INCLUSIÓN LABORAL DE JÓVENES</h4>
           </v-card-title>
           <v-card-text>
+            <v-row justify="center" align="center" class="pa-5">
+              <v-col cols="12" md="12" lg="4">
+                <v-img src="@/assets/img/logo_jovenes.png" height="180"></v-img>
+              </v-col>
+            </v-row>
+
             <p>
-              Impulso Universitario A.C., pertenece al grupo coodinaron de la
-              alianza jóvenes con trabajo digno que tiene como misión promover
-              el ejercicio del derecho al trabajo digno de jóvenes oportunidad a
+              <b>Impulso Universitario A.C.,</b> pertenece al grupo coordinador
+              de la alianza Jóvenes con Trabajo Digno que tiene como misión
+              promover el ejercicio del derecho al trabajo digno de jóvenes a
               través de la incidencia pública en México.
             </p>
-            <p class="mb-2">
+            <p class="my-2">
               Este decálogo tiene como propósito impulsar la contratación
               equitativa de jóvenes, principalmente de quienes presentan más
               desventajas. Es una herramienta de inclusión basada en el enfoque
               de derechos, en especial a la no discriminación y el derecho a un
-              trabajo digno.
-            </p>
-            <p class="mb-2">
-              A pesar de las dificultades económicas que el país enfrenta,
-              cerrar las oportunidades a las y los jóvenes compromete no sólo el
-              futuro, sino el presente de nuestro país, su competitividad, su
-              cohesión social y su seguridad. Las y los jóvenes merecen una
-              oportunidad para desarrollar su potencial, sin discriminación.
+              trabajo digno. A pesar de las dificultades económicas que el país
+              enfrenta, cerrar las oportunidades a las y los jóvenes compromete
+              no sólo el futuro, sino el presente de nuestro país, su
+              competitividad, su cohesión social y su seguridad. Las y los
+              jóvenes merecen una oportunidad para desarrollar su potencial, sin
+              discriminación.
             </p>
             <p>
               Estamos convencidos de que México será mejor si cada vez hay más
