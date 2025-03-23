@@ -120,10 +120,10 @@ export const useBusinessVacanciesPageStore = defineStore("businessVacanciesPage"
         loadingVacant.value = false
     };
 
-    const onDisabledSVacant = async (candidate) => {
+    const onDisabledSVacant = async (form) => {
         if (!vacantId.value) return
         try {
-            await statusVacant(vacantId.value, candidate)
+            await statusVacant(vacantId.value, form)
             disabledvacantDialog.value = false
         } catch (e) {
             console.error(e)

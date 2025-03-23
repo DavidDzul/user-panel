@@ -101,6 +101,14 @@ const routes = [
           title: 'Postulaciones realizadas'
         },
       },
+      {
+        path: "/datos",
+        name: "DataView",
+        component: () => import("@/views/data/DataView.vue"),
+        meta: {
+          title: 'Jóvenes en formación en búsqueda de oportunidades laborales'
+        },
+      },
     ],
   },
   {

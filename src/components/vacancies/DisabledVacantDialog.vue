@@ -2,7 +2,7 @@
   <v-dialog
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
-    max-width="400px"
+    max-width="480px"
     @keydown.stop.esc="close"
     :persistent="true"
   >
@@ -21,15 +21,24 @@
           ></v-radio>
           <v-radio label="Candidato externo" value="EXTERNAL"></v-radio>
           <v-radio label="No fue cubierto" value="NOT_COVERED"></v-radio>
+          <v-radio label="Otro" value="OTHER"></v-radio>
+          <v-text-field
+            v-if="selectedCandidateType === 'OTHER'"
+            v-model="otherValue"
+            label="Descripción"
+          ></v-text-field>
         </v-radio-group>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" variant="text" @click="close"> Cancelar </v-btn>
+        <v-btn color="error" variant="text" :disabled="loading" @click="close">
+          Cancelar
+        </v-btn>
         <v-btn
           :disabled="!selectedCandidateType"
           color="primary"
           variant="text"
+          :loading="loading"
           @click="save"
         >
           Confirmar
@@ -53,12 +62,16 @@ const emit = defineEmits<{
 }>();
 
 const selectedCandidateType = ref(null);
+const otherValue = ref("");
 
 const close = () => {
   emit("update:modelValue", false);
 };
 
 const save = () => {
-  emit("submit", selectedCandidateType.value);
+  emit("submit", {
+    candidate_type: selectedCandidateType.value,
+    candidate_other: otherValue.value ? otherValue.value : "",
+  });
 };
 </script>

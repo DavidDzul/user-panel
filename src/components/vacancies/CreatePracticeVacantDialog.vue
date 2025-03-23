@@ -532,8 +532,14 @@
                 </v-row>
                 <v-col class="my-5" cols="12" md="12">
                   <v-row justify="space-between">
-                    <v-btn color="grey" @click="back">Atrás</v-btn>
-                    <v-btn color="success" :disabled="!meta.valid" @click="save"
+                    <v-btn color="grey" :disabled="loading" @click="back"
+                      >Atrás</v-btn
+                    >
+                    <v-btn
+                      color="success"
+                      :loading="loading"
+                      :disabled="!meta.valid"
+                      @click="save"
                       >Finalizar</v-btn
                     >
                   </v-row>

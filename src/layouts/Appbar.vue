@@ -50,6 +50,9 @@
           </v-btn>
         </template>
         <template v-if="userType === 'BUSINESS'">
+          <v-btn :to="'/datos'">
+            <v-icon>mdi-google-analytics</v-icon> Datos
+          </v-btn>
           <v-btn :to="'/empresa'"> <v-icon>mdi-city</v-icon> Mi empresa</v-btn>
           <v-btn :to="'/publicaciones'">
             <v-icon>mdi-briefcase</v-icon> Mis vacantes</v-btn
@@ -83,6 +86,9 @@
         </v-list-item>
       </template>
       <template v-if="userType === 'BUSINESS'">
+        <v-list-item :to="'/datos'">
+          <v-icon>mdi-google-analytics</v-icon> Datos</v-list-item
+        >
         <v-list-item :to="'/empresa'">
           <v-icon>mdi-city</v-icon> Mi empresa</v-list-item
         >

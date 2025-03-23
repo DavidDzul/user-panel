@@ -5,11 +5,10 @@
         <div>
           <strong>Total de vacantes: </strong>
           <label v-if="userProfile.role.unlimited">
-            <v-icon size="small">mdi-infinity</v-icon> /
-            {{ vacanciesCount }}
+            {{ vacanciesCount }} / <v-icon size="small">mdi-infinity</v-icon>
           </label>
           <label v-else
-            >{{ userProfile.role.num_vacancies }} / {{ vacanciesCount }}
+            >{{ vacanciesCount }} / {{ userProfile.role.num_vacancies }}
           </label>
         </div>
       </v-col>

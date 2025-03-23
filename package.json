@@ -13,10 +13,12 @@
     "@vee-validate/yup": "^4.14.7",
     "@vuepic/vue-datepicker": "^10.0.0",
     "axios": "^1.7.7",
+    "chart.js": "^3.9.1",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "pinia": "^2.2.6",
     "vue": "^3.5.12",
+    "vue-chart-3": "^3.1.8",
     "vue-router": "^4.4.5",
     "vuetify": "^3.7.4"
   },

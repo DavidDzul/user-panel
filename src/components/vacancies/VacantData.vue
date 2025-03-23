@@ -361,6 +361,11 @@ h2 {
   font-weight: bold;
 }
 
+li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .img-business {
   width: 20%;
 }

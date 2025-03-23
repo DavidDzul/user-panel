@@ -118,9 +118,9 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
         }
     };
 
-    const statusVacant = async (id, candidateType) => {
+    const statusVacant = async (id, form) => {
         try {
-            const response = await axios.put(`api/updateVacantStatus/${id}`, { candidate_type: candidateType }, {
+            const response = await axios.put(`api/updateVacantStatus/${id}`, form, {
                 headers: { 'accept': 'application/json' },
             });
             if (response.data.res) {
@@ -128,8 +128,8 @@ export const useBusinessVacanciesStore = defineStore("businessVacanciesStore", (
                     title: "Estatus actualizado exitosamente.",
                     status: "success",
                 });
-                // resVacancies.value.set(response.data.vacant.id, response.data.vacant);
-                resVacancies.value.delete(id)
+                resVacancies.value.set(response.data.vacant.id, response.data.vacant);
+                // resVacancies.value.delete(id)
                 return response.data.res;
             }
         } catch (error) {

@@ -46,11 +46,11 @@
     <template #[`item.created_at`]="{ item }">
       {{ dayjs(item.created_at).format("DD/MM/YYYY HH:mm:ss") }}
     </template>
-    <!-- <template #[`item.published`]="{ item }">
-      <v-icon v-if="item.published" color="success">mdi-check</v-icon>
+    <template #[`item.status`]="{ item }">
+      <v-icon v-if="item.status" color="success">mdi-check</v-icon>
       <v-icon v-else color="error">mdi-close</v-icon>
-    </template> -->
-    <!-- <template #[`item.candidate_type`]="{ item }">
+    </template>
+    <template #[`item.candidate_type`]="{ item }">
       {{
         item.candidate_type === "INTERNAL"
           ? "CANDIDATO INTERNO IU"
@@ -58,12 +58,14 @@
           ? "CANDIDATO EXTERNO"
           : item.candidate_type === "NOT_COVERED"
           ? "NO CUBIERTA"
+          : item.candidate_type === "OTHER"
+          ? item.candidate_other
           : ""
       }}
-    </template> -->
+    </template>
 
     <template #[`item.actions`]="{ item }">
-      <div style="width: 100%; text-align: right">
+      <div v-if="item.status" style="width: 100%; text-align: right">
         <v-tooltip text="Editar" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn
@@ -80,7 +82,7 @@
           </template>
         </v-tooltip>
 
-        <v-tooltip text="Desactivar" location="bottom" v-if="item.status">
+        <v-tooltip text="Desactivar" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn
               v-bind="props"
@@ -88,7 +90,7 @@
               color="error"
               size="small"
               density="comfortable"
-              icon="mdi-delete"
+              icon="mdi-cancel"
               class="mr-2"
               @click="statusItem(item)"
             >
@@ -173,14 +175,14 @@ const headers = computed(() => [
     title: "Fecha de publicación",
     key: "created_at",
   },
-  // {
-  //   title: "Publicado",
-  //   key: "published",
-  // },
-  // {
-  //   title: "Estatus",
-  //   key: "candidate_type",
-  // },
+  {
+    title: "Publicado",
+    key: "status",
+  },
+  {
+    title: "Estatus",
+    key: "candidate_type",
+  },
   {
     title: "",
     key: "actions",
