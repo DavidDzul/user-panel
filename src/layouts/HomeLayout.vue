@@ -9,6 +9,7 @@
       </div>
       <v-container class="container__main" :fluid="true">
         <router-view />
+        <LoadingOverlay />
       </v-container>
     </v-main>
   </v-layout>
@@ -40,6 +41,7 @@ import { storeToRefs } from "pinia";
 import { useAlertStore } from "@/stores/alert";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
+import LoadingOverlay from "@/components/shared/LoadingOverlay.vue";
 
 const route = useRoute();
 const { show, config } = storeToRefs(useAlertStore());

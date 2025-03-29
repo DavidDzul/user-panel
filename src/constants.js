@@ -405,3 +405,58 @@ export const rejectedReasonMap = new Map([
 ])
 
 export const contactText = "La información de contacto mostrada corresponde a los datos registrados en el perfil del usuario (ubicado en el icono superior derecho de la página) Si los datos no son correctos, por favor actualiza la información directamente en el perfil del usuario."
+
+export const campusMap = new Map([
+    [
+        'MERIDA',
+        {
+            value: 'MERIDA',
+            text: "Mérida",
+        },
+    ],
+    [
+        'VALLADOLID',
+        {
+            value: 'VALLADOLID',
+            text: "Valladolid",
+        },
+    ],
+    [
+        'TIZIMIN',
+        {
+            value: 'TIZIMIN',
+            text: "Tizimín",
+        },
+    ],
+    [
+        'OXKUTZCAB',
+        {
+            value: 'OXKUTZCAB',
+            text: "Oxkutzcab",
+        },
+    ],
+])
+
+export const jobTypeMap = new Map([
+    [
+        'PART_TIME',
+        {
+            value: 'PART_TIME',
+            text: "Medio tiempo",
+        },
+    ],
+    [
+        'INTERNSHIP',
+        {
+            value: 'INTERNSHIP',
+            text: "Prácticas profesionales",
+        },
+    ],
+    [
+        'FULL_TIME',
+        {
+            value: 'FULL_TIME',
+            text: "Tiempo completo",
+        },
+    ],
+])

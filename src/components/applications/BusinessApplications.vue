@@ -30,7 +30,23 @@
       {{ item.user.last_name }}
     </template>
     <template #[`item.view_cv`]="{ item }">
-      <v-btn
+      <div style="width: 100%; text-align: center">
+        <v-tooltip text="Visualizar" location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              variant="text"
+              color="warning"
+              density="comfortable"
+              icon="mdi-account-eye"
+              class="mr-2"
+              @click="openCV(item)"
+            >
+            </v-btn>
+          </template>
+        </v-tooltip>
+      </div>
+      <!-- <v-btn
         v-if="item.status !== 'REJECTED'"
         v-bind="props"
         color="warning"
@@ -42,7 +58,7 @@
       >
         <v-icon size="small" class="mr-2">mdi-eye</v-icon>
         Abrir
-      </v-btn>
+      </v-btn> -->
     </template>
     <template #[`item.status`]="{ item }">
       <p

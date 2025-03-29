@@ -7,12 +7,12 @@ export const useLoginPageStore = defineStore("loginPage", () => {
     const { setLoading } = useAppStore();
     const { login, enrollmentLogin } = useAuthStore();
 
-
     const loading = ref(false)
     const userLoginDialog = ref(false)
     const businessLoginDialog = ref(false)
 
     const onLogin = async (email, password) => {
+        setLoading(true)
         loading.value = true
         try {
             if (email && password) {
@@ -23,9 +23,11 @@ export const useLoginPageStore = defineStore("loginPage", () => {
         } finally {
             loading.value = false
         }
+        setLoading(false)
     };
 
     const onLoginEnrollment = async (enrollment, password) => {
+        setLoading(true)
         loading.value = true
         try {
             if (enrollment && password) {
@@ -36,6 +38,7 @@ export const useLoginPageStore = defineStore("loginPage", () => {
         } finally {
             loading.value = false
         }
+        setLoading(false)
     }
 
     const openUserLoginDialog = () => {

@@ -21,6 +21,7 @@
         </v-card>
       </v-col>
     </v-row>
+
     <!-- Tarjetas de resumen -->
     <v-row>
       <v-col v-for="(stat, index) in stats" :key="index" cols="12" md="4">
@@ -37,22 +38,100 @@
       </v-col>
     </v-row>
 
-    <!-- Gráficas -->
     <v-row>
+      <v-col cols="12">
+        <h2 class="text-center">Distribución de Becarios/as</h2>
+      </v-col>
+
+      <!-- Gráficas para BEC_ACTIVE -->
       <v-col cols="12" md="6">
-        <v-card class="pa-3">
+        <v-card>
           <v-card-title class="text-h6 font-weight-bold text-center">
-            Distribución General
+            Distribución general
           </v-card-title>
-          <BarChart :chart-data="donutData" :chart-options="donutOptions" />
+          <v-card-text>
+            <PieChart
+              :chart-data="generalChartDataActive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
         </v-card>
       </v-col>
+
       <v-col cols="12" md="6">
-        <v-card class="pa-3">
+        <v-card>
           <v-card-title class="text-h6 font-weight-bold text-center">
-            Distribución por Sede
+            Distribución por sede
           </v-card-title>
-          <BarChart :chart-data="barData" :chart-options="barOptions" />
+          <v-card-text>
+            <LineChart
+              :chart-data="campusChartDataActive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="12">
+        <v-card>
+          <v-card-title class="text-h6 font-weight-bold text-center">
+            Distribución por área
+          </v-card-title>
+          <v-card-text>
+            <BarChart
+              :chart-data="areaChartDataActive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12">
+        <h2 class="text-center">Distribución de Egresados/as</h2>
+      </v-col>
+
+      <!-- Gráficas para BEC_INACTIVE -->
+      <v-col cols="12" md="6">
+        <v-card>
+          <v-card-title class="text-h6 font-weight-bold text-center">
+            Distribución general
+          </v-card-title>
+          <v-card-text>
+            <PieChart
+              :chart-data="generalChartDataInactive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="6">
+        <v-card>
+          <v-card-title class="text-h6 font-weight-bold text-center">
+            Distribución por sede
+          </v-card-title>
+          <v-card-text>
+            <LineChart
+              :chart-data="campusChartDataInactive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="12">
+        <v-card>
+          <v-card-title class="text-h6 font-weight-bold text-center">
+            Distribución por área
+          </v-card-title>
+          <v-card-text>
+            <BarChart
+              :chart-data="areaChartDataInactive"
+              :chart-options="chartOptions"
+            />
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -60,69 +139,160 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { BarChart } from "vue-chart-3";
+import { computed, ref } from "vue";
+import { PieChart, LineChart, BarChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
+import { useCandidateDataPageStore } from "@/stores/views/CandidateDataPage";
+import { storeToRefs } from "pinia";
+import { campusMap, jobTypeMap } from "@/constants";
 
 Chart.register(...registerables);
 
-// Datos para las tarjetas
-const stats = ref([
-  { title: "Prácticas Profesionales", total: 14 },
-  { title: "Medio Tiempo", total: 38 },
-  { title: "Tiempo Completo", total: 1 },
-]);
+const { data } = storeToRefs(useCandidateDataPageStore());
+const jobTypes = ["PART_TIME", "INTERNSHIP", "FULL_TIME"];
+const colors = ["#FF6384", "#36A2EB", "#FFCE56"];
 
-// Gráfica de Dona
-const donutData = ref({
-  labels: ["Prácticas", "Medio Tiempo", "Tiempo Completo"],
-  datasets: [
+// Function to calculate stats for both BEC_ACTIVE and BEC_INACTIVE
+const calculateStats = (data) => {
+  const stats = {
+    INTERNSHIP: 0,
+    PART_TIME: 0,
+    FULL_TIME: 0,
+  };
+
+  data.forEach((entry) => {
+    if (entry.job_type === "INTERNSHIP") stats.INTERNSHIP += entry.count;
+    if (entry.job_type === "PART_TIME") stats.PART_TIME += entry.count;
+    if (entry.job_type === "FULL_TIME") stats.FULL_TIME += entry.count;
+  });
+
+  return [
+    { title: "Prácticas Profesionales", total: stats.INTERNSHIP },
+    { title: "Medio Tiempo", total: stats.PART_TIME },
+    { title: "Tiempo Completo", total: stats.FULL_TIME },
+  ];
+};
+
+const filterByUserType = (userType) => {
+  if (!data.value) {
+    return []; // Si data.value es null o undefined, devolvemos un array vacío
+  }
+
+  return data.value.filter((entry) => entry.user_type === userType);
+};
+
+const createChartData = (filteredData) => {
+  const counts = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+  filteredData.forEach((entry) => {
+    if (jobTypes.includes(entry.job_type)) {
+      counts[entry.job_type] += entry.count;
+    }
+  });
+  return {
+    labels: jobTypes.map((type) =>
+      jobTypeMap.get(type) ? jobTypeMap.get(type).text : type
+    ), // Mapea job_type a su texto
+    datasets: [
+      {
+        data: jobTypes.map((type) => counts[type]),
+        backgroundColor: colors,
+      },
+    ],
+  };
+};
+
+const createCampusChartData = (filteredData) => {
+  const campusCounts = {};
+  filteredData.forEach(({ campus, job_type, count }) => {
+    if (!campusCounts[campus]) {
+      campusCounts[campus] = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+    }
+    campusCounts[campus][job_type] += count;
+  });
+
+  const campusLabels = Object.keys(campusCounts).map((campusCode) => {
+    return campusMap.get(campusCode)
+      ? campusMap.get(campusCode).text
+      : campusCode; // Mapea el campus con el texto
+  });
+
+  return {
+    labels: campusLabels, // Utiliza los textos del campusMap
+    datasets: jobTypes.map((type, index) => ({
+      label: jobTypeMap.get(type) ? jobTypeMap.get(type).text : type, // Mapea el job_type con el texto
+      data: Object.keys(campusCounts).map(
+        (campus) => campusCounts[campus][type]
+      ),
+      borderColor: colors[index],
+      fill: false,
+    })),
+  };
+};
+
+const createAreaChartData = (filteredData) => {
+  const areaCounts = {};
+  filteredData.forEach(({ area, job_type, count }) => {
+    const areaName = area.name;
+    if (!areaCounts[areaName]) {
+      areaCounts[areaName] = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+    }
+    areaCounts[areaName][job_type] += count;
+  });
+  return {
+    labels: Object.keys(areaCounts),
+    datasets: jobTypes.map((type, index) => ({
+      label: jobTypeMap.get(type) ? jobTypeMap.get(type).text : type, // Mapea el job_type con el texto
+      data: Object.keys(areaCounts).map((area) => areaCounts[area][type]),
+      backgroundColor: colors[index],
+    })),
+  };
+};
+
+const generalChartDataActive = computed(() =>
+  createChartData(filterByUserType("BEC_ACTIVE"))
+);
+const campusChartDataActive = computed(() =>
+  createCampusChartData(filterByUserType("BEC_ACTIVE"))
+);
+const areaChartDataActive = computed(() =>
+  createAreaChartData(filterByUserType("BEC_ACTIVE"))
+);
+
+const generalChartDataInactive = computed(() =>
+  createChartData(filterByUserType("BEC_INACTIVE"))
+);
+const campusChartDataInactive = computed(() =>
+  createCampusChartData(filterByUserType("BEC_INACTIVE"))
+);
+const areaChartDataInactive = computed(() =>
+  createAreaChartData(filterByUserType("BEC_INACTIVE"))
+);
+
+// Set stats by combining BEC_ACTIVE and BEC_INACTIVE
+const stats = computed(() => {
+  const activeStats = calculateStats(filterByUserType("BEC_ACTIVE"));
+  const inactiveStats = calculateStats(filterByUserType("BEC_INACTIVE"));
+
+  return [
     {
-      label: "Tipos de empleo",
-      data: [14, 38, 1],
-      backgroundColor: ["#FF7900", "#23B4FE", "#FFCE00"],
+      title: "Prácticas Profesionales",
+      total: activeStats[0].total + inactiveStats[0].total,
     },
-  ],
+    {
+      title: "Medio Tiempo",
+      total: activeStats[1].total + inactiveStats[1].total,
+    },
+    {
+      title: "Tiempo Completo",
+      total: activeStats[2].total + inactiveStats[2].total,
+    },
+  ];
 });
 
-const donutOptions = ref({
+const chartOptions = {
   responsive: true,
-  plugins: {
-    legend: {
-      display: false, // Ocultar leyenda
-    },
-  },
-});
-
-// Gráfica de Barras
-const barData = ref({
-  labels: ["Mérida", "Tizimín", "Oxkutzcab", "Valladolid"],
-  datasets: [
-    {
-      label: "Prácticas",
-      data: [7, 4, 3, 0],
-      backgroundColor: "#FF4A4A",
-    },
-    {
-      label: "Medio Tiempo",
-      data: [22, 11, 4, 1],
-      backgroundColor: "#275FFC",
-    },
-    {
-      label: "Tiempo Completo",
-      data: [0, 1, 0, 0],
-      backgroundColor: "#FFCE00",
-    },
-  ],
-});
-
-const barOptions = ref({
-  responsive: true,
-  scales: {
-    y: { beginAtZero: true },
-  },
   plugins: {
     legend: { position: "bottom" },
   },
-});
+};
 </script>

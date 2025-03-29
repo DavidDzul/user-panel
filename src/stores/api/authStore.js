@@ -4,8 +4,10 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAlertStore } from "@/stores/alert"
 import { useCurriculumStore } from "@/stores/api/curriculumStore"
+import { useAppStore } from "@/stores/app";
 
 export const useAuthStore = defineStore("authStore", () => {
+    const { setLoading } = useAppStore();
     const router = useRouter();
     const { showAlert } = useAlertStore()
     const curriculumStore = useCurriculumStore();
@@ -155,7 +157,6 @@ export const useAuthStore = defineStore("authStore", () => {
     const userRole = computed(() => userProfile.value?.role)
 
     //permissions
-
     const candidates_view = computed(() => !!permissions.value.find((map) => map === "CANDIDATES_VIEW"))
     const vacantJrPermission = computed(() => !!permissions.value.find((map) => map === "CREATE_VACANT_JR"))
 
