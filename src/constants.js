@@ -446,9 +446,9 @@ export const jobTypeMap = new Map([
         },
     ],
     [
-        'INTERNSHIP',
+        'PROFESSIONAL_PRACTICE',
         {
-            value: 'INTERNSHIP',
+            value: 'PROFESSIONAL_PRACTICE',
             text: "Prácticas profesionales",
         },
     ],

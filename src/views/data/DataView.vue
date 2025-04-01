@@ -142,32 +142,33 @@
 import { computed, ref } from "vue";
 import { PieChart, LineChart, BarChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
-import { useCandidateDataPageStore } from "@/stores/views/CandidateDataPage";
+import { useCandidateDataPageStore } from "@/stores/views/candidateDataPage";
 import { storeToRefs } from "pinia";
 import { campusMap, jobTypeMap } from "@/constants";
 
 Chart.register(...registerables);
 
 const { data } = storeToRefs(useCandidateDataPageStore());
-const jobTypes = ["PART_TIME", "INTERNSHIP", "FULL_TIME"];
+const jobTypes = ["PART_TIME", "PROFESSIONAL_PRACTICE", "FULL_TIME"];
 const colors = ["#FF6384", "#36A2EB", "#FFCE56"];
 
 // Function to calculate stats for both BEC_ACTIVE and BEC_INACTIVE
 const calculateStats = (data) => {
   const stats = {
-    INTERNSHIP: 0,
+    PROFESSIONAL_PRACTICE: 0,
     PART_TIME: 0,
     FULL_TIME: 0,
   };
 
   data.forEach((entry) => {
-    if (entry.job_type === "INTERNSHIP") stats.INTERNSHIP += entry.count;
+    if (entry.job_type === "PROFESSIONAL_PRACTICE")
+      stats.PROFESSIONAL_PRACTICE += entry.count;
     if (entry.job_type === "PART_TIME") stats.PART_TIME += entry.count;
     if (entry.job_type === "FULL_TIME") stats.FULL_TIME += entry.count;
   });
 
   return [
-    { title: "Prácticas Profesionales", total: stats.INTERNSHIP },
+    { title: "Prácticas Profesionales", total: stats.PROFESSIONAL_PRACTICE },
     { title: "Medio Tiempo", total: stats.PART_TIME },
     { title: "Tiempo Completo", total: stats.FULL_TIME },
   ];
@@ -182,7 +183,7 @@ const filterByUserType = (userType) => {
 };
 
 const createChartData = (filteredData) => {
-  const counts = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+  const counts = { PART_TIME: 0, PROFESSIONAL_PRACTICE: 0, FULL_TIME: 0 };
   filteredData.forEach((entry) => {
     if (jobTypes.includes(entry.job_type)) {
       counts[entry.job_type] += entry.count;
@@ -205,7 +206,11 @@ const createCampusChartData = (filteredData) => {
   const campusCounts = {};
   filteredData.forEach(({ campus, job_type, count }) => {
     if (!campusCounts[campus]) {
-      campusCounts[campus] = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+      campusCounts[campus] = {
+        PART_TIME: 0,
+        PROFESSIONAL_PRACTICE: 0,
+        FULL_TIME: 0,
+      };
     }
     campusCounts[campus][job_type] += count;
   });
@@ -234,7 +239,11 @@ const createAreaChartData = (filteredData) => {
   filteredData.forEach(({ area, job_type, count }) => {
     const areaName = area.name;
     if (!areaCounts[areaName]) {
-      areaCounts[areaName] = { PART_TIME: 0, INTERNSHIP: 0, FULL_TIME: 0 };
+      areaCounts[areaName] = {
+        PART_TIME: 0,
+        PROFESSIONAL_PRACTICE: 0,
+        FULL_TIME: 0,
+      };
     }
     areaCounts[areaName][job_type] += count;
   });

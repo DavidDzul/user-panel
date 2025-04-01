@@ -92,7 +92,7 @@
               <v-btn
                 v-bind="props"
                 variant="text"
-                color="warning"
+                color="error"
                 density="comfortable"
                 icon="mdi-account-remove"
                 class="mr-2"
