@@ -113,6 +113,7 @@
         <v-container>
           <v-row justify="center" align="center" class="text-center my-5">
             <v-col cols="12" md="4">
+              <!-- <v-icon size="x-large">mdi-briefcase</v-icon> -->
               <h2>DESCUBRE EL PODER DE NUESTRA PLATAFORMA</h2>
             </v-col>
             <v-col cols="12" md="8">

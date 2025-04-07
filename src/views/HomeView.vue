@@ -22,14 +22,12 @@
                 <b>Impulso Universitario A.C.,</b> pertenece al grupo
                 coordinador de la alianza <b>Jóvenes con Trabajo Digno</b>, cuya
                 misión es promover el ejercicio del derecho al trabajo digno de
-                jóvenes en México.
+                jóvenes en México. Este decálogo busca impulsar la contratación
+                equitativa de jóvenes, especialmente de aquellos en situación de
+                desventaja, garantizando un enfoque basado en derechos y en la
+                no discriminación.
               </p>
-              <p class="text-body-1 text-justify">
-                Este decálogo busca impulsar la contratación equitativa de
-                jóvenes, especialmente de aquellos en situación de desventaja,
-                garantizando un enfoque basado en derechos y en la no
-                discriminación.
-              </p>
+              <p class="text-body-1 text-justify"></p>
             </v-card-text>
           </v-card>
 
@@ -199,7 +197,7 @@
           <v-row justify="center" class="my-5">
             <v-col cols="12" md="10">
               <v-img
-                class="rounded-lg elevation-3"
+                class="rounded-lg elevation-0"
                 src="@/assets/img/datos_yucatan.jpg"
               ></v-img>
             </v-col>

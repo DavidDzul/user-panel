@@ -18,6 +18,11 @@
         <v-card-text>
           <v-item-group mandatory class="mt-1">
             <v-container>
+              <!-- <v-row class="text-center">
+                <v-col class="mb-4" cols="12">
+                  <h2>Becarios/as - Egresados/as</h2>
+                </v-col>
+              </v-row> -->
               <v-text-field
                 v-model="enrollment"
                 label="Matrícula"
