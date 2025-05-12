@@ -41,6 +41,7 @@ export const general_knowledge = () => yup.boolean().default(false)
 export const knowledge_description = () => yup.string().notRequired().label()
 
 
+export const overtime_pay = () => yup.boolean().default(true)
 export const utilities = () => yup.boolean().default(true)
 export const bonuses = () => yup.boolean().default(false)
 export const dining_room = () => yup.boolean().default(false)

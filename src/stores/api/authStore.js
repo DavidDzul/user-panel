@@ -17,6 +17,7 @@ export const useAuthStore = defineStore("authStore", () => {
     const userProfile = ref(null);
     const permissions = ref([])
     const openUserProfileDialog = ref(false)
+    const loadingUpdateProfile = ref(false)
 
     const $reset = () => {
         userProfile.value = null;
@@ -105,6 +106,7 @@ export const useAuthStore = defineStore("authStore", () => {
     };
 
     const updateUserProfile = async (form) => {
+        loadingUpdateProfile.value = true
         try {
             const param = await axios.post("api/updateUser", form, {
                 headers: { 'accept': 'application/json' }
@@ -123,9 +125,11 @@ export const useAuthStore = defineStore("authStore", () => {
                     workstation: param.data.user.workstation,
                 };
                 openUserProfileDialog.value = false
+                loadingUpdateProfile.value = false
                 return param.data.res
             }
         } catch (error) {
+            loadingUpdateProfile.value = false
             console.error(error);
             showAlert({
                 title: "Error al guardar la información, intente nuevamente.",
@@ -179,6 +183,7 @@ export const useAuthStore = defineStore("authStore", () => {
         candidates_view,
         vacantJrPermission,
         openUserProfileDialog,
+        loadingUpdateProfile,
         $reset
     };
 });

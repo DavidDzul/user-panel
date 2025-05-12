@@ -109,12 +109,14 @@
     v-if="userProfile && userProfile.user_type !== 'BUSINESS'"
     v-model="openUserProfileDialog"
     :edit-item="userProfile"
+    :loading="loadingUpdateProfile"
     @submit="updateUserProfile"
   />
   <BusinessProfileDialog
     v-else-if="userProfile && userProfile.user_type === 'BUSINESS'"
     v-model="openUserProfileDialog"
     :edit-item="userProfile"
+    :loading="loadingUpdateProfile"
     @submit="updateUserProfile"
   />
 </template>
@@ -140,6 +142,7 @@ const {
   userType,
   openUserProfileDialog,
   candidates_view,
+  loadingUpdateProfile,
 } = storeToRefs(useAuthStore());
 
 const onClick = () => {

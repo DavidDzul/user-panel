@@ -6,7 +6,7 @@
           <template #default="{ expanded }">
             <PanelHeaderOptions
               title="Logo"
-              button-text="Subir foto"
+              button-text="Subir logo"
               :expanded="expanded"
               @button-click="onPhotoUpload"
             />

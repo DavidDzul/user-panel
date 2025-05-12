@@ -27,7 +27,7 @@
     <div>
       <v-sheet class="pa-10" color="warning" height="100%">
         <v-row class="fill-height" align="center" justify="center">
-          <div class="text-h2">Sin foto</div>
+          <div class="text-h2">{{ isUser ? "Sin foto" : "Sin logo" }}</div>
         </v-row>
       </v-sheet>
     </div>
@@ -42,6 +42,7 @@ const props = defineProps({
   modelValue: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
   photos: { type: Array, default: () => [] },
+  isUser: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["remove"]);

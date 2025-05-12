@@ -49,7 +49,11 @@
               </p>
             </v-col>
           </v-row>
-          <UserPhoto :photos="userPhoto" @remove="alertRemovePhoto" />
+          <UserPhoto
+            :photos="userPhoto"
+            :is-user="true"
+            @remove="alertRemovePhoto"
+          />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-file-input

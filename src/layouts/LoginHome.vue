@@ -41,7 +41,7 @@
         <v-carousel-item v-for="(image, index) in images" :key="index">
           <v-img :src="image.src" :alt="image.alt" height="100%" cover></v-img>
           <div class="overlay">
-            <h1 class="bg-img-title">{{ image.title }}</h1>
+            <h1 class="bg-img-title title-font">{{ image.title }}</h1>
           </div>
         </v-carousel-item>
       </v-carousel>
@@ -479,6 +479,11 @@ const openUrl = (url) => {
 </script>
 
 <style scoped lang="scss">
+@font-face {
+  font-family: "EDNimpkish";
+  src: url("@/assets/fonts/EDNimpkish-Regular.ttf") format("truetype");
+}
+
 .fixed-toolbar {
   position: fixed;
   top: 0;
@@ -547,5 +552,12 @@ const openUrl = (url) => {
 .bg-associated-companies {
   background-color: #ff7900;
   color: white;
+}
+
+.title-font {
+  font-family: "EDNimpkish", sans-serif;
+  text-transform: lowercase;
+  font-size: 45px;
+  padding: 5px;
 }
 </style>

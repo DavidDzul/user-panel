@@ -121,7 +121,7 @@
                 maxlength="350"
                 :rules="[rules.required, rules.maxLength]"
                 required
-                label="Resumén profesional"
+                label="Resumen profesional"
               ></v-textarea>
               <span class="character-counter">
                 {{ 350 - form.professional_summary.length }} caracteres
